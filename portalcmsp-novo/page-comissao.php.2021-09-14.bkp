@@ -1,0 +1,171 @@
+<?php
+/*
+ Template Name: Comissões
+*/
+?>
+<?php get_header(); ?>
+
+<div id="content">
+
+	<div class="breadcrumbs cf">
+		<?php if ( function_exists('yoast_breadcrumb') ) {
+			yoast_breadcrumb('<p class="wrap cf">','</p>');
+		} ?>
+	</div>
+
+	<div id="inner-content" class="wrap cf">
+		<div id="main" class="cf" role="main">
+
+			<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+
+			<article id="post-<?php the_ID(); ?>" <?php post_class( 'cf' ); ?>
+				role="article" itemscope itemtype="https://schema.org/BlogPosting">
+
+				<header class="article-header">
+					<h1 class="page-title" itemprop="headline"><?php the_title(); ?></h1>
+				</header><?php // end article header ?>
+
+				<section class="entry-content cf" itemprop="articleBody">
+					<?php the_content(); ?>
+					<div style="clear:both;"></div>
+					<?php
+
+					$pages = get_pages(array(
+						'parent' => 0,
+						'post_type' => 'comissao',
+						'sort_column' => 'menu_order',
+						'sort_order' => 'asc'));
+
+					foreach ( $pages as $page ) {
+						// titulo
+						$id_cpi = (strpos($page->post_title, 'CPI')? 'id="title_cpi"': ''); // âncora para menu "ATIVIDADE LEGISLATIVA > CPIS"
+						$cor_titulo = get_field( "sub_titulo", $page->ID );
+						if (!$cor_titulo) { $cor_titulo = "#000000"; }
+						?>
+						<h4 style="font-size: 1.5em; margin: .5em 0px 1em; float: left; color:<?=$cor_titulo;?>;" <?=$id_cpi;?>>
+							<?=$page->post_title?>
+						</h4>
+						<?php //conteudo
+						$content = $page->post_content;
+						$content = apply_filters( 'the_content', $content );
+						?>
+						<div style="float:left;width:100%;"><?=$content?></div>
+						<div style="clear:both;"></div>
+						<style type="text/css">
+							.teclaCom {
+								margin:0 0 15px;
+								min-width:90px;
+								height:85px;
+							}
+
+							img.iconeCom {
+							    margin-right: 1.5em;
+							    display: inline;
+							    float: left;
+							}
+
+							.teclaCom a {
+									font-size:.85em;
+									color:#000;
+									text-decoration:none;
+								}
+
+							@media only screen and (min-width: 768px) {
+								.teclaCom {
+									width: calc(32% - 30px);
+									margin:0 15px 15px;
+								}
+
+								.hentry .article-footer .box-downloads.pageCom {
+								    width: 100%;
+								}
+							}
+
+						</style>
+						<?php
+							$paginas = get_pages(array(
+								'parent' => $page->ID,
+								'post_type' => 'comissao',
+								'sort_column' => 'menu_order',
+								'sort_order' => 'asc'));
+
+							foreach ($paginas as $pagina) {
+							?>
+								<div class="teclaCom alignleft" >
+									<a href="?p=<?=$pagina->ID?>">
+										<?=get_the_post_thumbnail( $pagina->ID, array(55, 55), array ('class' => 'iconeCom') );?>
+										<p><?=$pagina->post_title?></p>
+									</a>
+								</div>
+							<?php
+							}
+						?>
+						<div style="clear:both;"></div>
+						<?php
+					}
+					?>
+
+					<!-- Histórico das Comissões Encerradas - início -->
+					<div class="teclaCom alignleft">
+						<a href="?p=845">
+							<img width="55" height="55" src="/wp-content/uploads/2016/04/Encerradas_Black-125x125.png" class="iconeCom wp-post-image" alt="" srcset="/wp-content/uploads/2016/04/Encerradas_Black-125x125.png 125w, /wp-content/uploads/2016/04/Encerradas_Black-150x150.png 150w, /wp-content/uploads/2016/04/Encerradas_Black.png 220w" sizes="(max-width: 55px) 100vw, 55px">
+							<p>Histórico das Comissões Encerradas</p>
+						</a>
+					</div>
+					<div style="clear:both;"></div>
+					<!-- Histórico das Comissões Encerradas - fim -->
+
+				</section> <?php // end article section ?>
+
+				<footer class="article-footer cf">
+					<?php
+					$page_downloads = get_post_meta($post->ID, '_cmsp_page_download-files', true);
+					if(isset($page_downloads[0]['title'])):
+					?>
+						<section class="content-box box-downloads pageCom">
+							<header class="content-box-top box-downloads-header">
+								<h2 class="content-box-title icon-archives-red">Downloads</h2>
+							</header>
+							<ul class="box-downloads-list">
+								<?php
+								foreach($page_downloads as $file):
+									$blank = false;
+									if(isset($file['blank'])){ if($file['blank'] == 'on') $blank = true; }
+								?>
+								<li>
+									<a href="<?php echo $file['file']; ?>" <?php if($blank) echo 'target="_blank" '; ?>>
+										<?php echo $file['title']; ?>
+									</a>
+								</li>
+								<?php
+								endforeach;
+								?>
+							</ul>
+						</section>
+					<?php
+					endif;
+					?>
+				</footer>
+
+			</article>
+
+			<?php endwhile; else : ?>
+				<article id="post-not-found" class="hentry cf">
+					<header class="article-header">
+						<h1><?php _e( 'Oops, Post Not Found!', 'bonestheme' ); ?></h1>
+					</header>
+					<section class="entry-content">
+						<p><?php _e( 'Uh Oh. Something is missing. Try double checking things.', 'bonestheme' ); ?></p>
+					</section>
+					<footer class="article-footer">
+						<p><?php _e( 'This is the error message in the page.php template.', 'bonestheme' ); ?></p>
+					</footer>
+				</article>
+			<?php endif; ?>
+
+		</div>
+	</div>
+
+</div><?php // end content ?>
+
+<?php get_footer(); ?>

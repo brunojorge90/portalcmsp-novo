@@ -1,0 +1,226 @@
+.organograma {
+
+  padding-bottom: 60px;
+
+  .busca {
+    display: flex;
+    gap: 32px;
+    position: relative;
+
+    img {
+      display: block;
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      left: 20px;
+      top: calc(50% - 12px);
+    }
+
+    input {
+      text-indent: 40px;
+    }
+
+    button {
+      cursor: pointer;
+    }
+  }
+
+  .filtragem {
+    display: flex;
+    gap: 32px;
+    justify-content: space-between;
+    margin-bottom: 32px;
+
+    div {
+      width: 100%;
+      max-width: 404px;
+      position: relative;
+
+      img {
+        display: block;
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        left: 20px;
+        top: calc(50% - 12px);
+      }
+
+      input {
+        width: 100%;
+        text-indent: 40px;
+      }
+    }
+  }
+
+  .header-orgranograma {
+    display: flex;
+    gap: 32px;
+
+    .infos-contato {
+      width: 100%;
+      max-width: 352px;
+      padding: 16px;
+      border-radius: $radius-16px;
+      border: solid 1px $color-neutral-silver;
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+          display: flex;
+          gap: 8px;
+        }
+      }
+    }
+  }
+}
+
+
+.organograma-nivel01 {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+
+  .card-nivel01 {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: $radius-16px;
+    border: 1px solid $color-neutral-l-grey;
+    background-color: $color-neutral-white;
+    padding: 16px;
+    width: 100%;
+    max-width: 211px;
+    min-width: 211px;
+    transition: all 300ms;
+
+    &:hover {
+      background-color: $color-primary-extra-5;
+      border: 1px solid $color-primary-extra-5;
+
+      .img-servicos {
+        img {
+          transform: scale(1.1);
+        }
+      }
+    }
+
+    .img-servicos {
+      max-height: 196px;
+      overflow: hidden;
+      margin: 0 auto;
+
+      img {
+        transition: all 300ms;
+        object-fit: cover;
+        max-height: 196px;
+        display: block;
+        margin: 0 auto;
+      }
+    }
+
+    .infos-servicos {
+      flex: 1 1 auto;
+
+      h4 {
+        text-align: center;
+      }
+    }
+  }
+}
+
+.accordion-organograma {
+  border-bottom: 1px solid $color-neutral-silver;
+
+  .header-accordion {
+    display: flex;
+    gap: 32px;
+    justify-content: space-between;
+    border-radius: 8px;
+    padding: 16px;
+    cursor: pointer;
+    background-color: $color-neutral-white;
+    transition: all 300ms;
+
+    &:hover {
+      padding-left: 24px;
+      background-color: $color-primary-extra-5;
+    }
+
+    .infos-titulo-accordion {
+      gap: 12px;
+      h3 {
+        color: $color-primary-accent;
+      }
+    }
+
+    .acoes-accordion {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+  }
+
+  .content-accordion {
+    padding: 16px;
+  }
+}
+
+.link-accordion {
+  display: flex;
+  gap: 32px;
+  justify-content: space-between;
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px solid $color-neutral-silver;
+  text-decoration: none;
+  color: $color-primary-accent;
+  background-color: $color-neutral-white;
+  transition: all 300ms;
+
+  &:hover {
+    padding: 16px 24px;
+    background-color: $color-primary-extra-5;
+    border: solid 1px $color-primary-extra-5;
+  }
+}
+
+.link-accordion + .link-accordion {
+  margin-top: 16px;
+}
+
+.organograma-column {
+  display: flex;
+  flex-direction: column;
+
+  .order-1 {
+    order: 1;
+  }
+
+  .order-2 {
+    order: 2;
+  }
+
+  .order-3 {
+    order: 3;
+  }
+}
+
+
+.accordion-organograma:last-child {
+  border-bottom: none;
+}
+
+@media (max-width: 768px) {
+  .organograma-nivel01 {
+    justify-content: center;
+    .card-nivel01 {
+      width: 100%;
+      max-width: 100%;
+      min-width: auto;
+    }
+  }
+}

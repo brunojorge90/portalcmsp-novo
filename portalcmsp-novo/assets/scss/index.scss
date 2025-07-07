@@ -1,0 +1,444 @@
+@import "variables";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+@import 'owl.carousel/dist/assets/owl.carousel.css';
+@import 'owl.carousel';
+
+body {
+  &.theme-v2 {
+    @import "common";
+    @import "template";
+    @import "components/buttons.scss";
+    @import "components/fields.scss";
+    @import "components/containers";
+    @import "components/box-acessibilidade";
+    @import "parts/header";
+    @import "parts/footer";
+    @import "parts/breadcrumbs";
+    @import "parts/menu_footer";
+    @import "parts/menu_lateral";
+    @import "parts/comments";
+    @import "parts/typography";
+    @import "components/popupflex";
+    @import "parts/margins";
+    @import "pages/home/home";
+    @import "pages/home/proximos_eventos";
+    @import "pages/home/explore_conteudos";
+    @import "pages/home/noticias";
+    @import "pages/home/consulta-paginas";
+    @import "pages/home/programas";
+    @import "pages/home/rede_camara";
+    @import "pages/home/vereadores";
+    @import "noticias/noticias";
+    @import "pages/single_noticias";
+    @import "pages/informacoes_vereadores";
+    @import "pages/agenda_camara";
+    @import "pages/detalhes_agenda_camara";
+    @import "pages/transparencia";
+    @import "pages/atividade_legislativa";
+    @import "pages/participe_acompanhe";
+    @import "pages/comunicao";
+    @import "pages/institucional";
+    @import "pages/sub_vereadores";
+    @import "pages/organograma";
+    @import "pages/pesquisa";
+    @import "pages/presidente_camara";
+    @import "pages/fale_com_vereador";
+    @import "pages/camara_acao";
+    @import "tablet";
+    @import "mobile";
+
+    &.home {
+      header .search {
+        display: flex;
+      }
+    }
+
+    &.single {
+      .otherwise {
+        display: none;
+      }
+    }
+  }
+}
+
+html {
+  overflow-x: hidden;
+  width: 100vw;
+}
+
+@media (max-width: 640px) {
+  body.theme-v2 {
+    font-size: 1.4rem;
+    line-height: 1.35em;
+  }
+
+
+  .home .proximos-eventos .col {
+    min-width: 80vw;
+    max-width: 100%;
+  }
+  .noticias .itens-noticias a {
+    width: 100%;
+  }
+}
+
+
+body.overflow-hidden, html.overflow-hidden {
+  overflow: hidden !important;
+}
+
+.cf:after, .cf:before {
+  display: none !important;
+}
+
+.page-template-default {
+  .otherwise {
+    display: none;
+  }
+}
+
+.page-template-page-atividade-legislativa, .page-template-page-participacao, .page-template-page-transparencia, .page-template-page-comunicacao, .page-template-page-institucional {
+  .otherwise {
+    display: none;
+  }
+}
+
+
+.owl-prev, .owl-next {
+  position: absolute;
+  top: calc(50% - 32px);
+}
+
+.owl-next {
+  right: -70px;
+}
+
+.owl-prev {
+  left: -70px;
+}
+
+
+.entry-content .alignleft, .entry-content img.alignleft {
+  float: inherit !important;
+}
+
+.teclaCom.alignleft p {
+  margin-bottom: 0px !important;
+}
+
+.none-before {
+  &:before {
+    display: none !important;
+  }
+}
+
+.comissoes-flex {
+  display: flex;
+  gap: 26px;
+  margin-top: 39px;
+
+  .content-box-top {
+    h3 {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .content-box {
+    width: 100% !important;
+
+    footer {
+      margin-top: 24px;
+      padding: 0 !important;
+
+      .btn {
+        width: 100% !important;
+      }
+    }
+  }
+  .content-box-title {
+    color: #7f1a22;
+    text-transform: inherit !important;
+  }
+}
+
+.comissao {
+  .vereador-profile-thumb {
+    .vereador-name {
+      padding: 6px 9px !important;
+      font-weight: bold !important;
+
+      a {
+        font-size: 11px !important;
+        text-transform:none !important;
+        line-height: normal !important;
+      }
+    }
+
+    h4 {
+      margin-top: 12px;
+      float: inherit;
+      font-size: 15px;
+    }
+  }
+
+  div.simpleTabsContent {
+    border-left: 0px !important;
+    border: none !important;
+    padding: 0px !important;
+  }
+
+  .simpleTabsNavigation {
+    display: flex;
+
+    li + li a {
+      border-left: 0;
+    }
+
+    li {
+      flex: 1;
+    }
+
+    li:first-child a {
+      border-radius: 8px 0px 0px 8px !important;
+    }
+
+    li:last-child a {
+      border-radius: 0px 8px 8px 0 !important;
+    }
+
+
+    li a {
+      font-family: Montserrat, sans-serif;
+      font-style: normal;
+      width: 100%;
+      font-weight: 400;
+      line-height: 2rem;
+      text-align: center;
+      color: #7f1a22;
+      gap: 10px;
+      background: #fff;
+      border: 1px solid #7f1a22;
+      transition: all .3s;
+      text-decoration: none;
+      font-size: 1.4rem;
+      padding: 12px 20px;
+    }
+
+    li a:not(.current):hover {
+      background-color: #c6d3d9 !important;
+    }
+
+    li a.current {
+      background: #7f1a22;
+      border: 1px solid #7f1a22;
+      color: white;
+      border-bottom: 1px solid #7f1a22 !important;
+    }
+  }
+
+  .flex-1 {
+    flex: 1;
+  }
+
+  .comissao-nova {
+    margin-top: 26px;
+  }
+
+
+  .vereador-name {
+    a {
+      text-transform: inherit !important;
+    }
+  }
+
+
+}
+
+@media (max-width: 890px) {
+  .comissao {
+    flex-direction: column;
+    .simpleTabsNavigation {
+      overflow: auto !important;
+      li {
+        min-width: fit-content;
+      }
+    }
+
+    .vereador-picture a {
+      display: block;
+      width: 100%;
+    }
+
+    .vereador-picture img {
+      width: 100%;
+    }
+
+    .vereador-profile-thumb + .vereador-profile-thumb {
+      margin-top: 26px;
+    }
+
+
+    .vereador-name {
+      float: inherit !important;
+    }
+  }
+}
+
+.owl-filtros {
+  .owl-next, .owl-prev {
+    top: calc(50% - 21px);
+  }
+}
+
+.mensagem-vereador {
+  .open-select {
+    display: none;
+  }
+}
+
+.informativos {
+  p {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.text-decoration-none {
+  text-decoration: none;
+}
+.button-transparent {
+  &:not(:hover) {
+    background: transparent !important;
+  }
+  &:hover {
+    background-color: white !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .infos-evento-agenda .coluna-direita {
+    max-width: 100%;
+  }
+}
+
+.owl-carousel .owl-stage-outer {
+  width: calc(100% + 2px);
+}
+
+.pagination li {
+  border-right: none !important;
+
+  a {
+    border-radius: 12px;
+  }
+
+}
+
+.pagination ul {
+  padding: 0px 20px;
+  display: flex !important;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.pagination ul li span.current {
+  border-radius: 12px;
+  background-color: #7F1A22 !important;
+  color: #fff !important;
+}
+
+.pagination a, .pagination span {
+  min-width: 40px;
+}
+
+.mt-50 {
+  margin-top: 50px;
+}
+.destacado {
+  background-color: black;
+}
+
+.ultimo-video {
+  .iframe-video {
+    iframe {
+      aspect-ratio: 16 / 9;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .desktop-headeline-4 {
+    align-items: center;
+    display: flex;
+    gap: 20px;
+    color: #7f1a22 !important;
+  }
+
+
+
+  .iframe-video {
+    margin-top: 34px;
+    iframe {
+      border-radius: 8px;
+    }
+  }
+
+  .flex-center {
+    justify-content: center;
+  }
+  .videos-itens {
+    min-height: 600px;
+    margin-top:36px;
+    padding-bottom: 24px;
+    .item {
+      background: $color-neutral-white;
+      border-radius: 7px;
+      max-width: 255px;
+      min-width: 255px;
+      text-decoration: none;
+
+      img {
+        height: 143px;
+        width: 100%;
+        border-radius: 8px 8px 0px 0px;
+      }
+
+      h3 {
+        font-weight: 400;
+        font-size: 1.2rem;
+        line-height: 15px;
+        color: #000000 !important;
+        -webkit-line-clamp: 2; /* number of lines to show */
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        display: -webkit-box;
+      }
+
+      .context-item {
+        background: var(--primary-extra-color-5, #FFF1F5);
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        padding: 16px;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .popupflex>.flex .contentPopup {
+    padding: 0px;
+    iframe {
+      display: block;
+    }
+  }
+
+  .ultimo-video {
+    .videos-itens {
+      justify-content: center !important;
+    }
+  }
+}

@@ -1,0 +1,354 @@
+/******************************************************************
+Site Name:
+Author:
+
+Stylesheet: Desktop Stylsheet
+
+This is the desktop size. It's larger than an iPad so it will only
+be seen on the Desktop.
+
+******************************************************************/
+
+.wrap {
+  width: 980px;
+}
+
+/*********************
+HEADER STYLES
+*********************/
+
+.header {}
+
+	.header-headlines {
+
+		.container-headlines {
+			width: 762px;
+		}
+	}
+
+		
+
+	.main-header {}
+
+		.top-nav {
+			float: left;
+			margin-left: 20px;
+		}
+
+		.header-search-form {
+			width: 250px;
+			float: right;
+			margin-top: 55px;
+			clear: none;
+		}
+
+	.secondary-header {
+		height: 65px;
+
+		.top-nav-2-wrapper {
+			float: left;
+			height: 65px;
+		}
+
+		.social-nav-wrapper {
+			display: block;
+			float: right;
+		}
+	}
+
+
+
+/*********************
+NAVIGATION STYLES
+*********************/
+
+.top-nav-2 {
+
+	li {
+
+		.sub-menu {
+
+			li {
+				margin-left: 40px;
+			}
+		}
+	}
+}
+
+.top-nav-3 {
+	li {
+		
+		a {
+			position: relative;
+
+			&:before {
+				content: '';
+				display: block;
+				position: absolute;
+				top: 10px;
+				left: 20px;
+			}
+		}
+		
+		&.auditorios-online a { text-indent: 25px; }
+		&.revista-apartes a { text-indent: 30px; }
+		&.camara-expressa a { text-indent: 15px; }
+
+		&.tv-camara a:before { @include get-sprite($icons, tv-red); }
+		&.web-radio a:before { @include get-sprite($icons, radio-red);  top: 8px; }
+		&.auditorios-online a:before { @include get-sprite($icons, man-red); left: 10px; }
+		&.revista-apartes a:before { @include get-sprite($icons, book-red); }
+		&.camara-expressa a:before { @include get-sprite($icons, paperplane-red); left: 10px; }
+
+		&.tv-camara:hover a:before { @include get-sprite($icons, tv-white); }
+		&.web-radio:hover a:before { @include get-sprite($icons, radio-white); }
+		&.auditorios-online:hover a:before { @include get-sprite($icons, man-white); }
+		&.revista-apartes:hover a:before { @include get-sprite($icons, book-white); }
+		&.camara-expressa:hover a:before { @include get-sprite($icons, paperplane-white); }
+
+	}
+}
+
+
+
+
+
+/*********************
+SLIDER STYLES
+*********************/
+
+.top-slider {
+
+	.inner-top-slider {
+	}
+
+	.slider-container {
+		width: 80%;
+		height: 320px;
+		float: left;
+	}
+
+	.slider-side {
+		border: 1px solid $cmsp-grey3;
+		width: 20%;
+		display: block;
+		float: right; 
+		border-bottom: none;
+		margin-bottom: 0;
+
+		.content-box {
+			margin-bottom: 0;
+			padding-bottom: 0;
+		}
+
+			.content-box-top {
+				border-top: none;
+				border-left: none;
+				border-right: none;
+			}
+	}
+}
+
+
+/* rows and columns */
+
+.cmsp-row {
+
+}
+
+.cmsp-left, .cmsp-right {
+	width: 482px;
+	float: left;
+}
+
+	.cmsp-right {
+		float: right;
+	}
+
+
+
+.box-half-left, .box-half-right {
+	width: 233px;
+}
+
+	.box-half-right {
+		float: right;
+	}
+
+
+/* small banners */
+
+.banners-row {
+
+	ul {
+		width: 996px
+	}
+
+		li {
+			width: 233px;
+
+			&.first { }
+
+			&.last { }
+
+			a { }
+
+			img { } 
+		}
+}
+
+/* content boxes */
+
+.box-tools {
+
+	.box-tools-banner img {
+		height: 96px;
+	}
+}
+
+/* Vereadores */
+
+
+	.vereador-profile-thumb {
+		width: 193px;
+
+		&:nth-of-type(4n) {
+			margin-right: 4px;
+		}
+
+		&:nth-of-type(5n) {
+			margin-right: -1px;
+		}
+
+		.vereador-picture {
+
+		}
+
+		.vereador-party {
+
+		}
+
+		.vereador-name {
+			width: 141px;
+		}
+	}
+
+/* Home Vereadores */
+
+.vereadores {
+}
+
+/* Vereador Single */
+
+.type-vereador {
+	.entry-content {
+		width: 760px;
+	}
+
+	.vereador-projects {
+		padding-left: 217px;
+	}
+
+	.box-mandato-participativo {
+		padding-left: 217px;
+	}
+}
+
+/* Gallery Pages */
+
+.gallery-list {
+	width: 100%;
+
+	.gallery-item {
+
+		&:nth-of-type(3n) {
+			margin-right: 16px;
+		}
+
+		&:nth-of-type(4n) {
+			margin-right: 0;
+		}
+	}
+}
+
+
+/*********************
+POSTS & CONTENT STYLES
+*********************/
+
+.hentry {
+
+}
+
+	
+
+	.two-column-main .page-title {
+
+		&:after {
+			content: '';
+			display: block;
+			position: absolute;
+			right: -350px;
+			bottom: -3px;
+			width: 350px;
+			height: 3px;
+			background: $cmsp-grey3;
+			z-index: -1;
+		}
+	}
+
+	.revista-apartes-display {
+
+		.apartes-header {
+			width: 220px;
+			float: left;
+		}
+
+		.apartes-content {
+			float: right;
+			width: 350px;
+
+			.edition {
+				margin: 0;
+				text-align: center;
+			}
+		}
+	}
+
+.webradio-sobre {
+	width: 630px;
+}
+
+/*********************
+SIDEBARS & ASIDES
+*********************/
+
+/* 'main' sections with sidebars have float left and set width */
+
+.two-column-main {
+	width: 630px;
+}
+
+.sidebar {
+
+	.box-nav-menu {
+		background: $white;
+	}
+
+	.top-nav-3 { 
+
+		li  {
+			&.tv-camara a:before { @include get-sprite($icons, tv-red); left: 70px }
+			&.web-radio a:before { @include get-sprite($icons, radio-red);  top: 8px; left: 70px } 
+			&.auditorios-online a:before { @include get-sprite($icons, man-red); left: 60px; }
+			&.revista-apartes a:before { @include get-sprite($icons, book-red); left: 70px }
+			&.camara-expressa a:before { @include get-sprite($icons, paperplane-red); left: 60px; }
+
+			&.tv-camara:hover a:before { @include get-sprite($icons, tv-white); }
+			&.web-radio:hover a:before { @include get-sprite($icons, radio-white); }
+			&.auditorios-online:hover a:before { @include get-sprite($icons, man-white); }
+			&.revista-apartes:hover a:before { @include get-sprite($icons, book-white); }
+			&.camara-expressa:hover a:before { @include get-sprite($icons, paperplane-white); }
+		}
+	}
+}

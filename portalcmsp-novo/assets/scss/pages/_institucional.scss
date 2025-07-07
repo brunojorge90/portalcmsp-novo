@@ -1,0 +1,219 @@
+
+#institucional {
+  padding-bottom: 60px;
+}
+
+.institucional-primario {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+
+  .card-primario {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: $radius-16px;
+    border: 1px solid $color-neutral-l-grey;
+    background-color: $color-neutral-white;
+    max-width: 546px;
+    transition: all 300ms;
+
+    &:hover {
+      cursor: pointer !important;
+      background-color: $color-primary-extra-5;
+      border: 1px solid $color-primary-extra-5;
+
+      .img-servicos {
+        img {
+          transform: scale(1.1);
+        }
+      }
+
+      .infos-servicos {
+        span {
+          padding-right: 0;
+        }
+      }
+    }
+
+    .img-servicos {
+      max-height: 303px;
+      overflow: hidden;
+
+      img {
+        transition: all 300ms;
+        object-fit: cover;
+      }
+    }
+
+    .infos-servicos {
+      padding: 24px 16px;
+
+      span {
+        display: flex;
+        justify-content: flex-end;
+        color: $color-primary-accent;
+        padding-right: 16px;
+        transition: all 300ms;
+      }
+    }
+  }
+}
+
+.institucional-secundario {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+
+  .card-secundario {
+    border-radius: $radius-16px;
+    border: 1px solid $color-neutral-silver;
+    background-color: $color-neutral-white;
+    min-width: 512px;
+    width: 100%;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+    gap: 16px;
+    text-decoration: none;
+    transition: all 300ms;
+
+    .infos-card {
+
+      p {
+        margin-top: 8px;
+      }
+
+      span {
+        color: $color-primary-accent;
+        padding-left: 0;
+        transition: all 300ms;
+      }
+    }
+
+    .img-card {
+      img {
+        min-width: 180px;
+        width: 180px;
+        height: 128px;
+        object-fit: cover;
+        border-radius: 8px;
+      }
+    }
+
+    &:hover {
+      cursor: pointer !important;
+      background-color: $color-primary-extra-5;
+      border-color: $color-primary-extra-5;
+
+      .infos-card {
+        span {
+          padding-left: 16px;
+        }
+      }
+    }
+  }
+}
+
+.institucional-terciario {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+
+  .card-terciario {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: $radius-16px;
+    border: 1px solid $color-neutral-l-grey;
+    background-color: $color-neutral-white;
+    width: 100%;
+    max-width: 256px;
+    min-width: 256px;
+    transition: all 300ms;
+
+    &:hover {
+      background-color: $color-primary-extra-5;
+      border: 1px solid $color-primary-extra-5;
+
+      .img-servicos {
+        img {
+          transform: scale(1.1);
+        }
+      }
+    }
+
+    .img-servicos {
+      height: 196px;
+      overflow: hidden;
+
+      img {
+        transition: all 300ms;
+        object-fit: cover;
+        height: 196px;
+      }
+    }
+
+    .infos-servicos {
+      padding: 24px 16px;
+    }
+  }
+}
+
+.card-recursos-humanos {
+  border-radius: $radius-16px;
+  border: 1px solid $color-neutral-silver;
+  background-color: $color-neutral-white;
+  padding: 32px 24px 40px 24px;
+  display: flex;
+  gap: 32px;
+
+  .img-card {
+    flex: 1;
+    width: 100%;
+    max-width: 520px;
+    height: 100%;
+    overflow: hidden;
+    border-radius: $radius-8px;
+
+    img {
+      object-fit: cover;
+    }
+  }
+
+  .infos-card {
+    flex: 1;
+
+    p {
+      margin: 16px 0;
+    }
+
+    a {
+      display: block;
+      text-decoration: none;
+      color: $color-primary-accent;
+      transition: all 300ms;
+      padding-left: 0;
+
+      svg {
+        margin-left: 8px;
+        transition: all 300ms;
+      }
+
+      &:hover {
+        padding-left: 16px;
+
+        svg {
+          margin-left: 0;
+        }
+      }
+    }
+
+    a + a {
+      margin-top: 16px;
+    }
+  }
+}

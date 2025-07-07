@@ -1,0 +1,27 @@
+<section class="content-box box-latest-news">
+  <header class="content-box-top">
+    <h2 class="content-box-title icon-clock-red"><a href="<?php echo get_home_url(); ?>/comunicacao/noticias/">Últimas Noticias</a></h2>
+  </header>
+
+  <div class="box-latest-news-list">
+
+    <?php
+    $latestQuery = new WP_Query(array(
+        'post_type' => 'post',
+        'posts_per_page' => 5
+      ));
+    while($latestQuery->have_posts()): $latestQuery->the_post();
+    ?>
+      <article class="box-latest-news-item cf">
+        <h3 class="article-title">
+          <span class="date"><a href="#"><?php echo get_the_date('d\.m'); ?></a></span>
+          <span class="headline"><a href="<?php the_permalink(); ?>"><?php if(strlen(get_the_title()) > 62){ echo(mb_substr(get_the_title(), 0, 55)) . '...'; } else { echo get_the_title(); } ?></a></span>
+        </h3>
+      </article>
+    <?php endwhile; ?>
+  </div>
+
+  <footer class="box-latest-news-footer">
+    <a href="<?php echo get_home_url(); ?>/comunicacao/noticias/" class="btn">Todas as notícias</a>
+  </footer>
+</section><!-- end box-latest-news -->

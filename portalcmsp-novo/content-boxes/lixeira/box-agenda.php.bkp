@@ -1,0 +1,34 @@
+<section class="box-agenda content-box">
+
+  <?php
+  // get current time of day to select which events to show
+  $hour = current_time('H');
+  $min = current_time('i');
+
+  $when = 'today';
+  $display_date = current_time('d/m');
+  if($hour >= 22) {
+    $when = 'tomorrow';
+    $display_date = new DateTime('tomorrow');
+    $display_date = $display_date->format('d/m/Y');
+  }
+  ?>
+
+
+  <header class="content-box-top">
+    <h3 class="content-box-title icon-calendar-red">Agenda &ndash; <span class="date"><?php echo $display_date; ?></span></h3>
+  </header>
+
+  
+  <section class="box-agenda-list box-height-adjust" data-when="<?php echo $when; ?>" data-time="<?php echo $hour . ':' . $min; ?>">
+
+    <div class="loading">
+      Carregando...
+    </div>
+
+  </section>
+
+  <footer class="box-agenda-footer cf">
+    <a href="<?php echo get_home_url(); ?>/atividade-legislativa/agenda-da-camara/" class="btn btn-yellow-arrow">Agenda Completa</a>
+  </footer>
+</section><!-- end .box-agenda -->

@@ -1,0 +1,57 @@
+#mask {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    margin: 0;
+    z-index: 9000;
+    background-color: #000000cc;
+    color: #fff;
+    display: none;    
+}
+
+#boxes .window {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: auto;
+    height: 80vh;
+    margin-top: calc(-40vh - 10px);
+    /* margin-left: -50%; */
+    display: none;
+    z-index: 9999;
+    border-radius: 5px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+#boxes #dialog {
+    width: auto;
+    height: 80vh;
+    padding: 10px;
+    background-color: #ffffff;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+#pop img.banner {
+    max-height: 80vh;
+    height: 75vh;
+}
+
+a.close.agree {
+    top: -5px;
+    right: -5px;
+    position: absolute;
+}
+
+.agree:hover{
+  background-color: #D1D1D1;
+}
+.popupoption:hover{
+	background-color:#D1D1D1;
+	color: green;
+}
+.popupoption2:hover{
+	color: red;
+}

@@ -1,0 +1,585 @@
+@media (max-width: 640px) {
+  .grupo-noticias-1 {
+    min-height: auto;
+  }
+
+  #agenda-completa .abs .barra-acoes {
+    flex-direction: column !important;
+  }
+
+  #infos-vereador .abs .container .frequencia-vereador,
+  #infos-vereador .abs .container .projetos-leis,
+  #contato-agenda-vereador .container,
+  #midia-vereador .container,
+  #midia-vereador .container .videos-vereador .galeria-videos,
+  #midia-vereador .container .noticias-vereador .noticia-individual {
+    flex-direction: column;
+  }
+
+  .field-date {
+    input {
+      width: 100%;
+    }
+    width: 100%;
+  }
+
+  #agenda-completa .abs .barra-acoes .itens-esquerda {
+    max-width: 100%;
+    width: 100% !important;
+    flex-direction: column;
+  }
+
+  #midia-vereador .container .noticias-vereador .noticia-individual .infos-noticia {
+    order: 1;
+  }
+
+  #midia-vereador .container .noticias-vereador .noticia-individual .img-noticia img {
+    width: 100%;
+    height: auto;
+  }
+
+  .wrap#inner-content {
+    flex-direction: column;
+
+  }
+
+  .sidebar {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 60px;
+  }
+
+  .comentarios {
+    padding: 20px !important;
+  }
+
+  .breadcrumbs .wrap {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .content-box {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  #agenda-completa .abs .barra-acoes {
+    flex-wrap: wrap;
+  }
+
+  #detalhes-agenda .infos-evento-agenda {
+    flex-direction: column;
+
+  }
+
+  .author-and-sm {
+    flex-direction: column;
+
+  }
+
+  .container .breadcrumbs .wrap {
+    padding: 0px;
+  }
+
+  #noticias-todas .noticia-nivel-3 {
+    flex-direction: column;
+  }
+
+  #noticias-todas .noticia-nivel-3 .textos-noticia ul, #noticias-todas .noticia-nivel-3 .textos-noticia ul {
+    margin-top: 0px;
+  }
+
+  .flex-post {
+    flex-direction: column;
+  }
+  .social-media {
+    margin-top: 30px;
+    justify-content: center;
+  }
+
+  .servicos-secundarios, .servicos-destaque {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .servicos-terciarios .card-terciario {
+    min-width: 100%;
+  }
+
+  .servicos-destaque .card-primario {
+    flex-direction: column;
+
+  }
+
+  .servicos-destaque .card-primario .img-card {
+    order: 1;
+  }
+
+  .servicos-destaque .card-primario .img-card img {
+    width: 100%;
+    height: auto;
+  }
+
+  .servicos-secundarios .card-secundario {
+    max-width: 100%;
+
+    .img-servicos {
+      max-height: 100%;
+
+      img {
+        height: auto;
+        max-width: 100%;
+        width: 100%;
+      }
+    }
+  }
+
+  .servicos-destaque .coluna-esquerda .card-sessao-plenaria .links-sessao-plenaria .links-esquerda, .servicos-destaque .coluna-esquerda .card-sessao-plenaria .links-sessao-plenaria .links-direita {
+    min-width: 100%;
+  }
+
+  &.single-vereador .config-image-bg img {
+    min-height: 50vh;
+  }
+
+  #infos-vereador .abs .container .sobre-vereador .foto-perfil-vereador img {
+    width: 180px;
+    height: 180px;
+  }
+
+  #infos-vereador .abs .container .sobre-vereador .textos-vereador {
+    margin: 0 0px;
+  }
+
+  #midia-vereador .container .videos-vereador .galeria-videos a {
+    max-width: 100%;
+
+    > div {
+      height: auto;
+    }
+
+    img {
+      height: auto;
+      width: 100%;
+    }
+  }
+
+  #consulta-acesse .consulta .thumbnail {
+    max-width: 100%;
+    height: auto;
+    width: 100%;
+  }
+
+  #conteudo-transparencia .abs .container .ct-transparência .acessos-transparencia .card-individual {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+
+    .img-transparencia img, .img-transparencia {
+      height: auto;
+      max-height: 100%;
+    }
+  }
+
+  #conteudo-transparencia .abs .container .ct-transparência {
+    padding: 20px 0px;
+  }
+
+  #agenda-completa .abs .container .ct-agenda {
+    padding: 24px 0px;
+  }
+
+  .proximos-eventos .col .thumbnail img {
+    width: 100%;
+    height: auto;
+  }
+
+  #agenda-completa .abs .barra-acoes .itens-esquerda {
+    max-width: 100%;
+  }
+
+  [class^=button-] {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+
+  #agenda-completa .abs .container {
+    border-radius: 16px;
+  }
+
+  #atividade-legislativa .infos-participe {
+    flex-direction: column;
+  }
+
+  #atividade-legislativa .infos-participe .links-participe .card-terciario {
+    min-width: 100%;
+  }
+
+  #atividade-legislativa .infos-acompanhe {
+    flex-direction: column;
+  }
+
+  #atividade-legislativa .infos-acompanhe .card-secundario {
+    max-width: 100%;
+
+    .img-servicos {
+      height: auto;
+      max-height: 100%;
+    }
+  }
+
+  .institucional-primario {
+    flex-direction: column;
+  }
+
+  .institucional-primario .card-primario {
+    max-width: 100%;
+  }
+
+  .institucional-secundario .card-secundario {
+    min-width: 100%;
+  }
+
+  .institucional-secundario .card-secundario {
+    flex-direction: column;
+  }
+
+  .institucional-secundario .card-secundario .img-card img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .institucional-terciario {
+    flex-direction: column;
+  }
+
+  .institucional-terciario .card-terciario {
+    max-width: 100%
+  }
+
+   .card-recursos-humanos {
+    flex-direction: column;
+     padding: 20px;
+  }
+
+  p.desktop-body-3, p {
+    font-size: 1.2rem;
+    line-height: 1.8rem;
+  }
+
+  .desktop-body-1 {
+    font-size: 1.4rem;
+    line-height: 2rem;
+  }
+
+  .desktop-button-link-medium {
+    font-size: 1.2rem;
+    line-height: 1.8rem;
+  }
+
+  .infos-noticia h3 {
+    margin-top: 0px;
+  }
+
+  .noticias .noticia-destaque p {
+    height: inherit !important;
+  }
+
+  .desktop-headeline-1,.desktop-headeline-2 {
+    font-size: 2.8rem;
+    line-height: 3.4rem;
+  }
+
+  .breadcrumbs span, .breadcrumbs a {
+    font-size: 1.2rem;
+  }
+
+  .content-post p, .content-post * {
+    font-size: 1.6rem;
+    line-height: 2.6rem;
+  }
+
+  .content-post ul li, .content-post ol li {
+    font-size: 1.6rem;
+    line-height: 2.6rem;
+  }
+
+  .single .sidebar {
+    padding: 0px;
+  }
+
+  .mt-48 {
+    margin-top: 32px;
+  }
+
+  .single .categories ul {
+    flex-wrap: wrap;
+  }
+
+
+  .single .thumbnail .media-credit-container img, .single .thumbnail .wp-caption img {
+    border-radius: 8px;
+  }
+
+  .single .content-post p:first-child {
+    margin-top: 0px;
+  }
+
+  .consulta-paginas .paginas h3 {
+    font-size: 1.8rem;
+    line-height: 2.8rem;
+  }
+
+  .rede_camara .ultimos-videos .item {
+    flex: 1;
+    flex-basis: auto;
+  }
+
+  .sidebar {
+    max-width: 100%;
+  }
+
+
+  .entry-content {
+    padding: 0px;
+  }
+
+  .cj-exibicao {
+    display: none !important;
+  }
+
+   #agenda-completa .proximos-eventos .flex-eventos .col {
+     min-width: 100%;
+     flex-basis: 100%;
+     max-width: 100%;
+   }
+
+  footer.footer {
+    padding: 40px 0px;
+  }
+  .card-primario {
+    flex-wrap: wrap;
+    min-width: auto !important;
+  }
+
+  .card-primario .infos-card {
+    order: 1;
+  }
+
+  .card-primario .img-card {
+    order: 0;
+  }
+
+  .infos-card h2 {
+    margin-bottom:12px ;
+  }
+
+  .card-primario .img-card {
+    width: 100%;
+    img {
+      width: 100% !important;
+    }
+  }
+
+  .header .sandwich a {
+    text-indent: -5000px;
+  }
+
+  .comunicacao-destaque {
+    flex-direction: column;
+  }
+
+  .flex-programas, .flex-expore {
+    max-width: calc(100vw - 120px) !important;
+    margin: 0 auto;
+
+    .colEvent {
+      margin: 0 auto;
+      display: block;
+    }
+
+
+
+    .col {
+      max-width: 100% !important;
+      min-width: 100% !important;
+    }
+    .owl-next {
+      right: -50px;
+    }
+
+    .owl-prev {
+      left: -50px;
+    }
+
+    .thumbnail {
+      width: 100% !important;
+    }
+  }
+
+  .config-image-bg img {
+    height: 250px;
+    min-height:250px;
+  }
+
+  #infos-presidente-camara .abs .container .sobre-presidente-camara .foto-perfil-presidente-camara img {
+    width: 180px;
+    height: 180px;
+  }
+
+  #midia-presidente-camara .noticias-videos-presidente .videos-presidente .galeria-videos {
+    justify-content: center;
+  }
+
+  #infos-presidente-camara .abs .container .sobre-presidente-camara .textos-presidente-camara {
+    flex-direction: column;
+  }
+
+  #midia-presidente-camara .noticias-videos-presidente {
+    flex-direction: column;
+  }
+
+  #sugestao-projeto-lei .container {
+    flex-direction: column !important;
+  }
+
+  #midia-presidente-camara .noticias-videos-presidente .videos-presidente .galeria-videos a {
+      max-width: 100%;
+  }
+  #midia-presidente-camara .noticias-videos-presidente .noticias-presidente .noticia-individual {
+    flex-direction: column;
+    > *:first-child {
+      order: 1;
+    }
+    > *:last-child {
+      order: 0;
+    }
+
+
+  }
+
+  #midia-presidente-camara .noticias-videos-presidente .noticias-presidente .noticia-individual .img-noticia img {
+    width: 100%;
+    height: auto;
+
+  }
+
+  #midia-presidente-camara .noticias-videos-presidente .videos-presidente .galeria-videos a div {
+    height: auto;
+  }
+
+  #pronunciamentos-presidente-camara .galeria-pronunciamentos .pronunciamento-individual {
+    max-width: 100%;
+  }
+
+  #pronunciamentos-presidente-camara .galeria-pronunciamentos .pronunciamento-individual div {
+    height: auto;
+  }
+
+  #pronunciamentos-presidente-camara .galeria-pronunciamentos .pronunciamento-individual div img {
+    width: 100%;
+  }
+
+  #infos-presidente-camara .abs .container .sobre-presidente-camara .textos-presidente-camara .coluna-direita .compartilhe-redes {
+    justify-content: flex-start;
+    gap: 26px;
+  }
+
+  #infos-presidente-camara .abs .container .sobre-presidente-camara .textos-presidente-camara .coluna-direita {
+    max-width: 100%;
+  }
+
+  .config-image-bg img, .config-image-bg  {
+    max-height: 340px !important;
+    min-height: 340px;
+  }
+
+  #agenda-completa .flex-list.flex-eventos .col .thumbnail {
+    display: none;
+  }
+
+  #agenda-completa .flex-list.flex-eventos h2 {
+    font-size: 2.4rem;
+  }
+
+  .tags-type {
+    flex-wrap: wrap;
+  }
+
+  .pesquisa{
+    padding: 10px;
+  }
+
+  .acessibilidade {
+    left: -25px;
+    top: 357px;
+    img {
+      max-width: 16px;
+      height: auto;
+    }
+  }
+
+  .bbXeMI {
+    margin-top: 0px !important;
+  }
+
+  .sc-dlfmnT {
+    width: auto !important;
+    padding: 8px 24px 8px 9px !important;
+    border-radius: 50px 0 0 50px!important;
+    height: auto !important;
+    position: relative !important;
+    border-none: none !important;
+    top: 0px !important;
+    border: none !important;
+  }
+
+  .acessibilidade, .dOAmVn {
+    top: 50vh !important;
+  }
+
+  .gVbTcH >svg {
+    width: 24px !important;
+    height: auto !important;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .wpcf7 .informativos {
+    > p {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+    }
+  }
+  .select-switch {
+    width: 75px !important;
+  }
+
+  .organograma-nivel01 {
+    flex-direction: column;
+  }
+
+  #noticias-todas {
+    .noticia-nivel-3 {
+      display: block !important;
+    }
+  }
+
+  #agenda-completa {
+    .itens-esquerda {
+      flex-direction: column;
+    }
+  }
+
+  .acessibilidade-box.act {
+    left: 0px !important;
+    bottom: 0 !important;
+  }
+}
+
+.organograma .busca {
+  display: none !important;
+}

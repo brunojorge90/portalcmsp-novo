@@ -1,0 +1,312 @@
+//Typography Classes
+//Headlines - Desktop
+.desktop-headeline-1 {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 4.8rem;
+    line-height: 6.2rem;
+    color: $color-neutral-black;
+
+}
+
+.desktop-headeline-2{
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 3.6rem;
+    line-height: 4.4rem;
+    color: $color-neutral-black;
+}
+
+.desktop-headeline-3{
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 2.8rem;
+    line-height: 3.6rem;
+    color: $color-neutral-black;
+}
+
+.desktop-headeline-4{
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 2rem;
+    line-height: 2.8rem;
+    color: $color-neutral-black;
+}
+
+.desktop-headeline-5{
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.8rem;
+    line-height: 2.4rem;
+    color: $color-neutral-black;
+}
+
+
+
+/***************************************************/
+
+//Body - Desktop
+.desktop-body-1{
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.8rem;
+    line-height: 2.8rem;
+    color: $color-neutral-black;
+}
+
+.desktop-body-2{
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    color: $color-neutral-black;
+}
+
+.desktop-body-3{
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    color: $color-neutral-black;
+}
+
+//Body - Mobile
+
+/***************************************************/
+
+//Button/Link - Desktop
+.desktop-button-link-normal{
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.8rem;
+    line-height: 2.4rem;
+    color: $color-neutral-black;
+}
+
+.desktop-button-link-medium{
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    color: $color-neutral-black;
+}
+
+.desktop-button-link-small{
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.4rem;
+    line-height: 1.6rem;
+    color: $color-neutral-black;
+}
+
+.desktop-button-link-small-link{
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.4rem;
+    line-height: 2.2rem;
+    text-decoration-line: underline;
+    color: $color-neutral-black;
+}
+
+//Button/Link - Mobile
+.mobile-button-link-normal{
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.8rem;
+    line-height: 2.4rem;
+    color: $color-neutral-black;
+}
+
+.mobile-button-link-medium{
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    color: $color-neutral-black;
+}
+
+.mobile-button-link-small{
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.4rem;
+    line-height: 1.6rem;
+    color: $color-neutral-black;
+}
+
+.mobile-button-link-small-link{
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.4rem;
+    line-height: 2.2rem;
+    text-decoration-line: underline;
+    color: $color-neutral-black;
+}
+
+/***************************************************/
+
+//Fields - Desktop
+.desktop-fields-text-1{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    color: $color-neutral-black;
+}
+
+.desktop-fields-text-2{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    color: $color-neutral-black;
+}
+
+//Fields - Mobile
+.mobile-fields-text-1{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    color: $color-neutral-black;
+}
+
+.mobile-fields-text-2{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    color: $color-neutral-black;
+}
+
+.color-white {
+    color: $color-neutral-white;
+}
+
+.text-center {
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .desktop-headeline-5 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        line-height: 2.0rem;
+    }
+
+    .desktop-headeline-4 {
+        font-size: 1.6rem;
+        font-weight: 600;
+        line-height: 2.0rem;
+    }
+
+    p {
+        font-size: 1.2rem;
+        line-height: 1.6rem;
+    }
+
+    body {
+        font-size: 1.2rem;
+        line-height: 1.6rem;
+    }
+}
+
+
+
+
+//Headlines - Mobile
+@media (max-width: 768px) {
+    .mobile-headeline-1{
+        font-family: 'Montserrat';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 2.8rem;
+        line-height: 3.6rem;
+        color: $color-neutral-black;
+    }
+
+    .mobile-headeline-2{
+        font-family: 'Montserrat';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 2rem;
+        line-height: 2.8rem;
+        color: $color-neutral-black;
+    }
+
+    .mobile-headeline-3{
+        font-family: 'Montserrat';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 1.8rem;
+        line-height: 2.4rem;
+        color: $color-neutral-black;
+    }
+
+    .mobile-headeline-4{
+        font-family: 'Montserrat';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 1.6rem;
+        line-height: 2rem;
+        color: $color-neutral-black;
+    }
+
+    .mobile-headeline-5{
+        font-family: 'Montserrat';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 1.6rem;
+        line-height: 2rem;
+        color: $color-neutral-black;
+    }
+
+
+    .mobile-body-1{
+        font-family: 'Montserrat';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 1.6rem;
+        line-height: 2.4rem;
+        color: $color-neutral-black;
+    }
+
+    .mobile-body-2{
+        font-family: 'Montserrat';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 1.4rem;
+        line-height: 2rem;
+        color: $color-neutral-black;
+    }
+
+    .mobile-body-3{
+        font-family: 'Montserrat';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 1.2rem;
+        line-height: 1.6rem;
+        color: $color-neutral-black;
+
+    }
+
+}

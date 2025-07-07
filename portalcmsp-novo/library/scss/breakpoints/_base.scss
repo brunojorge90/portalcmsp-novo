@@ -1,0 +1,2631 @@
+/******************************************************************
+Site Name:
+Author:
+
+Stylesheet: Base Mobile Stylesheet
+
+Be light and don't over style since everything here will be
+loaded by mobile devices. You want to keep it as minimal as
+possible. This is called at the top of the main stylsheet
+and will be used across all viewports. 
+
+******************************************************************/
+
+/*********************
+GENERAL STYLES
+*********************/
+
+html {
+	/* Sets '1rem' as 10px */
+	font-size: 62.5%; 
+}
+
+body {
+	font-family: $sans-serif;
+	font-size: 1.6rem; /* 16px */
+	line-height: 1.35em;
+	color: $text-color;
+	background-color: $white;
+  -webkit-font-smoothing: antialiased;
+  	width: 100%;
+	overflow-x: hidden;
+}
+
+/* hide non-mobile navs and such */
+.mobile-hide {
+	display: none;
+}
+
+/********************
+WORDPRESS BODY CLASSES
+style a page via class
+********************/
+
+.rtl {}                           /* for sites that are read right to left (i.e. hebrew) */
+.home {}                          /* home page */
+.blog {}                          /* blog template page */
+.archive {}                       /* archive page */
+.date {}                          /* date archive page */
+	.date-paged-1 {}                /* replace the number to the corresponding page number */
+.search {}                        /* search page */
+	.search-results {}              /* search result page */
+	.search-no-results {}           /* no results search page */
+	.search-paged-1 {}              /* individual paged search (i.e. body.search-paged-3) */
+.error404 {}                      /* 404 page */
+.single {}                        /* single post page */
+	.postid-1 {}                    /* individual post page by id (i.e. body.postid-73) */
+	.single-paged-1 {}              /* individual paged single (i.e. body.single-paged-3) */
+.attachment {}                    /* attatchment page */
+	.attachmentid-1 {}              /* individual attatchment page (i.e. body.attachmentid-763) */
+	.attachment-mime-type {}        /* style mime type pages */
+.author {}                        /* author page */
+	.author-nicename {}             /* user nicename (i.e. body.author-samueladams) */
+	.author-paged-1 {}              /* paged author archives (i.e. body.author-paged-4) for page 4 */
+.category {}                      /* category page */
+	.category-1 {}                  /* individual category page (i.e. body.category-6) */
+	.category-paged-1 {}            /* replace the number to the corresponding page number */
+.tag {}                           /* tag page */
+	.tag-slug {}                    /* individual tag page (i.e. body.tag-news) */
+	.tag-paged-1 {}                 /* replace the number to the corresponding page number */
+.page-template {}                 /* custom page template page */
+	.page-template-page-php {}      /* individual page template (i.e. body.page-template-contact-php */
+	.page-paged-1 {}                /* replace the number to the corresponding page number */
+	.page-parent {}                 /* parent page template */
+	.page-child {}                  /* child page template */
+	.parent-pageid-1 {}             /* replace the number to the corresponding page number */
+.logged-in {}                     /* if user is logged in */
+.paged {}                         /* paged items like search results or archives */
+	.paged-1 {}                     /* individual paged (i.e. body.paged-3) */
+
+/*********************
+LAYOUT & GRID STYLES
+*********************/
+
+.wrap {
+	width: 96%;
+	margin: 0 auto;
+}
+
+/*********************
+LINK STYLES
+*********************/
+
+a, a:visited {
+	color: $link-color;
+
+	/* on hover */
+	&:hover, &:focus {
+		color: $link-hover;
+		text-decoration: underline;
+	}
+
+	/* on click */
+	&:active {
+
+	}
+
+	/* mobile tap color */
+	&:link {
+		/*
+		this highlights links on iPhones/iPads.
+		so it basically works like the :hover selector
+		for mobile devices.
+		*/
+		-webkit-tap-highlight-color : rgba( 0, 0, 0, 0.3 );
+	}
+}
+
+/******************************************************************
+H1, H2, H3, H4, H5 STYLES
+******************************************************************/
+
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5 {
+	text-rendering: optimizelegibility;
+	font-weight: 500;
+	/*
+	if you're going to use webfonts, be sure to check your weights
+	http://css-tricks.com/watch-your-font-weight/
+	*/
+
+	/* removing text decoration from all headline links */
+	a {
+		text-decoration: none;
+	}
+}
+
+h1, .h1 {
+	font-size: 2.5em;
+	line-height: 1.2em;
+}
+
+h2, .h2 {
+	font-size: 1.75em;
+	line-height: 1.4em;
+	margin-bottom: 0.375em;
+}
+
+h3, .h3 {
+	font-size: 1.125em;
+}
+
+h4, .h4 {
+	font-size: 1.1em;
+	font-weight: 700;
+}
+
+h5, .h5 {
+	font-size: 0.846em;
+	line-height: 2.09em;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+}
+
+strong {
+
+	&.red {
+		color: $cmsp-red;
+	}
+}
+
+/*********************
+HEADER STYLES
+*********************/
+
+.header {
+}
+
+	.header-headlines {
+		
+		h2, .container-headlines, .headlines-nav {
+			display: none;
+		}
+	}
+
+		.transparencia-menu-wrapper {
+			background: $black;
+
+			.link-transparencia {
+				display: block;
+				color: $cmsp-yellow;
+				text-decoration: none;
+				text-transform: uppercase;
+				text-align: center;
+				height: 40px;
+				font-size: 1.5rem;
+				line-height: 4rem;
+				border-left: 1px solid $cmsp-grey6;
+
+				&:hover, &:focus {
+					color: $cmsp-yellow;
+					text-decoration: underline;
+				}
+			}
+
+			.transparencia-menu {
+				height: 0;
+				overflow: hidden;
+				background: $black;
+				font-size: 1.2rem;
+				line-height: 1.2em;
+				padding: 0;
+				border: 1px solid $cmsp-grey6;
+
+				&.show {
+					height: auto;
+					padding: .8em 0;
+				}
+
+				li {
+					display: block;
+					width: 100%;
+				}
+					a {
+						color: $white;
+
+						&:hover, &:focus {
+							color: $cmsp-yellow;
+							background-color: lighten($black, 10%);
+						}
+					}
+			}
+		}
+
+	#logo {
+		margin: 0.75em 0;
+
+		a {
+			color: $black;
+		}
+
+		img {
+			display: block;
+			margin: 0 auto;
+		}
+	}
+
+	.header-search-form {
+		width: 100%;
+		margin: 1em auto;
+
+		label {
+			display: none;
+		}
+	}
+
+/*********************
+NAVIGATION STYLES
+*********************/
+
+/*
+all navs have a .nav class applied via
+the wp_menu function; this is so we can
+easily write one group of styles for
+the navs on the site so our css is cleaner
+and more scalable.
+*/
+
+.nav {
+	border-bottom: 0;
+	margin: 0;
+	font-size: 1.6rem;
+
+	li {
+
+		a {
+			display: block;
+			color: $black;
+			text-decoration: none;
+			text-transform: uppercase;
+			text-align: center;
+			padding: .75em;
+
+			/*
+			remember this is for mobile ONLY, so there's no need
+			to even declare hover styles here, you can do it in
+			the style.scss file where it's relevant. We want to
+			keep this file as small as possible!
+			*/
+			&:hover, &:focus {
+
+			}
+		}
+
+		&:first-child {}
+
+		&:last-child {}
+
+		/*
+		so you really have to rethink your dropdowns for mobile.
+		you don't want to have it expand too much because the
+		screen is so small. How you manage your menu should
+		depend on the project. Here's some great info on it:
+		http://www.alistapart.com/articles/organizing-mobile/
+		*/
+		.sub-menu,
+		.children {
+			display: none;
+
+			li {
+
+				a {
+					padding-left: 30px;
+
+					&:hover,
+					&:focus {}
+
+					&:link {}
+
+				}
+
+				&:first-child {}
+
+				&:last-child {}
+
+			}
+
+		}
+
+	} /* end .menu li */
+
+	/* highlight current page */
+	li.current-menu-item,
+	li.current_page_item,
+	li.current_page_ancestor {
+
+		a {}
+
+	}  /* end current highlighters */
+
+} /* end .nav */
+
+	.top-nav {
+		font-size: 1.5rem;
+		max-width: 390px;
+		margin: 0 auto;
+			
+		li {
+			float: left;
+			width: 130px;
+			max-width: 33.3333%;
+			padding: 0 10px;
+
+			a {
+				height: 32px;
+				padding: 0;
+				line-height: 28px;
+				display: block;
+				border: 1px solid $cmsp-grey3;
+				border-bottom: 3px solid $cmsp-red;
+				position: relative;
+			}
+		}
+
+	} /* end .top-nav */
+
+	.top-nav-2 {
+		border: 1px solid $cmsp-grey3;
+		border-bottom: none;
+		margin: 0 auto;
+
+		li {
+
+			a {
+				border-bottom: 1px solid $cmsp-grey3;
+			}
+		}
+	} /* end .top-nav-2 */
+
+	.social-nav {
+		width: 126px;
+		margin: 1em auto;
+
+		li {
+			float: left;
+			margin: 0 5px;
+
+			a {
+				display: block;
+				width: 32px;
+				height: 32px;
+				background: $cmsp-grey4;
+				text-indent: -9999em;
+			}
+
+			&.facebook a {
+				@include get-sprite($icons, nav-facebook);
+
+				&:hover, &:focus {
+					@include get-sprite($icons, nav-facebook-hover);
+				}
+			}
+
+			&.twitter a {
+				@include get-sprite($icons, nav-twitter);
+
+				&:hover, &:focus {
+					@include get-sprite($icons, nav-twitter-hover);
+				}
+			}
+
+			&.youtube a {
+				@include get-sprite($icons, nav-youtube);
+
+				&:hover, &:focus {
+					@include get-sprite($icons, nav-youtube-hover);
+				}
+			}
+		}
+	} /* end .social-nav */
+
+	.container-top-nav-3 {
+		background: $cmsp-grey2;
+
+		.top-nav-3 {
+			
+			ul {
+
+			}
+
+			li {
+			 	background: $white;
+				padding: 1px;
+
+			 	a {
+			 		background-color: transparent;
+			 		font-size: 1.4rem;
+					color: $cmsp-red;
+					font-weight: 600;
+					border-bottom: 3px solid $cmsp-red;
+			 	}
+			}
+		}
+	}
+
+
+/*********************
+POSTS & CONTENT STYLES
+*********************/
+
+/* Top Slider */
+
+.top-slider {
+	display: none;
+}
+
+/* row and column layout */
+
+.cmsp-row {
+	@extend .cf; // clearfix-em
+
+	&:first-of-type {
+		margin-top: 1.5em;
+	}
+}
+
+/* all the boxes */
+
+.content-box {
+	margin-bottom: 16px;
+}
+	.content-box-top {
+		border: 1px solid $cmsp-grey3;
+		border-bottom: 3px solid $cmsp-red;
+		height: 40px;
+		overflow: hidden;
+		margin-bottom: 1px;
+
+		.content-box-title {
+			margin: 0;
+			padding-left: 48px;
+			height: 100%;
+			font-size: 1.5rem;
+			line-height: 40px;
+			text-transform: uppercase;
+			font-weight: 600;
+			position: relative;
+
+			&:before {
+				content: '';
+				display: block;
+				width: 40px;
+				height: 40px;
+				border-right: 1px solid $cmsp-grey3;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+
+			.red {
+				color: $cmsp-red;
+			}
+
+			a {
+				color: $black;
+
+				&:hover, &:focus {
+					color: $cmsp-red;
+					text-decoration: underline;
+				}
+			}
+		}
+	}
+
+	/* agenda */
+	.box-agenda {
+		padding-bottom: 12px;
+
+		.box-agenda-list {
+			padding: 12px 12px 0 40px;
+			border: 1px solid $cmsp-grey3;
+			border-bottom: none;
+			overflow: hidden;
+		}
+
+			.box-agenda-item {
+				height: 101px;
+				margin-bottom: 12px;
+				font-size: 1.4rem;
+				line-height: 1.35em;
+
+				&:last-of-type {
+					border-bottom: none;
+				}
+
+				.time-title {
+					margin: 0;
+					overflow: hidden;
+					font-size: 2.5rem;
+					line-height: 3.5rem;
+					text-transform: uppercase;
+					font-weight: 600;
+					margin-bottom: 5px;
+					color: $cmsp-red;
+					border-bottom: 1px solid $cmsp-grey3;
+				}
+
+				.event-description {
+					margin: 0;
+				}
+			}
+
+
+
+			.box-agenda-footer {
+				padding: 0 12px 12px 40px;
+				border: 1px solid $cmsp-grey3;
+				border-top: none;
+
+				.btn { 
+					width: 100%;
+					padding-left: 20px;
+					padding-right: 20px;
+				}
+			}
+	}
+
+	.slider-side .box-agenda {
+		.box-agenda-list, .box-agenda-footer {
+			border: none;
+			padding-left: 12px;
+		}
+
+		.box-agenda-list {
+			height: 238px;
+		}
+	}
+
+	/* Últimas Notícias */
+
+	.box-latest-news {
+
+		.box-latest-news-list {	}
+
+			.box-latest-news-item {
+				border-bottom: 1px solid lighten($cmsp-grey2, 5%);
+
+				h3 {
+					margin: 8px 0 6px;
+					font-size: 1.5rem;
+				}
+
+					.date {
+						font-weight: 600;
+						width: 42px;
+						height: 20px;
+						float: left;
+						position: relative;
+						padding-right: 5px;
+						padding-left: 2px;
+						margin-right: 5px;
+
+						&:after {
+							content: '';
+							display: block;
+							background: lighten($cmsp-grey2, 5%);
+							width: 1px;
+							height: 24px;
+							position: absolute;
+							bottom: -8px;
+							right: 0;
+						}
+
+						a {
+							color: $cmsp-red2;
+						}
+					}
+
+					.headline {
+						a {
+							color: $black;
+
+							&:hover, &:focus {
+								color: $cmsp-red2;
+							}
+						}
+					}
+			}
+
+			.box-latest-news-footer {
+				padding-top: 14px;
+			}
+	}
+
+	.box-mapa { width: 300px; float: left; margin: 10px; }
+
+	/* Notícia em Destaque, eventos, Tour Virtual */
+
+	.box-featured-article, .box-events, .box-tour {
+
+		article {
+			position: relative;
+
+			h3 {
+				position: absolute;
+				left: 0;
+				bottom: 0;
+				padding: 20px;
+				width: 100%;
+				max-width: 300px;
+				margin: 0;
+
+				a {
+					color: $white;
+					font-size: 1.6rem;
+					line-height: 2.4rem;
+					display: inline;
+					background: $cmsp-red;
+					padding: 0 3px;
+
+					&:hover, &:focus {
+						color: $white;
+						text-decoration: underline;
+					}
+				}
+
+				.btn {
+					height: 42px;
+					display: block;
+					padding: 8px 24px;
+					margin: 0 auto;
+					width: 145px;
+
+					&:before {
+						top: 5px;
+					}
+				}
+			}
+
+			.button-title {
+				max-width: none;
+			}
+
+			img {
+				width: 100%;
+				height: auto !important;
+				margin: 0;
+			}
+		}
+	}
+
+	.box-half {
+		.box-featured-article, .box-events, .box-tour {
+
+			article h3 {
+				padding: 10px;
+			}
+		}
+	}
+
+	/* Consulta Rápida */
+
+	.box-quick-search {
+		.nav-mobile {
+			margin: 0;
+		}
+
+		.box-quick-search-container { }
+		
+		.box-quick-search-items {
+			margin-top: 1px;
+			border: 1px solid $cmsp-grey3;
+			padding: 16px;
+		}
+
+			.box-quick-search-item {
+				font-size: 1.4rem;
+				display: none;
+
+				&.active {
+					display: block;
+				}
+
+				h3 {
+					font-size: 1.4rem;
+					font-weight: 800;
+					color: $cmsp-red;
+					text-transform: uppercase;
+					margin: 0;
+				}
+
+				p {
+					margin-top: 0;
+				}
+
+				.form-row {
+					max-width: 185px;
+				}
+			}
+	}
+
+	/* Rede CMSP */
+	.box-network {
+		overflow: hidden;
+
+		.box-network-wrapper {
+			background: $cmsp-grey2;
+		}
+
+		.box-network-userlist {
+			border: 1px solid $cmsp-grey3;
+			box-shadow: 0px 3px 3px rgba(0,0,0,0.3);
+			background: $white;
+			padding: 0 12px;
+
+			ul {
+				margin: 8px 0 0 8px;
+				overflow: hidden;
+			}
+
+			.box-network-user {
+				float: left;
+				width: 50px;
+				margin-right: 5px;
+				font-size: 10px;
+				text-align: center;
+
+				img {
+					display: block;
+				}
+
+				a {
+					color: $black;
+					text-decoration: none;
+
+					&:hover, &:focus {
+						text-decoration: underline;
+					}
+				}
+			}
+		}
+		
+		.box-network-posts {
+			position: relative;
+			width: 100%;
+			height: 100px;
+			overflow: hidden;
+			z-index: 1;
+
+			h3 {
+				position: absolute;
+				top: 0;
+				right: 10px;
+				display: block;
+				margin: 0;
+				padding: 0 12px;
+				background: $cmsp-grey4;
+				font-size: 10px;
+				text-transform: uppercase;
+				color: $white;
+			}
+
+			ul {
+				margin: 0;
+			}
+
+				.box-network-post {
+					position: relative;
+					position: absolute;
+					width: 100%;
+					top: 25px;
+					display: none;
+					z-index: 1;
+
+					&.active {
+						display: block;
+					}
+
+					.avatar-container {
+						display: block;
+						font-size: 12px;
+						text-align: center;
+						width: 65px;
+						position: absolute;
+						left: 50%;
+						margin-left: -150px;
+						top: 10px;
+
+						img {
+							display: block;
+							width: 45px;
+							height: 45px;
+							margin: 0 auto;
+						}
+					}
+
+					.post {
+						position: relative;
+						position: absolute;
+						right: 50%;
+						margin-right: -152px;
+						top: 10px;
+						display: block;
+						background: $cmsp-yellow;
+						font-size: 14px;
+						line-height: 1.1em;
+						padding: 8px;
+						width: 230px;
+						height: 47px;
+						border-radius: 3px;
+
+						&:before {
+							content: '';
+							display: block;
+							width: 0; 
+							height: 0; 
+							border-top: 9px solid transparent;
+							border-bottom: 9px solid transparent; 
+							border-right: 9px solid $cmsp-yellow; 
+							position: absolute;
+							left: -9px;
+							top: 50%;
+							margin-top: -15px;
+						}
+					}
+				}
+
+					.box-network-posts-nav {
+						margin: 0;
+						position: absolute;
+						top: 50%;
+						margin-top: -20px;
+						width: 100%;
+						height: 40px;
+
+						a {
+							float: left;
+							text-indent: -9999em;
+							@include get-sprite($icons, arrow-left-black);
+
+							&:hover, &:focus {
+								@include get-sprite($icons, arrow-left-yellow);
+								outline: none;
+							}
+						}
+
+							.next {
+								float: right;
+								@include get-sprite($icons, arrow-right-black);
+
+								&:hover, &:focus {
+									@include get-sprite($icons, arrow-right-yellow);
+								}
+							}
+					}
+		}
+
+		&.box-network-posts-only .box-network-posts {
+			height: 85px;
+
+			h3 {
+				display: none;
+			}
+			
+			.box-network-post {
+				top: 10px;
+			}
+
+		}
+
+		.box-network-footer {
+			margin-top: 1px;
+
+			.cadastre-se-participe {
+				width: 100%;
+
+				&:before {
+					left: 25px;
+				}
+			}
+
+			.login, .cadastre-se {
+				width: 50%;
+				float: left;
+				margin-right: 1px;
+				text-align: left;
+			}
+
+				.cadastre-se {
+					margin-right: -1px;
+					padding-left: 20px;
+
+					&:before {
+						left: 10px;
+					}
+				}
+		}
+	}
+
+	.box-half .box-network {
+		.box-network-userlist {
+			padding: 0;
+		}
+
+		.box-network-posts {
+
+			.avatar-container {
+				margin-left: -94px;
+			}
+
+			.post {
+				margin-right: -82px;
+				width: 108px;
+			}
+		}
+	}
+
+	/* Newsletter */
+	.box-newsletter {
+
+		.box-newsletter-content {
+			font-size: 1.4rem;
+			padding: 12px;
+			border: 1px solid $cmsp-grey3;
+
+			p {
+				margin-top: 0;
+			}
+
+			label {
+				text-transform: none;
+				font-weight: 400;
+			}
+		}
+	}
+
+	/* Galeria Multimídia */
+
+	.box-gallery {
+		position: relative;
+		padding-bottom: 60.2%;
+
+		.content-box-top {
+			position: relative;
+		}
+
+		.box-gallery-links {
+			position: absolute;
+			top: 0;
+			right: 5px;
+			width: 200px;
+			margin: 0;
+
+			li {
+				height: 36px;
+				line-height: 40px;
+				float: right;
+				margin-right: 2px;
+				font-size: 14px;
+
+				&:not(:first-of-type):after {
+					content: ' /';
+				}
+
+				a {
+					font-weight: 600;
+					text-transform: uppercase;
+					text-decoration: none;
+
+					&:hover, &:focus {
+						text-decoration: underline;
+						outline: none;
+					}
+				}
+			}
+		}
+		
+		.box-gallery-list { position: relative; }
+
+			.box-gallery-item {
+				opacity: 0;
+				transition: opacity .4s linear;
+				width: 100%;
+				height: 0;
+				padding-bottom: 60.2%;
+				position: absolute;
+
+				&.active {
+					opacity: 1;
+				}
+
+				img {
+					position: absolute;
+					top: 0;
+					left: 0;
+					display: block;
+					width: 100%;
+				}
+
+				p {
+					width: 100%;
+					font-weight: 600;
+					font-size: 1.6rem;
+					height: 30px;
+					border: 1px solid $cmsp-grey3;
+					margin: 1px 0 0;
+					padding-left: 12px;
+					margin-right: 150px;
+					position: absolute;
+					bottom: 0;
+					left: 0;
+				}
+			}
+
+			.box-gallery-nav {
+				position: relative;
+				position: absolute;
+				top: 50%;
+				margin-top: -20px;
+				left: 0;
+				width: 100%;
+
+				a {
+					float: left;
+					text-indent: -9999em;
+					background-color: $cmsp-red;
+					width: 40px;
+					height: 40px;
+					position: relative;
+
+					&:before{
+						content: '';
+						display: block;
+						@include get-sprite($icons, arrow-left-white);
+						position: absolute;
+						top: 0;
+						left: 5px;
+					}
+
+					&:hover:before, &:focus:before {
+						@include get-sprite($icons, arrow-left-yellow);
+					}
+
+					&:focus {
+						outline: none;
+					}
+				}
+
+					.next {
+						float: right;
+
+						&:before {
+							@include get-sprite($icons, arrow-right-white);
+						}
+
+						&:hover:before, &:focus:before {
+							@include get-sprite($icons, arrow-right-yellow);
+						}
+					}
+			}
+
+		.box-gallery-footer {
+
+			.btn {
+				position: absolute;
+				bottom: 0;
+				right: 0;
+			}
+		}
+	}
+
+	/* Ferramentas de Participação */
+	.box-tools {
+		.box-tools-banner {
+			img {
+				display: block;
+				width: 100%;
+				height: auto;
+				margin: 0;
+			}
+		}
+		.box-tools-list {
+			border: 1px solid $cmsp-grey3;
+			border-top: none;
+			border-left: none;
+			margin: 0;
+		}
+
+			li {
+				float: left;
+				width: 50%;
+				height: 97px;
+				border: 1px solid $cmsp-grey3;
+				border-right: none;
+				border-bottom: none;
+
+				a {
+					display: block;
+					height: 100%;
+					width: 100%;
+					padding: 10px 16px 0 50px;
+					color: $black;
+					text-decoration: none;
+					font-size: 1.4rem;
+					line-height: 1em;
+					position: relative;
+
+					strong {
+						display: block;
+						font-size: 1.8rem;
+						line-height: 1em;
+						font-weight: 600;
+						color: $cmsp-red;
+						text-transform: uppercase;
+						margin-bottom: 5px;
+					}
+
+					&:before {
+						content: '';
+						display: block;
+						position: absolute;
+						top: 10px;
+						left: 6px;
+					}
+
+					&:hover, &:focus {
+						color: $black;
+						outline: none;
+						text-decoration: underline;
+					}
+				}
+
+				&.mandato a:before { @include get-sprite($icons, connected-circle-red); }
+				&.banco a:before { @include get-sprite($icons, lightbulb-circle-red); }
+				&.funcity a:before { @include get-sprite($icons, smile-circle-red); }
+				&.assinado a:before { @include get-sprite($icons, pen-circle-red); }
+				&.audiencia a:before { @include get-sprite($icons, monitor-cursor-circle-red); }
+			}
+	}
+
+	/* Transparência */
+	.box-transparency {
+
+		.box-transparency-item {
+			padding: 12px;
+			border-bottom: 1px solid $cmsp-grey3;
+		}
+	}
+
+	/* Menus */
+
+	.box-nav-menu, .box-downloads { }
+
+		.box-nav-menu-list, .box-downloads-list {
+			margin: 0;
+			border: 1px solid $cmsp-grey3;
+			padding: 12px 0 12px 40px;
+
+			li {
+				border-bottom: 1px solid $cmsp-grey3;
+			}
+
+				a {
+					display: block;
+					font-size: 1.4rem;
+					line-height: 1.8rem;
+					color: $black;
+					text-decoration: none;
+					text-transform: uppercase;
+					font-weight: 700;
+					padding: 5px 0 5px 12px;
+					position: relative;
+
+					&:before {
+						content: '';
+						display: block;
+						@include get-sprite($icons, arrow-right-small-red);
+						position: absolute;
+						left: 0;
+						top: 0;
+					}
+
+					&:hover, &:focus, &.active {
+						color: $cmsp-red;
+					}
+				}
+
+				li:last-of-type {
+					border-bottom: none;
+				}
+		}
+
+		.box-nav-menu-submenu {
+			padding-left: 10px;
+			margin: 0;
+			border-left: 1px solid $cmsp-grey3;
+
+			li {
+
+			}
+
+			a {
+				font-weight: 400;
+			}
+		}
+
+		li:last-of-type .box-nav-menu-submenu {
+			border-bottom: 1px solid $cmsp-grey3;
+		}
+
+	.box-half .box-nav-menu {
+
+		.box-nav-menu-list {
+			padding-left: 18px;
+		}
+	}
+
+	.entry-content {
+
+		.box-downloads, .box-nav-menu {
+			ul {
+				list-style: none;
+				padding-left: 40px;
+			}
+		}
+	}
+
+	/* Call to action boxes */
+
+	.box-action {
+
+
+		.box-action-content {
+			border: 1px solid $cmsp-grey3;
+			text-align: center;
+			padding: 12px;
+			padding-top: 0;
+		}
+	}
+
+
+
+
+/* small banners */
+
+.banners-row, .banners-column {
+	position: relative;
+
+	ul {
+		margin: 0;
+	}
+
+		li {
+			border-bottom: 3px solid $cmsp-red;
+			width: 233px;
+			max-width: 100%;
+			margin: 26px auto;
+
+			a { }
+
+			img {
+				display: block;
+				margin-bottom: 1px;
+				width: 100%;
+				height: auto;
+				border: 1px solid $cmsp-grey3;
+			}
+		}
+
+	.banners-row-next, .banners-row-prev {
+		position: absolute;
+		top: 50%;
+		display: block;
+		width: 30px;
+		height: 40px;
+		margin-top: -20px;
+		text-indent: -9999em;
+		left: -30px;
+		@include get-sprite($icons, 'arrow-left-black');
+
+		&:hover, &:focus {
+			@include get-sprite($icons, 'arrow-left-yellow');
+			outline: none;
+		}
+	}
+
+		.banners-row-next {
+			@include get-sprite($icons, 'arrow-right-black');
+			left: auto;
+			right: -30px;
+
+			&:hover, &:focus {
+				@include get-sprite($icons, 'arrow-right-yellow');
+				outline: none;
+			}
+		}
+}
+
+	.banners-column {
+		li {
+			margin-top: 0;
+			margin-bottom: 22px;
+		}
+	}
+
+/* Vereadores */
+
+
+	.vereador-profile-thumb {
+		width: 233px;
+		margin: 15px auto;
+
+		.vereador-picture {
+			margin: 0;
+
+			img {
+				display: block;
+				width: 100%;
+				border: 1px solid $cmsp-grey3;
+				border-bottom: 3px solid $cmsp-red;
+			}
+		}
+
+		.vereador-party {
+			margin: 0;
+			width: 52px;
+			height: 42px;
+			float: left;
+			border: 1px solid $cmsp-grey3;
+			border-right: none;
+			border-top: none; 
+			text-indent: -9999em;
+			position: relative;
+
+			&:before {
+				position: absolute;
+				left: 5px;
+				top: 1px;
+			}
+
+			&:after {
+				content: '';
+				display: block;
+				width: 1px;
+				height: 33px;
+				position: absolute;
+				top: 0;
+				right: 0;
+				background: $cmsp-red;
+			}
+		}
+
+		.vereador-name, .vereador-position {
+			display: block;
+			margin: 0;
+			border: 1px solid $cmsp-grey3;
+			border-top: none;
+			height: 42px;
+			font-size: 1.2rem;
+			line-height: 12px;
+			font-weight: 600;
+			letter-spacing: .05em;
+			text-transform: uppercase;
+			padding-top: 12px;
+		}
+
+		.vereador-name {
+			width: 181px;
+			padding-left: 8px;
+			float: right;
+			border-left: none;
+
+			a {
+				color: $black;
+				display: block;
+				text-decoration: none;
+
+				&:hover, &:focus {
+					text-decoration: underline;
+					outline: none;
+				}
+			}
+		}
+
+		.vereador-position {
+			clear: both;
+			text-align: center;
+			height: 36px;
+		}
+	}
+
+/* Home Vereadores */
+
+.vereadores {
+
+	.vereadores-header {
+		.section-title {
+			display: none;
+		}
+	}
+
+		.vereadores-filter {
+			h2 {
+				margin: 0;
+				font-size: 1.5rem;
+				line-height: 3.8rem;
+				font-weight: 600;
+				text-transform: uppercase;
+				height: 40px;
+				padding-left: 30px;
+			}
+
+			select {
+				margin-top: 12px;
+			}
+
+			ul {
+				display: none;
+			}
+		}
+
+	.separator {
+		clear: both;
+		border-bottom: 3px solid $black;
+		margin-bottom: 0;
+		font-size: 3.2rem;
+		font-weight: 800;
+		color: $cmsp-red;
+	}
+}
+
+/* Vereador Single */
+
+.type-vereador {
+	margin-top: 1.5em;
+
+	.vereador-header { }
+
+		.vereador-data {
+			font-size: 1.2rem;
+			line-height: 1.6em;
+
+			h2 {
+				font-size: 1.6rem;
+				font-weight: 600;
+				text-transform: uppercase;
+			}
+
+			ul {
+
+			}
+
+				li {
+					margin: 0;
+				}
+		}
+
+	aside {
+		margin: 1.5em 1.5em 0;
+	}
+
+	.entry-content {
+
+		h1 {
+			margin-top: 0;
+		}
+	}
+
+	.vereador-projects {
+
+		.box-vereador-projects {
+
+			.box-vereador-projects-chart {
+				border: 1px solid $cmsp-grey3;
+				border-bottom: none;
+				padding: 1em 0;
+
+				.vereador-projects-chart {
+					display: block;
+					margin: 0 auto;
+				}
+			}
+
+			.box-vereador-projects-list {
+				border: 1px solid $cmsp-grey3;
+				border-bottom: none;
+				margin: 0;
+				padding: 1em;
+				height: 123px;
+
+				.none-text {
+					text-align: center;
+					margin-top: 32px;
+				}
+
+				ul {
+					margin: 0;
+				}
+
+					li {
+						border-bottom: 1px solid $cmsp-grey3;
+						text-align: left;
+						height: 30px;
+						line-height: 30px;
+					}
+
+					a {
+						color: $black;
+						text-decoration: none;
+						position: relative;
+						text-transform: uppercase;
+						font-size: 1.4rem;
+						padding-left: 10px;
+						display: block;
+						height: 100%;
+
+						&:before {
+							content: '';
+							display: block;
+							position: absolute;
+							left: 0;
+							top: 0;
+							@include get-sprite($icons, 'arrow-right-small-red');
+						}
+
+						&:hover {
+							color: $cmsp-red;
+						}
+					}
+			}
+
+			.box-vereador-projects-footer {
+				padding: 0;
+				height: 30px;
+				background: $cmsp-grey3;
+
+				.btn-wrap {
+					.btn {
+						margin-left: -51px;
+					}
+				}
+			}
+		}
+
+			h3 {
+				font-size: 1.4rem;
+				font-weight: bold;
+			}
+
+			ul {
+				text-align: center;
+
+				li {
+
+				}
+			}
+	}
+
+	.vereador-contact {	}
+}
+
+/* Breadcrumbs */
+
+.breadcrumbs {
+	background: $black;
+	height: 20px;
+	color: $white;
+	font-size: 1rem;
+	line-height: 20px;
+	text-transform: uppercase;
+	letter-spacing: .1em;
+
+	a {
+		color: $white;
+			text-decoration: none;
+
+		&:hover {
+			color: $white;
+			text-decoration: underline;
+		}
+	}
+
+	.breadcrumbs-separator {
+		margin: 0 3px 0 6px;
+
+		&:before {
+			content: '';
+			display: inline-block;
+			@include get-sprite($icons, arrow-right-small-red);
+			position: relative;
+			margin-top: -16px;
+			top: 12px;
+		}
+	}
+}
+
+/* gallery pages */
+
+.gallery-list {
+	margin-top: 1.5em;
+
+	.gallery-item {
+		width: 233px;
+		margin: 0 auto;
+
+		img {
+			width: 100%;
+			height: auto;
+		}
+	}
+}
+
+/* Events list */
+.css-events-list {
+
+	.event-group-title {
+		text-transform: capitalize;
+	}
+
+	.events-table {
+
+		thead {
+			font-size: 1.8rem;
+			line-height: 1.6em;
+			text-transform: uppercase;
+			color: $cmsp-red;
+		}
+
+		.event-date {
+			text-align: right;
+				padding: 1.2em;
+
+			.day {
+				font-size: 4.8rem;
+				color: $cmsp-red;
+				font-weight: 800;	
+			}
+
+			.time {
+				font-style: italic;
+				font-size: 1.8rem;
+				color: $cmsp-grey4;
+			}
+		}
+	}
+}
+
+/* posts and pages */
+
+.section-title {
+	background: $cmsp-grey2;
+
+	h2 {
+		font-size: 3.6rem;
+		line-height: 3.6rem;
+		font-weight: 400;
+		text-transform: uppercase;
+		padding: 13px 0 16px 50px;
+		position: relative;
+	}
+}
+
+#content {
+}
+
+		.hentry {
+			background-color: $white;
+			border-radius: 3px;
+			margin-bottom: 1.5em;
+
+			.article-header {
+				padding: 1.5em;
+				padding-bottom: 0;
+
+				.share-buttons {
+					li {
+						margin: 5px 0;
+					}
+				}
+			}
+
+			footer {
+				padding: 1.5em;
+
+				p {
+					margin: 0;
+				}
+			}
+
+			&:not(:first-of-type) {
+				border-top: 1px solid $cmsp-grey3;
+			}
+
+		} /* end .hentry */ 
+
+		.single-title,
+		.page-title,
+		.entry-title {
+			margin: 0;
+			font-weight: 600;
+
+			a {
+
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+		}
+
+		.single-title {}
+
+		.page-title {
+			border-bottom: 3px solid $cmsp-grey3;
+			position: relative;
+			text-transform: uppercase;
+		}
+
+		.entry-title {}
+
+		.archive-title {}
+
+		/* want to style individual post classes? Booya! */
+		.post-id {}         /* post by id (i.e. post-3) */
+		.post {}            /* general post style */
+		.page {}            /* general article on a page style */
+		.attachment {}      /* general style on an attatchment */
+		.sticky {}          /* sticky post style */
+		.hentry {}          /* hentry class */
+		.category-slug {}   /* style by category (i.e. category-videos) */
+		.tag-slug {}        /* style by tag (i.e. tag-news) */
+
+		/* post meta */
+		.byline {
+			margin: 0;
+
+			time {}
+		}
+
+		/* entry content */
+		.entry-content {
+			padding: 1.5em 1.5em 0;
+
+			p {
+				margin: 0 0 1.5em;
+			}
+
+
+			ul, ol, table, dl {}
+
+			ul, ol {
+				padding-left: 1.6rem;
+
+				li {}
+
+			}
+
+			ul {
+				list-style: disc;
+
+				li {}
+
+			}
+
+			ol {
+				list-style: decimal;
+
+				li {}
+
+			}
+
+			table {
+				width: 100%;
+				border: 1px solid $cmsp-grey3;
+				margin-bottom: 1.5em;
+
+				caption {
+					margin: 0 0 7px;
+					font-size: 0.75em;
+					color: $meta-gray;
+					text-transform: uppercase;
+					letter-spacing: 1px;
+				}
+			}
+
+			tr {
+				border-bottom: 1px solid $gray;
+
+				&:nth-child(even) {
+					background-color: $light-gray;
+				}
+			}
+
+			td {
+				padding: 7px;
+				border-right: 1px solid $gray;
+
+				&:last-child {
+					border-right: 0;
+				}
+			}
+
+			th {
+				background-color: $cmsp-grey1;
+				border-bottom: 1px solid $cmsp-grey3;
+				border-right: 1px solid $cmsp-grey3;
+
+				&:last-child {
+					border-right: 0;
+				}
+			}
+
+			blockquote {
+				margin: 0 0 1.5em 0.75em;
+				padding: 0 0 0 0.75em;
+				border-left: 3px solid $blue;
+				font-style: italic;
+				color: $meta-gray;
+
+				&:before {}
+
+			}
+
+			dl {}
+
+			dt {}
+
+			dd {
+				margin-left: 0;
+				font-size: 0.9em;
+				color: #787878;
+				margin-bottom: 1.5em;
+			}
+
+			img {
+				margin: 0 0 1.5em 0;
+				max-width: 100%;
+				height: auto;
+			}
+
+			object {
+				display: block;
+				border: 1px solid $cmsp-grey3;
+				margin: 1em 0;
+			}
+
+			/* external content iframes */
+
+			.external-content-iframe {
+				width: 100%;
+				border: none;
+				height: 800px;
+			}
+
+			/* 'Câmara expressa' */
+
+			.camaraexpressa-list {
+				list-style: none;
+				padding: 0;
+				@extend .cf;
+				font-size: 1.4rem;
+
+				li {
+					float: left;
+					border: 1px solid $cmsp-grey3;
+					text-transform: uppercase;
+					border-bottom: 3px solid $cmsp-red;
+					margin: 1em 1em 1em 0;
+
+					a {
+						display: block;
+						width: 190px;
+						color: $black;
+						text-decoration: none;
+						padding-left: 20px;
+						position: relative;
+
+						&:hover {
+							color: $cmsp-red;
+							text-decoration: underline;
+						}
+
+						&::before {
+							content: '';
+							display: block;
+							width: 6px;
+							height: 30px;
+							position: absolute;
+							top: -2px;
+							left: 10px;
+							@include get-sprite($icons, 'arrow-right-small-red');
+						}
+					}
+
+				}
+			}
+
+			/*
+			image alignment on a screen this size may be
+			a bit difficult. It's set to start aligning
+			and floating images at the next breakpoint,
+			but it's up to you. Feel free to change it up.
+			*/
+			.alignleft, img.alignleft {}
+			.alignright, img.alignright {}
+			.aligncenter, img.aligncenter {}
+
+			.size-auto,
+			.size-full,
+			.size-large,
+			.size-medium,
+			.size-thumbnail {
+				max-width: 100%;
+				height: auto;
+			}
+
+			pre {
+				background: $black;
+				color: $light-gray;
+				font-size: 0.9em;
+				padding: 1.5em;
+				margin: 0 0 1.5em;
+				border-radius: 3px;
+			}
+
+		} /* end .entry-content */
+
+		/* Events */
+
+		.events-table {
+			border: 1px solid $cmsp-grey3;
+
+			thead {
+				border-bottom: 3px solid $cmsp-red;
+			}
+
+			tbody {
+			}
+
+				th {
+					font-weight: 600;
+					text-transform: uppercase;
+				}
+
+				th, td {
+					padding: 12px;
+					padding-bottom: 0;
+					text-align: center;
+					border: 1px solid $cmsp-grey3;
+				}
+
+				td {
+					border-bottom: 1px solid $cmsp-grey3;
+					padding-bottom: 12px;
+				}
+
+				.time {
+					width: 130px;
+				}
+
+				td.time {
+					color: $cmsp-red;
+					font-weight: 600;
+				}
+
+				.party {
+					position: relative;
+				}
+
+				.event-party {
+					display: block;
+					text-indent: -9999em;
+					width: 40px;
+					height: 40px;
+					position: relative;
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					margin-top: -20px;
+					margin-left: -20px;
+				}
+		}
+
+		.wp-caption {
+			max-width: 100%;
+			background: #eee;
+			padding: 5px;
+
+			/* images inside wp-caption */
+			img {
+				max-width: 100%;
+				margin-bottom: 0;
+				width: 100%;
+			}
+
+			p.wp-caption-text {
+				font-size: 0.85em;
+				margin: 4px 0 7px;
+				text-align: center;
+			}
+
+		} /* end .wp-caption */
+
+		/* image gallery styles */
+		.gallery {
+
+			dl {
+
+				a {}
+
+				img {}
+
+			}
+
+			dt {}
+
+			dd {}
+
+		} /* end .gallery */
+
+		/* gallery caption styles */
+		.gallery-caption {}
+
+		.size-full {}
+		.size-large {}
+		.size-medium {}
+		.size-thumbnail {}
+
+	// the tag output
+	.tags {
+		margin: 0;
+	}
+
+
+/* Shortcodes n' stuff */
+
+.webradio-frame {
+	width: 100%;
+}
+
+.showhide, .podcast {
+	border: 1px solid $cmsp-grey3;
+
+	.showhide-title, .podcast-title {
+		border-bottom: 3px solid $cmsp-red;
+		margin: 0;
+		font-size: 1.4rem;
+		text-transform: uppercase;
+
+		a {
+			color: $black;
+			display: block;
+			padding: 6px 0 0 24px;
+			position: relative;
+
+			&:hover, &:focus {
+				color: $cmsp-red;
+				outline: none;
+			}
+
+			&:before {
+				content: '';
+				display: block; 
+				position: absolute;
+				top: 3px;
+				left: 10px;
+				@include get-sprite($icons, 'arrow-right-small-red');
+			}
+		}
+	} 
+
+	&.show a:before {
+		@include get-sprite($icons, 'arrow-down-small-red');
+		left: 6px;
+	}
+
+	.showhide-content {
+		display: none;
+		padding: 1em 0 1em 15px;
+
+		br:first-child {
+			display: none;
+		}
+	}
+}
+
+.podcast {
+		margin: 10px 0;
+}
+
+/******************************************************************
+PAGE NAVI STYLES
+******************************************************************/
+
+.pagination,
+.wp-prev-next {
+	margin: 1.5em 0;
+}
+	.pagination{
+    text-align: center;
+
+    ul {
+      display: inline-block;
+      background-color: $white;
+      white-space: nowrap;
+      padding: 0;
+      clear: both;
+      border-radius: 3px;
+    }
+
+    li {
+      padding: 0;
+      margin: 0;
+      float: left;
+      display: inline;
+      overflow: hidden;
+      border-right: 1px solid $gray;
+    }
+
+    a, span {
+      margin: 0;
+      text-decoration: none;
+      padding: 0;
+      line-height: 1em;
+      font-size: 1em;
+      font-weight: normal;
+      padding: 0.75em;
+      min-width: 1em;
+      display: block;
+      color: $cmsp-red;
+
+      &:hover, &:focus {
+      	background-color: $cmsp-red;
+      	color: $white;
+      }
+    }
+
+    .current{
+    	cursor: default;
+    	font-weight: bold;
+    	color: $text-color;
+
+    	&:hover, &:focus {
+    		background-color: $white;
+    		color: $text-color;
+    	}
+    }
+
+  } /* end .bones_page_navi */
+
+	/* fallback previous & next links */
+	.wp-prev-next {
+
+		ul {}
+
+		.prev-link {
+			float: left;
+		}
+
+		.next-link {
+			float: right;
+		}
+
+	} /* end .wp-prev-next */
+
+
+/* Sitemap list */
+
+.sitemap-list {
+	&>li {
+		float: left;
+		width: 33.333%;
+		margin: 2em 0;
+
+		&:nth-of-type(4n) {
+			clear: both;
+		}
+	}
+}
+
+/******************************************************************
+COMMENT STYLES
+******************************************************************/
+
+/* h3 comment title */
+#comments-title {
+	padding: 0.75em;
+	margin: 0;
+	border-top: 1px solid $light-gray;
+
+	/* number of comments span */
+	span {}
+
+}
+
+.comment-nav {
+
+	ul {
+
+		li {}
+
+	}
+}
+
+
+.commentlist {
+	margin: 0;
+	list-style-type: none;
+}
+
+.comment {
+	position: relative;
+	clear: both;
+	overflow: hidden;
+	padding: 1.5em;
+	border-bottom: 1px solid $light-gray;
+
+	.comment-author {
+		padding: 7px;
+		border: 0;
+	}
+
+	/* vcard */
+	.vcard {
+		margin-left: 50px;
+
+		cite.fn {
+			font-weight: 700;
+			font-style: normal;
+
+			a.url {}
+
+		}
+
+		time {
+			display: block;
+			font-size: 0.9em;
+			font-style: italic;
+
+			a {
+				color: $meta-gray;
+				text-decoration: none;
+
+				&:hover {
+					text-decoration: underline;
+				}
+
+			}
+
+		}
+
+		.photo {}
+
+		.avatar {
+			position: absolute;
+			left: 16px;
+			border-radius: 50%;
+		}
+
+	} /* end .commentlist .vcard */
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+
+	.children {
+		margin: 0;
+
+		li {}
+
+			/* variations */
+			.comment {}
+			.alt {}
+			.odd {}
+			.even {}
+			.depth-1 {}           /* change number for different depth */
+			.byuser {}
+			.bypostauthor {}
+			.comment-author-admin {}
+
+	} /* end children */
+
+
+	&[class*=depth-] {
+		margin-top: 1.1em;
+	}
+
+	&.depth-1 {
+		margin-left: 0;
+		margin-top: 0;
+	}
+
+	&:not(.depth-1) {
+		margin-top: 0;
+		margin-left: 7px;
+		padding: 7px;
+	}
+
+	&.depth-2 {}
+	&.depth-3 {}
+	&.depth-4 {}
+	&.depth-5 {}
+
+	/* general comment classes */
+	&.alt {}
+	&.odd {
+		background-color: $white;
+	}
+	&.even {
+		background: $light-gray;
+	}
+	&.parent {}
+	&.comment {}
+	&.children {}
+	&.pingback {}
+	&.bypostauthor {}
+	&.comment-author {}
+	&.comment-author-admin {}
+	&.thread-alt {}
+	&.thread-odd {}
+	&.thread-even {}
+}
+
+
+
+
+	/* comment meta */
+	.comment-meta {
+
+		a {}
+
+	}
+
+	.commentmetadata {
+
+		a {}
+
+	}
+
+	/* comment content */
+	.comment_content {
+
+		p {
+			margin: 0.7335em 0 1.5em;
+			font-size: 1em;
+			line-height: 1.5em;
+		}
+
+	} /* end .commentlist .comment_content */
+
+	/* comment reply link */
+	.comment-reply-link {
+		@extend .btn;
+		font-size: 0.9em;
+		float: right;
+
+		&:hover,
+		&:focus {
+		}
+
+	} /* end .commentlist .comment-reply-link */
+
+	/* edit comment link */
+	.comment-edit-link {
+		font-style: italic;
+		margin: 0 7px;
+		text-decoration: none;
+		font-size: 0.9em;
+	}
+
+
+
+/******************************************************************
+COMMENT FORM STYLES
+******************************************************************/
+
+.comment-respond {
+	@extend .cf;
+	padding: 1.5em;
+	border-top: 1px solid $light-gray;
+}
+
+	#reply-title {
+		margin: 0;
+	}
+
+	.logged-in-as {
+		color: $meta-gray;
+		font-style: italic;
+		margin: 0;
+
+		a {
+			color: $text-color;
+		}
+	}
+
+	.comment-form-comment {
+		margin: 1.5em 0 0.75em;
+	}
+
+	.form-allowed-tags {
+		padding: 1.5em;
+		background-color: $light-gray;
+		font-size: 0.9em;
+	}
+
+	/* comment submit button */
+	#submit {
+		@extend .btn;
+		float: right;
+		font-size: 1em;
+	}
+
+	/* comment form title */
+	#comment-form-title {
+		margin: 0 0 1.1em;
+	}
+
+	/* cancel comment reply link */
+	#cancel-comment-reply {
+		a {}
+	}
+
+	/* logged in comments */
+	.comments-logged-in-as {}
+
+	/* allowed tags */
+	#allowed_tags {
+		margin: 1.5em 10px 0.7335em 0;
+	}
+
+	/* no comments */
+	.nocomments {
+		margin: 0 20px 1.1em;
+	}
+
+/*********************
+SIDEBARS & ASIDES
+*********************/
+
+.sidebar {}
+
+	.widgettitle {}
+
+	.widget {
+
+		ul {
+
+			li {
+
+				&:first-child {}
+
+				&:last-child {}
+
+				a {}
+
+				/* deep nesting */
+				ul {}
+
+			}
+
+		}
+
+	}
+
+	.no-widgets {
+		background-color: $white;
+		padding: 1.5em;
+		text-align: center;
+		border: 1px solid $border-color;
+		border-radius: 2px;
+		margin-bottom: 1.5em;
+	}
+
+	.tvcamara-menu, .webradio-menu {
+		> p {
+			margin: 0;
+
+		}
+
+		> br {
+			display: none;
+		}
+	}
+
+	.tvcamara-menu {
+		margin-top: 60px;
+	}
+
+/*********************
+FOOTER STYLES
+*********************/
+
+.footer {
+	font-size: 1.4rem;
+	clear: both;
+	background-color: $cmsp-grey2;
+	color: $black;
+	text-transform: uppercase;
+	padding-bottom: 100px;
+	text-align: center;
+
+	.endereco {
+		clear: both;
+		border: 1px solid $cmsp-grey5;
+		padding: 12px;
+		margin-top: 30px;
+
+		.gmaps-link {
+			position: relative;
+			display: block;
+			color: $black;
+			text-decoration: none;
+			&:hover {
+				color: $cmsp-red;
+			}
+
+			&:before {
+				content: '';
+				display: block;
+				@include get-sprite($icons, gmaps-pin);
+				position: absolute;
+				top: 6px;
+				left: 50%;
+				margin-left: -65px;
+			}
+		}
+	}
+}
+
+	/*
+	if you checked out the link above:
+	http://www.alistapart.com/articles/organizing-mobile/
+	you'll want to style the footer nav
+	a bit more in-depth. Remember to keep
+	it simple because you'll have to
+	override these styles for the desktop
+	view.
+	*/
+	.footer-links {
+
+		border: 1px solid $cmsp-grey5;
+		border-bottom: none;
+
+		li {
+
+			a {
+				border-bottom: 1px solid $cmsp-grey5;
+			}
+		}
+
+	} /* end .footer-links */
+
+
+	.copyright {}
+
+
+/* Buddypress */
+.page-id-8221 .sidebar,
+.page-id-8222 .sidebar,
+.page-id-8225 .sidebar,
+.page-id-8228 .sidebar {display:none}
+.page-id-8221 .two-column-main,
+.page-id-8222 .two-column-main {min-width:100%; position:relative}
+.page-id-8221 .two-column-main .page-title:after,
+.page-id-8222 .two-column-main .page-title:after {display:none}
+.page-id-8222 #buddypress div.dir-search {margin: 1.5em 0 0 0; position:absolute; right:0; top:0}
+.page-id-8222 #search-members-form label {display:inline-block; margin-right:33px}
+.page-id-8222 #search-members-form label::before {background:none}
+.page-id-8225 #buddypress .standard-form#signup_form input[type=text],
+.page-id-8228 #buddypress .standard-form#activation-form input[type=text],
+.page-id-8225 #buddypress .standard-form #basic-details-section input[type=password],
+.page-id-8222 #buddypress div.dir-search input[type=text] {background-color:#fff; display: block; height: 32px; line-height: 32px; padding: 0 12px; margin-bottom: 14px; font-size:1em; font-weight:normal; color: #333333; vertical-align: middle; box-shadow: none; border: 0; width: 100%; border: 1px solid #e0e0e0; -webkit-transition: border 0.24s ease-in-out; transition: border 0.24s ease-in-out}
+.page-id-8222 #buddypress input[type=submit] {display: block; position: absolute; right: 0; top: 0; width: 32px; height: 32px; border: none; background: url('../images/sprite-icons-s32675e4202.png') 0 -2905px no-repeat; height: 32px; width: 32px; background-color: #7F1A22; text-indent: -9999em}
+.page-id-8221 .item-list-tabs,
+.page-id-8222 .item-list-tabs {display:inline-block;}
+.page-id-8221 #buddypress div.item-list-tabs#subnav,
+.page-id-8222 #buddypress div.item-list-tabs#subnav {float:right; margin:0}
+.page-id-8221 #buddypress div.item-list-tabs#subnav ul li.last,
+.page-id-8222 #buddypress div.item-list-tabs#subnav ul li.last {margin-top:0}
+.page-id-8221 #buddypress div.item-list-tabs#subnav ul li.feed {display:none}
+.page-id-8221 #buddypress div.item-list-tabs#subnav ul li label,
+.page-id-8222 #buddypress div.item-list-tabs#subnav ul li label {height:auto; line-height:21px}
+.page-id-8221 #buddypress div.item-list-tabs#subnav ul li label::before,
+.page-id-8222 #buddypress div.item-list-tabs#subnav ul li label::before {height:21px; line-height:21px; top:-5px}
+.page-id-8221 #buddypress select#activity-filter-by,
+.page-id-8222 #buddypress select#members-order-by {max-width:230px; width:227px}
+.page-id-8225 #buddypress .standard-form div.submit input,
+.page-id-8228 #buddypress .standard-form p.submit input {display: inline-block; position: relative; font-family: "myriad-pro", "Helvetica Neue", Helvetica, Arial; text-decoration: none; text-transform: uppercase; color: #fff; font-size: 1.4rem; line-height: 1.5rem; height: 30px; font-weight: 600; padding: 6px 24px;border: 0; cursor: pointer; background: #7F1A22; position: relative; text-align: center;}
+.page-id-8225 #buddypress .standard-form #basic-details-section,
+.page-id-8225 #buddypress .standard-form #profile-details-section {width:100%}
+.page-id-8225 #buddypress .standard-form#signup_form div.submit,
+.page-id-8228 #buddypress .standard-form#activation-form div.submit {float:left}
+/* ALTERAÇÕES */

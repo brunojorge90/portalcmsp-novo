@@ -1,0 +1,486 @@
+#cover-vereador{
+  .config-image-bg{
+      
+      img{
+          
+      }
+      &::before{
+          display: none;
+      }
+  }
+}
+
+#infos-vereador {
+  position: relative;
+
+  .abs {
+
+    .container {
+      margin-top: -130px;
+
+      .sobre-vereador {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .foto-perfil-vereador {
+          max-width: 255px;
+          max-height: 255px;
+          border: 8px solid $color-neutral-white;
+          border-radius: $radius-500px;
+          overflow: hidden;
+          margin: 0 auto;
+
+          img {
+            width: 239px;
+            height: 239px;
+            object-fit: cover;
+          }
+
+        }
+
+        .textos-vereador {
+          text-align: center;
+          max-width: 740px;
+          margin: 0 36px;
+
+          p {
+            text-align: left;
+          }
+
+          a {
+            display: inline-block;
+          }
+        }
+      }
+
+      .frequencia-vereador {
+        display: flex;
+        gap: 32px;
+
+        .card-frequencia {
+          flex: 1;
+          border-radius: $radius-8px;
+          border: 1px solid $color-neutral-grey-blue;
+          padding: 20px 8px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+
+          h2 {
+            color: $color-primary-accent;
+            border-bottom: solid 1px $color-primary-accent;
+            padding-bottom: 16px;
+            align-self: flex-start;
+            width: 100%;
+            margin-bottom: 46px;
+          }
+
+          strong {
+            display: block;
+            color: $color-neutral-d-grey;
+          }
+
+          span {
+            display: block;
+            color: $color-neutral-d-grey;
+            margin-top: 8px;
+            margin-bottom: 16px;
+          }
+
+        }
+      }
+
+      .verba-gabinete {
+        border-radius: $radius-8px;
+        border: 1px solid $color-neutral-grey-blue;
+        padding: 20px 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        h2 {
+          color: $color-primary-accent;
+          border-bottom: solid 1px $color-primary-accent;
+          padding-bottom: 16px;
+          align-self: flex-start;
+          width: 100%;
+          margin-bottom: 46px;
+        }
+
+        .detalhes-grafico {
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+          padding: 0 16px;
+
+          h4 {
+            display: flex;
+            gap: 8px;
+            border-bottom: solid 1px $color-neutral-silver;
+            padding-bottom: 0;
+            align-self: flex-start;
+            width: 100%;
+            margin-bottom: 24px;
+          }
+
+          .infos-legenda {
+            display: flex;
+            width: 100%;
+            align-items: flex-end;
+
+            .itens-legenda {
+              flex: 1;
+              display: flex;
+              flex-direction: column;
+
+              span {
+                display: flex;
+                gap: 16px;
+                margin-bottom: 16px;
+
+                &::before {
+                  display: inline-block;
+                  content: "";
+                  width: 24px;
+                  height: 24px;
+                  border-radius: $radius-4px;
+                }
+              }
+
+              .verba-consumida {
+                &::before {
+                  background-color: $color-success-m-green;
+                }
+              }
+
+              .verba-total {
+                &::before {
+                  background-color: $color-neutral-silver;
+                }
+              }
+            }
+
+            a {
+              flex: 1;
+              text-align: right;
+              text-decoration: none;
+            }
+          }
+        }
+      }
+
+      .projetos-leis {
+        display: flex;
+        gap: 32px;
+
+        .card-projetos {
+          flex: 1;
+          border-radius: $radius-8px;
+          border: 1px solid $color-neutral-grey-blue;
+          padding: 20px 8px 32px 8px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+
+          h2 {
+            color: $color-primary-accent;
+            border-bottom: solid 1px $color-primary-accent;
+            padding-bottom: 16px;
+            align-self: flex-start;
+            width: 100%;
+            margin-bottom: 48px;
+          }
+
+          .box-vereador-projects-list {
+            flex:1;
+          }
+          .infos-projetos {
+            width: 100%;
+            padding: 0 19px;
+
+            ul {
+              padding: 0;
+              margin: 0;
+              list-style: none;
+              width: 100%;
+
+              li {
+                padding: 8px 0;
+                border-bottom: solid 1px $color-neutral-silver;
+
+                a {
+                  display: flex;
+                  gap: 8px;
+                  text-decoration: none;
+                  transition: all 300ms;
+
+                  &:hover {
+                    gap: 16px;
+                    color: $color-primary-accent;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .abs.not-abs {
+    .container {
+      margin-top: 0px;
+    }
+  }
+}
+
+#contato-agenda-vereador {
+  .container {
+    display: flex;
+    gap: 32px;
+
+    h2 {
+      color: $color-primary-accent;
+      align-self: flex-start;
+      width: 100%;
+      margin-bottom: 32px;
+    }
+
+    .contato-vereador {
+      flex: 1;
+
+      .mensagem-contato {
+        border-radius: $radius-8px;
+        border: 1px solid $color-neutral-grey-blue;
+
+        .context {
+          padding: 0 24px 32px 24px;
+
+          label {
+            display: block;
+          }
+
+          .informativos {
+            display: flex;
+            justify-content: space-between;
+
+            label {
+              margin-top: 0;
+            }
+          }
+
+          .sua-mensagem {
+            textarea {
+              height: 120px;
+            }
+
+            span {
+              margin-top: 8px;
+              font-size: 1.2rem;
+              display: block;
+              text-align: right;
+            }
+
+          }
+        }
+      }
+    }
+
+    .agenda-vereador {
+      flex: 1;
+
+      .agenda-completa {
+        border-radius: $radius-8px;
+        border: 1px solid $color-neutral-grey-blue;
+        padding: 16px;
+        height: calc(100% - 60px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        h3 {
+          padding-bottom: 8px;
+          border-bottom: 1px solid $color-primary-accent;
+        }
+
+        .item-agenda {
+          padding: 24px 0;
+          border-bottom: 1px solid $color-neutral-silver;
+
+          .hora-local {
+            padding: 16px 0 24px 0;
+            display: flex;
+            gap: 16px;
+          }
+
+          .acoes {
+            display: flex;
+            gap: 16px;
+
+            a {
+              flex: 1;
+            }
+          }
+        }
+
+        .item-agenda:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+}
+
+#midia-vereador {
+  .container {
+    display: flex;
+    gap: 32px;
+
+    h2 {
+      color: $color-primary-accent;
+      padding-bottom: 16px;
+      align-self: flex-start;
+      width: 100%;
+      margin-bottom: 24px;
+    }
+
+    .noticias-vereador {
+      flex: 1;
+
+      .noticia-individual {
+        border-radius: $radius-8px;
+        border: 1px solid $color-neutral-grey-blue;
+        padding: 16px;
+        min-height: 144px;
+        display: flex;
+        gap: 16px;
+        text-decoration: none;
+        transition: all .3s ease-in-out;
+        .img-noticia {
+          img {
+            width: 185px;
+            height: 102px;
+            object-fit:cover;
+            border-radius: 8px;
+          }
+        }
+
+        .infos-noticia {
+          max-width: 309px;
+          display: flex;
+          flex-direction: column;
+
+          span {
+            padding-left: 0;
+            color: $color-primary-accent;
+            transition: all .3s ease-in-out;
+          }
+        }
+
+        &:hover {
+          cursor: pointer !important;
+          text-decoration: none;
+          background-color: $color-primary-extra-5;
+          border-color: $color-primary-extra-5;
+
+          .infos-noticia {
+            span {
+              padding-left: 16px;
+            }
+          }
+        }
+      }
+
+      .button-primary {
+        display: block;
+      }
+    }
+
+    .videos-vereador {
+      flex: 1;
+      max-width: 544px;
+
+      .galeria-videos {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 32px;
+
+        a {
+          max-width: 256px;
+          min-width: 256px;
+          flex: 1;
+          width: 100%;
+          min-width: 255px;
+          overflow: hidden;
+          border-radius: $radius-8px;
+          border: 1px solid $color-neutral-grey-blue;
+          text-decoration: none;
+          transition: all .3s ease-in-out;
+
+          div {
+            overflow: hidden;
+            height: 143px;
+
+            img {
+              object-fit: cover;
+              transition: all .3s ease-in-out;
+            }
+          }
+
+
+          span {
+            display: block;
+            padding: 16px 16px 32px 16px;
+          }
+
+          &:hover {
+            cursor: pointer !important;
+            text-decoration: none;
+            background-color: $color-primary-extra-5;
+            border-color: $color-primary-extra-5;
+
+            div {
+              img {
+                transform: scale(1.1);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.lines4 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    -webkit-box-orient: vertical;
+}
+
+.lines1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.mensagem-contato {
+  form {
+    p {
+      margin: 0px;
+    }
+  }
+
+}
+
+.vereador-data li {
+  font-size: 1.6rem;
+  margin: 24px 0px 0px 0px;
+  strong {
+    display: block;
+    margin-bottom: 8px;
+  }
+}

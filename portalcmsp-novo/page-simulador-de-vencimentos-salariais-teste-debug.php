@@ -1,0 +1,1721 @@
+<?php get_header(); ?>
+
+<div id="content">
+
+	<div class="breadcrumbs cf">
+		<?php if ( function_exists('yoast_breadcrumb') ) {
+			yoast_breadcrumb('<p class="wrap cf">','</p>');
+		} ?>
+	</div>
+
+	<!--div class="section-title">
+		<h2 class="wrap icon-clock-large-red"><?php the_title(); ?></h2>
+	</div-->
+
+	<div id="inner-content" class="wrap cf">
+
+		<div id="main" class="two-column-main cf" role="main">
+
+			<article id="post-<?php the_ID(); ?>" <?php post_class( 'cf' ); ?>
+				role="article" itemscope itemtype="http://schema.org/BlogPosting">
+
+				<header class="article-header">
+					<h1 class="page-title" itemprop="headline">
+						TESTE NOVAS REGRAS (2022-04-27) - Simulador de vencimentos salariais da Câmara Municipal de São Paulo e legislação aplicável
+					</h1>
+				</header>
+
+				<section class="entry-content cf" itemprop="articleBody">
+
+				<?php
+					$debugar = true;
+
+					/*
+						Imposto Retido
+						IRRF
+						--- Ano Calendário de 2011 ---
+						  Base de cálculo mensal em R$   Alíquota %  Parcela a deduzir do imposto em R$
+							Até 1.566,61 	                 -          -
+							De 1.566,62 até 2.347,85 	     7,5        117,49
+							De 2.347,86 até 3.130,51 	    15,0        293,58
+							De 3.130,52 até 3.911,63 	    22,5        528,37
+							Acima de 3.911,63 	            27,5        723,95
+
+						--- Ano Calendário de 2012 ---
+						  Base de cálculo mensal em R$   Alíquota %  Parcela a deduzir do imposto em R$
+							Até 1.637,11 	                -           -
+							De 1.637,12 até 2.453,50 	     7,5        122,78
+							De 2.453,51 até 3.271,38 	    15,0        306,80
+							De 3.271,39 até 4.087,65 	    22,5        552,15
+							Acima de 4.087,65 	            27,5        756,53
+
+						--- Ano Calendário de 2013 ---
+						  Base de cálculo mensal em R$   Alíquota %  Parcela a deduzir do imposto em R$
+							Até 1.710,78 	                 -          -
+							De 1.710,79 até 2.563,91 	     7,5        128,31
+							De 2.563,92 até 3.418,59 	    15,0        320,60
+							De 3.418,60 até 4.271,59 	    22,5        577,00
+							Acima de 4.271,59 	            27,5        790,58
+
+						--- Ano Calendário de 2014 ---
+						  Base de cálculo mensal em R$   Alíquota %  Parcela a deduzir do imposto em R$
+							Até 1.787,77 	                 -          -
+							De 1.787,78 até 2.679,29 	     7,5        134,08
+							De 2.679,30 até 3.572,43 	    15,0        335,03
+							De 3.572,44 até 4.463,81 	    22,5        602,96
+							Acima de 4.463,81 	            27,5        826,15
+
+						--- Ano Calendário de 2015 ---
+						  Base de cálculo mensal em R$   Alíquota %  Parcela a deduzir do imposto em R$
+							Até 1.903,98 	                 -          -
+							De 1.903,99 até 2.826,65 	     7,5        142,80
+							De 2.826,66 até 3.751,05 	    15,0        354,80
+							De 3.751,06 até 4.664,68 	    22,5        636,13
+							Acima de 4.664,68 	            27,5        869,36
+
+						--- Ano Calendário de 2016 ---
+						  Base de cálculo mensal em R$   Alíquota %  Parcela a deduzir do imposto em R$
+							????
+
+						--- Ano Calendário de 2017 ---
+						  Base de cálculo mensal em R$   Alíquota %  Parcela a deduzir do imposto em R$
+							idem 2015
+						--- Ano Calendário de 2021 ---
+						Tabela de Incidência Mensal
+						https://www.gov.br/receitafederal/pt-br/assuntos/orientacao-tributaria/tributos/irpf-imposto-de-renda-pessoa-fisica
+					*/
+					// decimal irrf = Funcoes.CalcularIRRF(bruto - iprem);
+					function CalcularIRRF ($valorBase)
+					{
+						if ($valorBase <= 1903.98) return 0; // ISENTO
+						if ($valorBase <= 2826.65) return ($valorBase * 0.075) - 142.80;
+						if ($valorBase <= 3751.05) return ($valorBase * 0.150) - 354.80;
+						if ($valorBase <= 4664.68) return ($valorBase * 0.225) - 636.13;
+						return ($valorBase * 0.275) - 869.36;
+					}
+
+					/*
+						INSS
+
+						--- Ano-calendário 2017 ---
+						Salário-de-contribuição (R$) 	Alíquota para fins de recolhimento ao INSS
+						            até 1.659,38	     8 %
+						de 1.659,39 até 2.765,66 	     9 %
+						de 2.765,66 até 5.531,31        11 %
+
+						--- Ano-calendário 2018 ---
+						Salário-de-contribuição (R$) 	Alíquota para fins de recolhimento ao INSS
+						            até 1.693,72	     8 %
+						de 1.693,73 até 2.822,90 	     9 %
+						de 2.822,91 até 5.645,80        11 %
+
+						--- Ano-calendário 2019 ---
+						Salário-de-contribuição (R$) 	Alíquota para fins de recolhimento ao INSS
+						            até 1.751,81	     8 %
+						de 1.751,82 até 2.919,72 	     9 %
+						de 2.919,73 até 5.839,45        11 %
+
+						--- Ano-calendário 2021 ---
+						O cálculo do INSS agora é por faixas de salário. Ou seja, 
+						as alíquotas vão sendo aplicadas de acordo com a faixa salarial da pessoa,
+						não sendo mais substituídas quando a pessoa muda de faixa.
+						
+						TETO		751,99	
+						De		Até		Alíquota	Teto na faixa
+						0,00	1100,00	7,50%		82,5
+						1100,01	2203,48	9%			99,31
+						2203,49	3305,22	12%			132,21
+						3305,23	6433,57	14%			437,97
+
+						--- Ano-calendário 2022 ---
+						Alteração dos descontos de INSS
+						
+						TETO		828.39	
+						De		Até		Alíquota	Teto na faixa
+						0,00	1212.00	7,50%		90.9
+						1212.01	2427.35	9%			109.38
+						2427.36	3641.03	12%			145.64
+						3641.04	7087.22	14%			?
+						
+						
+					*/
+					function CalcularINSS ($valorBase) // bruto
+					{
+						//método pré-2021
+						//if ($valorBase <= 1751.81) return $valorBase * 0.08;
+						//if ($valorBase <= 2919.72) return $valorBase * 0.09;
+						//if ($valorBase <= 5839.45) return $valorBase * 0.11;
+						//                           return 5839.45 * 0.11; // TETO
+												   
+						//a partir de 2021 mudou o método de cálculo
+						if ($valorBase <= 1212.00) return $valorBase * 0.075;
+						if ($valorBase <= 2427.35) return (($valorBase - 1212.00) * 0.09) + 90.9;
+						if ($valorBase <= 3641.03) return (($valorBase - 2427.35) * 0.12) + 90.9 + 109.38;
+						if ($valorBase <= 7087.22) return (($valorBase - 3641.03) * 0.14) + 90.9 + 109.38 + 145.64;
+												   return 828.39; // acima de 7087.22 retorna o TETO
+					}
+
+					/*
+						Objeto Wordpress que faz a intermediação com o banco de dados
+						https://codex.wordpress.org/Class_Reference/wpdb
+					*/
+					global $wpdb;
+					?>
+
+					<!-- TIPO DE CARGO OU EMPREGO -->
+					<form action="#" method="POST" name="simuladorVenc" id="simuladorVencForm">
+						<fieldset>
+							<div class="form-group">
+								<div class="form-row" id="tipoCargoOuEmprego">
+
+									<?php (array_key_exists('cargoTipo', $_POST) ? $cargoTipoSelecionado = $_POST['cargoTipo'] : $cargoTipoSelecionado = null);?>
+									<label>Tipo de Cargo ou Emprego:</label>
+									<select id="cargoTipo" name="cargoTipo" class="form-control"
+										onchange="this.form.action='#tipoCargoOuEmprego'; this.form.submit()">
+										<option value="NA" <?=(empty($cargoTipoSelecionado) || $cargoTipoSelecionado == "NA") ? 'selected="selected"' : ""?>>Selecione...
+										</option>
+										<option value="EFETIVO" <?php
+											if(!empty($cargoTipoSelecionado) && $cargoTipoSelecionado == "EFETIVO") {
+												echo 'selected="selected"';
+											} ?>>Cargos Efetivos
+										</option>
+										<option value="CLT" <?php
+											if(!empty($cargoTipoSelecionado) && $cargoTipoSelecionado == "CLT") {
+												echo 'selected="selected"';
+											} ?>>Empregos públicos do regime CLT
+										</option>
+										<option value="COMISSAO" <?php
+											if(!empty($cargoTipoSelecionado) && $cargoTipoSelecionado == "COMISSAO") {
+												echo 'selected="selected"';
+											} ?>>Cargos de livre provimento em comissão
+										</option>
+										<option value="COMISSIONADO" <?php
+											if(!empty($cargoTipoSelecionado) && $cargoTipoSelecionado == "COMISSIONADO") {
+												echo 'selected="selected"';
+											} ?>>Servidores afastados para prestar serviço junto à CMSP*
+										</option>
+										<option value="APM" <?php
+											if(!empty($cargoTipoSelecionado) && $cargoTipoSelecionado == "APM") {
+												echo 'selected="selected"';
+											} ?>>Assessoria Policial Militar da Câmara Municipal de São Paulo*
+										</option>
+										<option value="GCM" <?php
+											if(!empty($cargoTipoSelecionado) && $cargoTipoSelecionado == "GCM") {
+												echo 'selected="selected"';
+											} ?>>Guarda Civil Metropolitana na Câmara Municipal de São Paulo*
+										</option>
+										<option value="VEREADOR" <?php
+											if(!empty($cargoTipoSelecionado) && $cargoTipoSelecionado == "VEREADOR") {
+												echo 'selected="selected"';
+											} ?>>Vereadores
+										</option>
+									</select>
+									<?php
+										$tetoVALOR = 0;
+										$tetoProcuradorVALOR = 0;
+										$descontoTetoVALOR = 0;
+										$brutoVALOR = 0;
+										$liqVALOR = 0;
+
+										$tetoROW = $wpdb->get_row(
+											"SELECT VALOR FROM cti_sv_quadro WHERE VINCULO='TETO' AND ID='TETO-Funcionarios';"
+										);
+										if (!empty($tetoROW)) $tetoVALOR = 0 + $tetoROW->VALOR;
+
+										$tetoProcuradorROW = $wpdb->get_row(
+											"SELECT VALOR FROM cti_sv_quadro WHERE VINCULO='TETO' AND ID='TETO-Procuradores';"
+										);
+										if (!empty($tetoProcuradorROW)) $tetoProcuradorVALOR = 0 + $tetoProcuradorROW->VALOR;
+
+										$tetoGVROW = $wpdb->get_row(
+											"SELECT VALOR FROM cti_sv_quadro WHERE VINCULO='TETO' AND ID='TETO-GV';"
+										);
+										if (!empty($tetoGVROW)) $tetoGVVALOR = 0 + $tetoGVROW->VALOR;
+
+
+										// CARGOS EFETIVOS	####################################################################
+										if(!empty($cargoTipoSelecionado) && $cargoTipoSelecionado == "EFETIVO") {
+
+											// captura as seleções
+											//$nivelEfetivoSelecionado = $_POST['nivelEfetivo'];
+											(array_key_exists('nivelEfetivo', $_POST) ? $nivelEfetivoSelecionado = $_POST['nivelEfetivo'] : $nivelEfetivoSelecionado = null);
+
+											// constantes
+											$qpl01VALOR = 0;
+											$qpl07VALOR = 0;
+											$fg1VALOR = 0;
+
+											// variáveis para cálculo dos vencimentos finais
+											$padraoEfetivoVALOR = 0;
+											$padraoEfetivoANOS = 0;
+											$fgVALOR = 0;
+											$gliepVALOR = 0;
+											$gratificVALOR = 0;
+											$gratificOutrasVALOR = 0;
+											$gcjlEfetivosVALOR = 0;
+											$adInsalubVALOR = 0;
+											$adTempoVALOR = 0;
+											$sextaParteVALOR = 0;
+											$cargoSelecionado = "";
+											$ipremVALOR = 0;
+											$irrfVALOR = 0;
+									?>
+									<!-- EFETIVO -> NIVEL -->
+									<div class="form-row" id="nivelEfetivo">
+										<label>Nível:</label>
+										<select id="nivelEfetivo" name="nivelEfetivo" class="form-control"
+											onchange="this.form.action='#tipoCargoOuEmprego'; this.form.submit()">
+											<option value="NA" <?php
+												if(empty($nivelEfetivoSelecionado) || $nivelEfetivoSelecionado == "NA") {
+													echo 'selected="selected"';
+												} ?>>Selecione...
+											</option>
+											<option value="BASICO" <?php
+												if(!empty($nivelEfetivoSelecionado) && $nivelEfetivoSelecionado == "BASICO") {
+													echo 'selected="selected"';
+												} ?>>Básico
+											</option>
+											<option value="MEDIO" <?php
+												if(!empty($nivelEfetivoSelecionado) && $nivelEfetivoSelecionado == "MEDIO") {
+													echo 'selected="selected"';
+												} ?>>Médio
+											</option>
+											<option value="SUPERIOR" <?php
+												if(!empty($nivelEfetivoSelecionado) && $nivelEfetivoSelecionado == "SUPERIOR") {
+													echo 'selected="selected"';
+												} ?>>Superior
+											</option>
+										</select>
+									</div>
+									<?php
+										if(!empty($nivelEfetivoSelecionado)) {
+											//captura as seleções
+											//$cargoEfetivoSelecionado = $_POST['cargoEfetivo'];
+											(array_key_exists('cargoEfetivo', $_POST) ? $cargoEfetivoSelecionado = $_POST['cargoEfetivo'] : $cargoEfetivoSelecionado = null);
+									?>
+									<div class="form-row">
+										<label>Cargo:</label>
+										<select id="cargoEfetivo" name="cargoEfetivo" class="form-control"
+											onchange="this.form.action='#tipoCargoOuEmprego'; this.form.submit()">
+											<option value="NA" <?php
+												if(empty($cargoEfetivoSelecionado) || $cargoEfetivoSelecionado == "NA") {
+													echo 'selected="selected"';
+												} ?>>Selecione...</option>
+											<?php
+												$cargos = $wpdb->get_results(
+													"SELECT ID, CARGO FROM cti_sv_cargos WHERE VINCULO='EFETIVO' AND GRUPO='"
+													. $nivelEfetivoSelecionado . "';");
+												foreach($cargos as $cargo) {
+													echo "<option value='" . $cargo->ID . "'" . (
+														!empty($cargoEfetivoSelecionado) && $cargoEfetivoSelecionado == $cargo->ID ? "selected=\"selected\"":""
+													) . ">" . $cargo->CARGO . "</option>";
+													if (!empty($cargoEfetivoSelecionado) && $cargoEfetivoSelecionado == $cargo->ID) {
+														$cargoSelecionado = $cargo->CARGO;
+													}
+												}
+											?>
+										</select>
+									</div>
+									<?php
+										if(!empty($cargoEfetivoSelecionado) && $cargoEfetivoSelecionado <> "NA") {
+											//$padraoEfetivoSelecionado       = $_POST['padraoEfetivo'];
+											(array_key_exists('padraoEfetivo', $_POST) ? $padraoEfetivoSelecionado = $_POST['padraoEfetivo'] : $padraoEfetivoSelecionado = null);
+											//$funcaoChefiaEfetivoSelecionado = $_POST['funcaoChefiaEfetivo'];
+											(array_key_exists('funcaoChefiaEfetivo', $_POST) ? $funcaoChefiaEfetivoSelecionado = $_POST['funcaoChefiaEfetivo'] : $funcaoChefiaEfetivoSelecionado = null);
+											//$gliepEfetivoSelecionado        = $_POST['gliepEfetivo'];
+											(array_key_exists('gliepEfetivo', $_POST) ? $gliepEfetivoSelecionado = $_POST['gliepEfetivo'] : $gliepEfetivoSelecionado = null);
+											//$adInsalubSelecionado           = $_POST['adInsalub'];
+											(array_key_exists('adInsalub', $_POST) ? $adInsalubSelecionado = $_POST['adInsalub'] : $adInsalubSelecionado = null);
+									?>
+									<div class="form-row" id="padraoEfetivo">
+										<label>Padrão:</label>
+										<select id="padraoEfetivo" name="padraoEfetivo" class="form-control"
+											onchange="this.form.action='#padraoEfetivo'; this.form.submit()">
+											<option value="NA" <?php
+												if(empty($padraoEfetivoSelecionado) || $padraoEfetivoSelecionado == "NA") {
+													echo 'selected="selected"';
+												} ?>>Selecione...</option>
+												<?php
+													$padroes = $wpdb->get_results(
+														"SELECT PADRAO, ANOS FROM cti_sv_evolucao WHERE VINCULO='EFETIVO' AND ESCOLARIDADE='"
+														. $nivelEfetivoSelecionado."';");
+													foreach($padroes as $padrao) {
+														echo "<option value='" . $padrao->PADRAO . "'" . (
+															!empty($padraoEfetivoSelecionado) && $padraoEfetivoSelecionado == $padrao->PADRAO ? "selected=\"selected\"":""
+														) . ">"
+														. $padrao->PADRAO." (" . $padrao->ANOS." anos de serviço no mínimo mais pontuação por títulos)</option>";
+														if (!empty($padraoEfetivoSelecionado) && $padraoEfetivoSelecionado == $padrao->PADRAO) {
+															$padraoEfetivoANOS = $padrao->ANOS;
+														}
+													}
+												?>
+										</select>
+										<?php
+											$padraoEfetivoSelecionadoRow = $wpdb->get_row(
+												"SELECT VALOR FROM cti_sv_quadro WHERE VINCULO='EFETIVO' AND ID = '"
+												. $padraoEfetivoSelecionado . "';"
+											);
+											if (!empty($padraoEfetivoSelecionadoRow)) {
+												$padraoEfetivoVALOR = $padraoEfetivoSelecionadoRow->VALOR;
+											}
+										?>
+										<div>R$ <?=(!empty($padraoEfetivoVALOR) ? number_format($padraoEfetivoVALOR, 2, ',', '.') : "0,00")?></div>
+										<br />
+									</div>
+									<div class="form-row">
+										<label>Função de chefia:</label>
+										<select id="funcaoChefiaEfetivo" name="funcaoChefiaEfetivo" class="form-control"
+											onchange="this.form.action='#padraoEfetivo'; this.form.submit()">
+											<option value="NA" <?php
+												if(empty($cargoEfetivoSelecionado) || $cargoEfetivoSelecionado == "NA") {
+													echo 'selected="selected"';
+												} ?>>Selecione...</option>
+											<?php
+												$fgs = $wpdb->get_results(
+													"SELECT ID, VALOR, OBS FROM cti_sv_quadro WHERE VINCULO='FG';");
+												foreach($fgs as $fg) {
+													if (!empty($funcaoChefiaEfetivoSelecionado) && $funcaoChefiaEfetivoSelecionado == $fg->ID) {
+														$fgVALOR = $fg->VALOR;
+													}
+													echo "<option value='" . $fg->ID . "'" . (!empty($funcaoChefiaEfetivoSelecionado) && $funcaoChefiaEfetivoSelecionado == $fg->ID ? "selected=\"selected\"" : "") . ">" . $fg->OBS . "</option>";
+												}
+											?>
+										</select>
+										<div>R$ <?=(!empty($fgVALOR) ? number_format($fgVALOR, 2, ',', '.') : "0,00")?></div>
+										<br />
+									</div>
+									<div class="form-row">
+										<label>GLIEP:</label>
+										<select id="gliepEfetivo" name="gliepEfetivo" class="form-control"
+											onchange="this.form.action='#padraoEfetivo'; this.form.submit()">
+											<option value="NA" <?php
+												if(empty($cargoEfetivoSelecionado) || $cargoEfetivoSelecionado == "NA") {
+													echo 'selected="selected"';
+												} ?>>Selecione...</option>
+											<?php
+												//$gliepVALOR = null;
+												$glieps = $wpdb->get_results(
+													"SELECT ID, DESCR FROM cti_sv_gliep WHERE VINCULO='EFETIVO' AND ESCOLARIDADE='" . $nivelEfetivoSelecionado."';"
+												);
+												foreach($glieps as $gliep) {
+													//if (!empty($gliepEfetivoSelecionado) && $gliepEfetivoSelecionado == $gliep->ID) $gliepVALOR = $gliep->PORCENTAGEM;
+													echo "<option value='" . $gliep->ID . "'" . (
+														!empty($gliepEfetivoSelecionado) && $gliepEfetivoSelecionado == $gliep->ID ? "selected=\"selected\"" : ""
+													) . ">" . $gliep->DESCR . "</option>";
+												}
+											?>
+										</select>
+										<?php
+											$gliepVALOR = $wpdb->get_row(
+												"SELECT (VALOR * (SELECT PORCENTAGEM FROM cti_sv_gliep WHERE VINCULO = 'EFETIVO' AND ID = '"
+												. $gliepEfetivoSelecionado .
+												"')) as RESULTADO FROM cti_sv_quadro QP WHERE VINCULO = 'EFETIVO' AND ID = 'QPL-22';"
+											);
+											if (!empty($gliepVALOR)) {
+												$gliepVALOR = $gliepVALOR->RESULTADO;
+												if ($fgVALOR > 0) $gliepVALOR = $gliepVALOR * 1.12;
+											}
+											//echo "<div>R$ " . (!empty($gliepVALOR)?$gliepVALOR:"0,00") . "</div>";
+										?>
+										<div>R$ <?=(!empty($gliepVALOR) ? number_format($gliepVALOR, 2, ',', '.') : "0,00")?></div>
+										<br />
+									</div>
+									<?php
+										/*
+										GAC
+										Lei 14.381/07 - Art. 28. Fica criada gratificação de valor correspondente ao FG-1
+										da Tabela B - Tabela de Funções Gratificadas, Anexo IV da Lei nº 13.637, de 4 de
+										setembro de 2003, atribuída aos servidores da Câmara Municipal de São Paulo expressamente
+										designados para prestar apoio administrativo ou técnico a uma ou mais Comissões
+										regimentais temporárias e permanentes e à Corregedoria.
+
+										GAP
+										Lei 14.381/07 - Art. 28. § 3º A gratificação poderá ser atribuída aos servidores da Câmara Municipal de São
+										Paulo expressamente designados para o trabalho nas Sessões Plenárias, a critério
+										do Secretário Geral Parlamentar.
+
+										//!! GAC e GAP NÃO PODEM ACUMULAR COM FG NEM ENTRE SI !!
+										*/
+										if (!empty($funcaoChefiaEfetivoSelecionado)
+											&& $funcaoChefiaEfetivoSelecionado <> "NA"
+											&& $funcaoChefiaEfetivoSelecionado <> "FG-0") {
+											$gratificSelecionado = 0;
+											$gratificVALOR = 0;
+										} else {
+											$fg1ROW = $wpdb->get_row(
+												"SELECT VALOR FROM cti_sv_quadro WHERE VINCULO='FG' AND ID='FG-1';"
+											);
+											if (!empty($fg1ROW)) $fg1VALOR = $fg1ROW->VALOR;
+											//$gratificSelecionado = $_POST['gratificEfetivos'];
+											(array_key_exists('gratificEfetivos', $_POST) ? $gratificSelecionado = $_POST['gratificEfetivos'] : $gratificSelecionado = null);
+											if ($gratificSelecionado > 0) $gratificVALOR = $fg1VALOR;
+										}
+									?>
+									<div class="form-row" id="gratificacoes">
+										<label>Gratificações (não se aplica em caso de Função de Chefia):</label>
+										<div>
+											<input type="radio" class="form-control" name="gratificEfetivos" value="0"
+												<?=(empty($gratificSelecionado) || $gratificSelecionado == 0 ? "checked" : "")?>
+												<?=(!empty($funcaoChefiaEfetivoSelecionado) && $funcaoChefiaEfetivoSelecionado <> "NA"
+													&& $funcaoChefiaEfetivoSelecionado <> "FG-0" ? "disabled" : "")?>
+													onchange="this.form.action='#gratificacoes'; this.form.submit()">
+												não se aplica
+											</input>
+												<br />
+											<input type="radio" class="form-control" name="gratificEfetivos" value="1"
+												<?=(!empty($gratificSelecionado) && $gratificSelecionado == 1 ? "checked" : "")?>
+												<?=(!empty($funcaoChefiaEfetivoSelecionado) && $funcaoChefiaEfetivoSelecionado <> "NA"
+													&& $funcaoChefiaEfetivoSelecionado <> "FG-0" ? "disabled" : "")?>
+													onchange="this.form.action='#gratificacoes'; this.form.submit()">
+												por trabalho nas Sessões Plenárias
+											</input>
+												<br />
+											<input type="radio" class="form-control" name="gratificEfetivos" value="2"
+												<?=(!empty($gratificSelecionado) && $gratificSelecionado == 2 ? "checked" : "")?>
+												<?=(!empty($funcaoChefiaEfetivoSelecionado) && $funcaoChefiaEfetivoSelecionado <> "NA" && $funcaoChefiaEfetivoSelecionado <> "FG-0" ? "disabled" : "")?>
+												onchange="this.form.action='#gratificacoes'; this.form.submit()">
+											por apoio às Comissões regimentais e à Corregedoria
+											</input>
+											<br />
+										</div>
+										<br />
+										<div>R$ <?=(!empty($gratificVALOR) ? number_format($gratificVALOR, 2, ',', '.') : "0,00")?></div>
+										<br />
+									</div>
+									<div class="form-row" id="gratificacao_cjl">
+										<label>Gratificação para Membros da Comissão de Julgamento de Licitações - CJL:</label>
+										<br />
+										<?php
+											/*
+											Lei 14.381/07 - Art. 36. A gratificação por serviço especial, percebida exclusivamente
+											pelos Membros da Comissão de Julgamento de Licitações - CJL, fica fixada em 10%
+											(dez por cento) por reunião, limitada a dez reuniões mensais, do valor correspondente
+											a 50% (cinqüenta por cento) do QPL-7. (NR).
+											*/
+											$qpl7ROW = $wpdb->get_row(
+												"SELECT VALOR FROM cti_sv_quadro WHERE VINCULO='EFETIVO' AND ID='QPL-07';"
+											);
+											if (!empty($qpl7ROW)) $qpl07VALOR = $qpl7ROW->VALOR;
+
+											//$qtdReunioesCJLSelecionado = $_POST['qtdReunioesCJL'];
+											(array_key_exists('qtdReunioesCJL', $_POST) ? $qtdReunioesCJLSelecionado = $_POST['qtdReunioesCJL'] : $qtdReunioesCJLSelecionado = null);
+											if (!empty($qtdReunioesCJLSelecionado)) {
+												$gcjlEfetivosVALOR = 0.50 * 0.10 * $qpl07VALOR * $qtdReunioesCJLSelecionado;
+											}
+										?>
+										<div>quantidade de reuniões no mês:
+											<select id="qtdReunioesCJL" name="qtdReunioesCJL" class="form-control"
+												onchange="this.form.action='#gratificacoes'; this.form.submit()">
+												<option value="0" <?php
+													if(empty($qtdReunioesCJLSelecionado) || $qtdReunioesCJLSelecionado == "0") {
+														echo 'selected="selected"';
+													} ?>>0</option>
+												<option value="1" <?php
+													if(!empty($qtdReunioesCJLSelecionado) && $qtdReunioesCJLSelecionado == "1") {
+														echo 'selected="selected"';
+													} ?>>1</option>
+												<option value="2" <?php
+													if(!empty($qtdReunioesCJLSelecionado) && $qtdReunioesCJLSelecionado == "2") {
+														echo 'selected="selected"';
+													} ?>>2</option>
+												<option value="3" <?php
+													if(!empty($qtdReunioesCJLSelecionado) && $qtdReunioesCJLSelecionado == "3") {
+														echo 'selected="selected"';
+													} ?>>3</option>
+												<option value="4" <?php
+													if(!empty($qtdReunioesCJLSelecionado) && $qtdReunioesCJLSelecionado == "4") {
+														echo 'selected="selected"';
+													} ?>>4</option>
+												<option value="5" <?php
+													if(!empty($qtdReunioesCJLSelecionado) && $qtdReunioesCJLSelecionado == "5") {
+														echo 'selected="selected"';
+													} ?>>5</option>
+												<option value="6" <?php
+													if(!empty($qtdReunioesCJLSelecionado) && $qtdReunioesCJLSelecionado == "6") {
+														echo 'selected="selected"';
+													} ?>>6</option>
+												<option value="7" <?php
+													if(!empty($qtdReunioesCJLSelecionado) && $qtdReunioesCJLSelecionado == "7") {
+														echo 'selected="selected"';
+													} ?>>7</option>
+												<option value="8" <?php
+													if(!empty($qtdReunioesCJLSelecionado) && $qtdReunioesCJLSelecionado == "8") {
+														echo 'selected="selected"';
+													} ?>>8</option>
+												<option value="9" <?php
+													if(!empty($qtdReunioesCJLSelecionado) && $qtdReunioesCJLSelecionado == "9") {
+														echo 'selected="selected"';
+													} ?>>9</option>
+												<option value="10" <?php
+													if(!empty($qtdReunioesCJLSelecionado) && $qtdReunioesCJLSelecionado == "10") {
+														echo 'selected="selected"';
+													} ?>>10</option>
+											</select>
+											<p>R$ <?=(!empty($gcjlEfetivosVALOR) ? number_format($gcjlEfetivosVALOR, 2, ',', '.') : "0,00")?><p/>
+										</div>
+									</div>									
+									<?php
+										/*
+										
+										Lei 17.730/21 - Art. ???
+										
+										 Valor: FG-1 (2701,52)
+
+										*/
+										/*if (!empty($funcaoChefiaEfetivoSelecionado)
+											&& $funcaoChefiaEfetivoSelecionado <> "NA"
+											&& $funcaoChefiaEfetivoSelecionado <> "FG-0") {
+											$gratificSelecionado = 0;
+											$gratificVALOR = 0;
+										} else {*/
+											$fg1ROW = $wpdb->get_row(
+												"SELECT VALOR FROM cti_sv_quadro WHERE VINCULO='FG' AND ID='FG-1';"
+											);
+											if (!empty($fg1ROW)) $fg1VALOR = $fg1ROW->VALOR;
+											//$gratificOutrasEfetivos = $_POST['gratificOutrasEfetivos'];
+											(array_key_exists('gratificOutrasEfetivos', $_POST) ? $gratificOutrasSelecionado = $_POST['gratificOutrasEfetivos'] : $gratificOutrasSelecionado = null);
+											if ($gratificOutrasSelecionado > 0) $gratificOutrasVALOR = $fg1VALOR;
+										/*}*/
+									?>
+									<div class="form-row" id="gratificacao_outras">
+										<label>Outras Gratificações:</label>
+										<div>
+											<input type="radio" class="form-control" name="gratificOutrasEfetivos" value="0"
+												<?=(empty($gratificOutrasSelecionado) || $gratificOutrasSelecionado == 0 ? "checked" : "")?>
+													onchange="this.form.action='#gratificacao_outras'; this.form.submit()">
+												não se aplica
+											</input>
+												<br />
+											<input type="radio" class="form-control" name="gratificOutrasEfetivos" value="1"
+												<?=(!empty($gratificOutrasSelecionado) && $gratificOutrasSelecionado == 1 ? "checked" : "")?>
+													onchange="this.form.action='#gratificacao_outras'; this.form.submit()">
+												membro da Comissão Permanente de Sindicância ou de Comissão Permanente Disciplinar, Cerimonialista lotado no Cerimonial, em número máximo simultâneo de 3 (três) e 1 (um) Auxiliar-Assuntos LGPD, lotado na Ouvidoria.
+											</input>
+												<br />
+											<input type="radio" class="form-control" name="gratificOutrasEfetivos" value="2"
+												<?=(!empty($gratificOutrasSelecionado) && $gratificOutrasSelecionado == 2 ? "checked" : "")?>
+												<?=(!empty($nivelEfetivoSelecionado) && $nivelEfetivoSelecionado == "BASICO" ? "disabled" : "")?>
+												onchange="this.form.action='#gratificacao_outras'; this.form.submit()">
+												servidores efetivos designados pela Mesa da Câmara para exercer as funções de Professor Coordenador de Curso da Escola do Parlamento, em número máximo simultâneo de 4 (quatro) - só podem ser designados servidores de nível médio e superior que possuam diploma de Mestrado ou Doutorado.
+											</input>
+										</div>
+										<br />
+										<div>R$ <?=(!empty($gratificOutrasVALOR) ? number_format($gratificOutrasVALOR, 2, ',', '.') : "0,00")?></div>
+									</div>
+									<br />
+									<a name="insalubridade"></a>
+									<div class="form-row" id="insalubridade">
+										<label>Adicional de insalubridade:</label>
+										<select id="adInsalub" name="adInsalub" class="form-control"
+											onchange="this.form.action='#gratificacoes'; this.form.submit()">
+											<option value="NA" <?php
+												if(empty($adInsalubSelecionado) || $adInsalubSelecionado == "NA")
+													{echo 'selected="selected"';}
+												?>>Selecione...</option>
+											<?php
+												$adInsalubs = $wpdb->get_results(
+													"SELECT ID, INDICE, REF, OBS FROM cti_sv_quadro_derivados
+													WHERE VINCULO = 'TODOS' AND ID like 'INSALUBRIDADE%';");
+												foreach($adInsalubs as $adInsalub) {
+													if (!empty($adInsalubSelecionado) && $adInsalubSelecionado == $adInsalub->ID) {
+														$adInsalubINDICE = $adInsalub->INDICE; $adInsalubREF = $adInsalub->REF;
+													}
+													echo "<option value='" . $adInsalub->ID . "'" . (
+														!empty($adInsalubSelecionado) && $adInsalubSelecionado == $adInsalub->ID ?
+														"selected=\"selected\"" : ""
+													) . ">" . $adInsalub->OBS . "</option>";
+												}
+											?>
+										</select>
+										<?php
+											if (isset($adInsalubREF)) {
+												$qpl1ROW = $wpdb->get_row(
+													"SELECT VALOR FROM cti_sv_quadro WHERE VINCULO='EFETIVO' AND ID='" . $adInsalubREF . "';"
+												);
+												if (!empty($qpl1ROW)) $qpl01VALOR = $qpl1ROW->VALOR;
+
+												if (isset($adInsalubINDICE) && isset($qpl01VALOR)) {
+													$adInsalubVALOR = 1 * $qpl01VALOR * $adInsalubINDICE;
+												}
+											}
+										?>
+										<div>R$ <?=(isset($adInsalubVALOR) && !empty($adInsalubVALOR) ? number_format($adInsalubVALOR, 2, ',', '.') : "0,00")?></div>
+										<br />
+									</div>
+									<div class="form-row">
+										<label>
+											Adicional de tempo de serviço (calculado em função do tempo de serviço público sobre o padrão correspondente):
+										</label>
+										<?php
+											// TODO: ao invés de usar a fórmula abaixo, que causa erros de arredondamento (da ordem de 50 centavos),
+											//	seria melhor usar os índices:
+											//	 5 = 0,0500
+											//	10 = 0,1025
+											//	15 = 0,1576
+											//	20 = 0,2155
+											//	25 = 0,2763
+											//	30 = 0,3401
+											//	35 = 0,4071
+											//new Decimal(Math.Pow(1.05, Math.Truncate(anos / 5d)) - 1)
+											//new Decimal(Math.Pow(1.05, Math.Truncate(anos / 5d)) - 1)
+											$adTempoVALOR = $padraoEfetivoVALOR * (pow(1.05, floor($padraoEfetivoANOS / 5)) - 1);
+										?>
+										<br />
+										<div>R$ <?=(!empty($adTempoVALOR) ? number_format($adTempoVALOR, 2, ',', '.') : "0,00")?></div>
+										<br />
+									</div>
+									<div class="form-row">
+										<label>Sexta parte (20 anos de serviço público):</label>
+										<?php
+											// TODO: usar índice = 0,1667 ao invés da fórmula para igualar à fórmula da Wiz
+											// valorBase = padrao + ats (+ insalub conforme email sga12 de 09/08/2017)
+											// if (anos < 20) return 0; else return valorBase / 6;
+											//if($padraoEfetivoANOS < 20) {$sextaParteVALOR = 0;} else {$sextaParteVALOR = ($padraoEfetivoVALOR + $adTempoVALOR) / 6;}
+											if($padraoEfetivoANOS < 20) {
+												$sextaParteVALOR = 0;
+											} else {
+												$sextaParteVALOR = 0.1667 * ($padraoEfetivoVALOR + $adTempoVALOR + $adInsalubVALOR);
+											}
+										?>
+										<div><?=($debugar ? "[ anos >>> " . $padraoEfetivoANOS . " ]" : "")?> R$ <?=(
+											!empty($sextaParteVALOR) ? number_format($sextaParteVALOR, 2, ',', '.') : "0,00"
+										)?></div>
+										<br />
+									</div>
+									<div class="form-row">
+										<label>Desconto relativo ao teto:</label>
+										<?php
+											// 2012/03/28 - Não há mais exceção ao teto!
+											/*
+											decimal bruto = padrao + gliep + ats + sp + gac + gap + gcjl + insalubr;//sem FG!!!
+											decimal descTeto = bruto - Dados.TETO;
+											if (bruto > Dados.TETO) bruto = Dados.TETO;//teto
+											bruto = bruto + fg;//incluir FG
+											*/
+											// 2014/09/15: conforme Ato nº 1142/11 e Ato nº 1228/13 (FG não barra no teto)
+											/*
+											decimal bruto = padrao + gliep + ats + sp + gac + gap + gcjl + insalubr;// +fg;
+											decimal descTeto = bruto - teto;
+											if (bruto > teto) bruto = teto;//teto
+											bruto += fg;
+											
+											// 2020/12/01: revogados os Ato nº 1142/11 e Ato nº 1228/13 >>>> FG passa contar para teto (e pode deixar de ter permanência do ato em diante)
+											*/
+											$brutoVALOR = 0 + $padraoEfetivoVALOR + $gliepVALOR + $gratificVALOR + $gratificOutrasVALOR
+												+ $gcjlEfetivosVALOR  + $adInsalubVALOR + $adTempoVALOR + $sextaParteVALOR + $fgVALOR;
+											$eProc = strpos(strtoupper($cargoSelecionado), "ROCURADOR");
+											if (!empty($tetoProcuradorVALOR) && $eProc >= 1) {
+												$descontoTetoVALOR = $brutoVALOR - $tetoProcuradorVALOR;
+												if ($descontoTetoVALOR > 0) $brutoVALOR = $tetoProcuradorVALOR;
+												//echo 'TETO-Proc>>'.$tetoProcuradorVALOR;
+											} else if (!empty($tetoVALOR)) {
+												$descontoTetoVALOR = $brutoVALOR - $tetoVALOR;
+												if ($descontoTetoVALOR > 0) $brutoVALOR = $tetoVALOR;
+												//echo 'TETO-Funcionarios>>'.$tetoVALOR;
+											}
+											if ($descontoTetoVALOR < 0) $descontoTetoVALOR = 0;
+											$brutoVALOR = $brutoVALOR;
+										?>
+										<div>R$ <?=(!empty($descontoTetoVALOR) ? number_format($descontoTetoVALOR, 2, ',', '.') : "0,00")?></div>
+										<br />
+									</div>
+									<div class="form-row">
+										<label>TOTAL = R$ <?=number_format($brutoVALOR, 2, ',', '.')?></label>
+									</div>
+									<div class="form-row">
+										<label>Desconto IPREM (14%):</label>
+										<?php $ipremVALOR = 0.14 * $brutoVALOR; ?>
+										<div>R$ <?=(!empty($ipremVALOR) ? number_format($ipremVALOR, 2, ',', '.') : "0,00")?></div>
+										<br />
+									</div>
+									<div class="form-row">
+										<label>Desconto IRRF:</label>
+										<?php
+											$baseV = $brutoVALOR - $ipremVALOR;
+											$irrfVALOR = CalcularIRRF($baseV);
+										?>
+										<div>R$ <?=(!empty($irrfVALOR) ? number_format($irrfVALOR, 2, ',', '.') : "0,00")?></div>
+										<br />
+									</div>
+									<div class="form-row">
+										<label>TOTAL LíQUIDO = R$ <?=number_format($brutoVALOR - $ipremVALOR - $irrfVALOR, 2, ',', '.')?></label>
+									</div>
+										<?php
+											}}} //FIM: CARGOS EFETIVOS	####################################################################
+
+
+											// EMPREGOS CLT	####################################################################
+											if(!empty($cargoTipoSelecionado) && $cargoTipoSelecionado == "CLT") {
+												//$ocupacaoCLTSelecionado = $_POST['ocupacaoCLT'];
+												(array_key_exists('ocupacaoCLT', $_POST) ? $ocupacaoCLTSelecionado = $_POST['ocupacaoCLT'] : $ocupacaoCLTSelecionado = null);
+												//$funcaoChefiaCLTSelecionado = $_POST['funcaoChefia'];
+												(array_key_exists('funcaoChefia', $_POST) ? $funcaoChefiaCLTSelecionado = $_POST['funcaoChefia'] : $funcaoChefiaCLTSelecionado = null);
+												//$gliepCLTSelecionado = $_POST['gliepCLT'];
+												(array_key_exists('gliepCLT', $_POST) ? $gliepCLTSelecionado = $_POST['gliepCLT'] : $gliepCLTSelecionado = null);
+												//$adInsalubCLTSelecionado = $_POST['adInsalubCLT'];
+												(array_key_exists('adInsalubCLT', $_POST) ? $adInsalubCLTSelecionado = $_POST['adInsalubCLT'] : $adInsalubCLTSelecionado = null);
+												//$adTempoCLTSelecionado = $_POST['adTempoCLT'];
+												(array_key_exists('adTempoCLT', $_POST) ? $adTempoCLTSelecionado = $_POST['adTempoCLT'] : $adTempoCLTSelecionado = null);
+
+												//variáveis para cálculo dos vencimentos finais
+												$padraoCLTVALOR = 0;
+												$abonoCTLValor = 0;
+												$galCTLValor = 0;
+												$tercoCTLValor = 0;
+												$segtercoCTLValor = 0;
+												$gliepVALOR = 0;
+												$gratificVALOR = 0;
+												$gcjlCLTVALOR = 0;
+												$adInsalubVALOR = 0;
+												$adTempoVALOR = 0;
+												$sextaParteVALOR = 0;
+												$cargoSelecionado = "";
+												$inssVALOR = 0;
+												$irrfVALOR = 0;
+
+												//constantes
+												$das16ROW = $wpdb->get_row(
+													"SELECT VALOR FROM cti_sv_quadro WHERE VINCULO='EM_COMISSAO' AND ID='DAS-16';"
+												);
+												if (!empty($das16ROW)) $das16VALOR = $das16ROW->VALOR;
+
+												$qpa01ROW = $wpdb->get_row(
+													"SELECT VALOR FROM cti_sv_quadro WHERE VINCULO='CLT' AND ID='QPA-01-A';"
+												);
+												if (!empty($qpa01ROW)) $qpa01VALOR = $qpa01ROW->VALOR;
+										?>
+										<div class="form-row">
+											<label>Ocupação:</label>
+											<select id="ocupacaoCLT" name="ocupacaoCLT" class="form-control"
+												onchange="this.form.action='#tipoCargoOuEmprego'; this.form.submit()">
+												<option value="NA" <?php
+													if(!isset($ocupacaoCLTSelecionado) || empty($ocupacaoCLTSelecionado) || $ocupacaoCLTSelecionado == "NA") {
+														echo 'selected="selected"';
+													} ?>>Selecione...</option>
+												<?php
+													$empregos = $wpdb->get_results(
+														"SELECT ID, EMPREGO, PADRAO, ABONO, GAL, SEG_TERCO FROM cti_sv_clt;"
+													);
+													foreach($empregos as $emprego) {
+														echo "<option value='" . $emprego->ID . "'" . (
+															isset($ocupacaoCLTSelecionado) 
+															&& !empty($ocupacaoCLTSelecionado)
+															&& $ocupacaoCLTSelecionado == $emprego->ID ? "selected=\"selected\"" : ""
+														) . ">" . $emprego->EMPREGO . "</option>";
+														
+														if (isset($ocupacaoCLTSelecionado) && !empty($ocupacaoCLTSelecionado) && $ocupacaoCLTSelecionado == $emprego->ID) {
+															$empregoSelecionado = $emprego->EMPREGO;
+															$padraoCTLSelecionado = $emprego->PADRAO;
+															//$padraoCLTANOS = $emprego->ANOS;
+															$abonoCTLValor = $emprego->ABONO;
+															$galCTLValor = $emprego->GAL;
+															$segtercoCLTem = $emprego->SEG_TERCO;
+														}
+													}
+												?>
+											</select>
+										</div>
+										<div class="form-row" id="padraoCLT">
+											<label>Padrão:</label>
+											<?php
+												//valor do padrão
+												if (isset($padraoCTLSelecionado)) {
+													$padraoCLTSelecionadoRow = $wpdb->get_row(
+														"SELECT VALOR FROM cti_sv_quadro WHERE VINCULO='CLT' AND ID='" . $padraoCTLSelecionado . "';");
+													if (!empty($padraoCLTSelecionadoRow)) {
+														$padraoCLTVALOR = $padraoCLTSelecionadoRow->VALOR;
+													}
+												}
+											?>
+											<div>R$ <?=(isset($padraoCLTVALOR) && !empty($padraoCLTVALOR) ? number_format($padraoCLTVALOR, 2, ',', '.') : "0,00")?></div>
+											<br />
+										</div>
+										<div class="form-row" id="abonoCLT">
+											<label>Abono 05/84 (% QPA-1): <?=(!empty($abonoCTLValor) ? number_format(100 * $abonoCTLValor, 2, ',', '.') : "0,00") ?>%</label>
+												<?php $abonoCTLValor = $abonoCTLValor * $qpa01VALOR; ?>
+											<div>R$ <?=(isset($abonoCTLValor) && !empty($abonoCTLValor) ? number_format($abonoCTLValor, 2, ',', '.') : "0,00") ?></div>
+											<br />
+										</div>
+										<div class="form-row" id="galCLT">
+											<label>GAL % DAS-16: <?=(!empty($galCTLValor) ? number_format(100*$galCTLValor, 2, ',', '.') : "0,00")?>%</label>
+												<?php $galCTLValor = $galCTLValor * $das16VALOR; ?>
+											<div>R$ <?=(isset($galCTLValor) && !empty($galCTLValor) ? number_format($galCTLValor, 2, ',', '.') : "0,00") ?></div>
+											<br />
+										</div>
+
+										<a name="insalubridade"></a>
+										<div class="form-row" id="insalubridade">
+											<label>Adicional de insalubridade:</label>
+											<select id="adInsalubCLT" name="adInsalubCLT" class="form-control"
+												onchange="this.form.action='#tipoCargoOuEmprego'; this.form.submit()">
+												<option value="NA" <?php
+													if(empty($adInsalubCLTSelecionado) || $adInsalubCLTSelecionado == "NA") {
+														echo 'selected="selected"';
+													} ?>>Selecione...</option>
+												<?php
+													$adInsalubs = $wpdb->get_results(
+														"SELECT ID, INDICE, REF, OBS FROM cti_sv_quadro_derivados
+														WHERE VINCULO='TODOS' AND ID like 'INSALUBRIDADE%';");
+													foreach($adInsalubs as $adInsalub) {
+														if (!empty($adInsalubCLTSelecionado) && $adInsalubCLTSelecionado  == $adInsalub->ID) {
+															$adInsalubINDICE = $adInsalub->INDICE; $adInsalubREF = $adInsalub->REF;
+														}
+														echo "<option value='" . $adInsalub->ID . "'" . (!empty($adInsalubCLTSelecionado) && $adInsalubCLTSelecionado == $adInsalub->ID ? "selected=\"selected\"":"") . ">" . $adInsalub->OBS . "</option>";
+													}
+												?>
+											</select>
+											<?php
+												if (isset($adInsalubREF)) {
+													$qpl1ROW = $wpdb->get_row(
+														"SELECT VALOR FROM cti_sv_quadro WHERE VINCULO='EFETIVO' AND ID='" . $adInsalubREF . "';");
+													if (!empty($qpl1ROW)) $qpl01VALOR = $qpl1ROW->VALOR;
+
+													if (isset($adInsalubINDICE) && !empty($adInsalubINDICE)) {
+														$adInsalubVALOR = 1 * $qpl01VALOR * $adInsalubINDICE;
+
+														//<!--terco1 = (padrao + valorGAL + valorAbono + insalubr) / 3 -->
+														$tercoCTLValor = ($padraoCLTVALOR + $galCTLValor + $abonoCTLValor + $adInsalubVALOR) / 3;
+														//<!--terco2 = (padrao + valorGAL + valorAbono + terco1) / 3 -->
+														if (isset($segtercoCLTem) && $segtercoCLTem == 1) $segtercoCTLValor =
+															($padraoCLTVALOR + $galCTLValor + $abonoCTLValor + $adInsalubVALOR + $tercoCTLValor) / 3;
+													}
+												}
+											?>
+											<div>R$ <?=(isset($adInsalubVALOR) && !empty($adInsalubVALOR) ? number_format($adInsalubVALOR, 2, ',', '.') : "0,00")?></div>
+											<br />
+										</div>
+										<div class="form-row" id="tercoCLT">
+											<label>Adicional 1/3:</label>
+											<div>R$ <?=(isset($tercoCTLValor) && !empty($tercoCTLValor) ? number_format($tercoCTLValor, 2, ',', '.') : "0,00")?></div>
+											<br />
+										</div>
+										<div class="form-row" id="terco2CLT">
+											<label>2º Adicional 1/3:</label>
+											<div>R$ <?=(isset($segtercoCTLValor) && !empty($segtercoCTLValor) && isset($segtercoCLTem) && $segtercoCLTem == 1 ? number_format($segtercoCTLValor, 2, ',', '.') : "0,00")?></div>
+											<br />
+										</div>
+										<div class="form-row">
+											<label>GLIEP:</label>
+											<select id="gliepCLT" name="gliepCLT" class="form-control"
+												onchange="this.form.action='#gliepCLT'; this.form.submit()">
+												<option value="NA" <?php
+													if(empty($gliepCLTSelecionado) || $gliepCLTSelecionado == "NA") {
+														echo 'selected="selected"';
+													} ?>>Selecione...</option>
+												<?php
+													//$gliepVALOR = null;
+													$glieps = $wpdb->get_results("SELECT ID, DESCR FROM cti_sv_gliep WHERE VINCULO='CLT';");
+													foreach($glieps as $gliep) {
+														//if (!empty($gliepCLTSelecionado) && $gliepCLTSelecionado == $gliep->ID) $gliepVALOR = $gliep->PORCENTAGEM;
+														echo "<option value='" . $gliep->ID . "'" . (!empty($gliepCLTSelecionado) && $gliepCLTSelecionado == $gliep->ID ? "selected=\"selected\"" : "") . ">" . $gliep->DESCR . "</option>";
+													}
+												?>
+											</select>
+											<?php
+												$gliepVALOR = $wpdb->get_row("SELECT (VALOR * (SELECT PORCENTAGEM FROM cti_sv_gliep WHERE VINCULO = 'CLT' AND ID = '" . $gliepCLTSelecionado . "')) as RESULTADO FROM cti_sv_quadro QP WHERE VINCULO='EFETIVO' AND ID='QPL-22';");
+												if (!empty($gliepVALOR)) $gliepVALOR = $gliepVALOR->RESULTADO;
+												//echo "<div>R$ " . (!empty($gliepVALOR)?$gliepVALOR:"0,00") . "</div>";
+											?>
+											<div>R$ <?=(!empty($gliepVALOR) ? number_format($gliepVALOR, 2, ',', '.') : "0,00")?></div>
+											<br />
+										</div>
+										<?php
+											/*
+											GAC
+											Lei 14.381/07 - Art. 28. Fica criada gratificação de valor correspondente ao FG-1
+											da Tabela B - Tabela de Funções Gratificadas, Anexo IV da Lei nº 13.637, de 4 de
+											setembro de 2003, atribuída aos servidores da Câmara Municipal de São Paulo expressamente
+											designados para prestar apoio administrativo ou técnico a uma ou mais Comissões
+											regimentais temporárias e permanentes e à Corregedoria.
+
+											GAP
+											Lei 14.381/07 - Art. 28. § 3º A gratificação poderá ser atribuída aos servidores da Câmara Municipal de São
+											Paulo expressamente designados para o trabalho nas Sessões Plenárias, a critério
+											do Secretário Geral Parlamentar.
+
+											//!! GAC e GAP NÃO PODEM ACUMULAR COM FG NEM ENTRE SI !!
+											*/
+											//if (!empty($funcaoChefiaCLTSelecionado) && $funcaoChefiaCLTSelecionado <> "NA" && $funcaoChefiaCLTSelecionado <> "FG-0") {
+											//	$gratificSelecionado = 0;
+											//	$gratificVALOR = 0;
+											//} else {
+												$fg1ROW = $wpdb->get_row("SELECT VALOR FROM cti_sv_quadro WHERE VINCULO='FG' AND ID='FG-1';");
+												if (!empty($fg1ROW)) $fg1VALOR = $fg1ROW->VALOR;
+												//$gratificSelecionado = $_POST['gratificCLT'];
+												if (array_key_exists('gratificCLT', $_POST)) {
+													//$gratificSelecionado = $_POST['gratificCLT'];
+													(array_key_exists('gratificCLT', $_POST) ? $gratificSelecionado = $_POST['gratificCLT'] : $gratificSelecionado = null);
+													if ($gratificSelecionado > 0) $gratificVALOR = $fg1VALOR;
+												} else {
+													$gratificSelecionado = null;
+												}
+											//}
+										?>
+										<div class="form-row" id="gratificacoes">
+											<label>Gratificações (não se aplica em caso de Função de Chefia):</label>
+											<div>
+												<input type="radio" class="form-control" name="gratificCLT" value="0"
+													<?=(empty($gratificSelecionado) || $gratificSelecionado == 0 ? "checked" : "")?>
+													onchange="this.form.action='#gratificacoes'; this.form.submit()">
+													não se aplica
+												</input>
+												<br />
+												<input type="radio" class="form-control" name="gratificCLT" value="1"
+													<?=(!empty($gratificSelecionado) && $gratificSelecionado==1 ? "checked" : "")?>
+													onchange="this.form.action='#gratificacoes'; this.form.submit()">
+													por trabalho nas Sessões Plenárias
+												</input>
+												<br />
+												<input type="radio" class="form-control" name="gratificCLT" value="2"
+													<?=(!empty($gratificSelecionado) && $gratificSelecionado==2 ? "checked" : "")?>
+													onchange="this.form.action='#gratificacoes'; this.form.submit()">
+													por apoio às Comissões regimentais e à Corregedoria
+												</input>
+												<br />
+											</div>
+											<div>R$ <?=(!empty($gratificVALOR) ? number_format($gratificVALOR, 2, ',', '.') : "0,00")?></div>
+											<br />
+										</div>
+										<div class="form-row" id="gratificacao_cjl">
+											<label>Gratificação para Membros da Comissão de Julgamento de Licitações - CJL:</label>
+											<br />
+											<?php
+												/*
+												Lei 14.381/07 - Art. 36. A gratificação por serviço especial, percebida exclusivamente
+												pelos Membros da Comissão de Julgamento de Licitações - CJL, fica fixada em 10%
+												(dez por cento) por reunião, limitada a dez reuniões mensais,
+												do valor correspondente a 50% (cinqüenta por cento) do QPL-7. (NR).
+												*/
+												$qpl7ROW = $wpdb->get_row(
+													"SELECT VALOR FROM cti_sv_quadro WHERE VINCULO='EFETIVO' AND ID='QPL-07';");
+												if (!empty($qpl7ROW)) $qpl07VALOR = $qpl7ROW->VALOR;
+
+												//$qtdReunioesCJLSelecionado = $_POST['qtdReunioesCJL'];
+												(array_key_exists('qtdReunioesCJL', $_POST) ? $qtdReunioesCJLSelecionado = $_POST['qtdReunioesCJL'] : $qtdReunioesCJLSelecionado = null);
+												if (!empty($qtdReunioesCJLSelecionado)) {
+													$gcjlCLTVALOR = 0.50 * 0.10 * $qpl07VALOR * $qtdReunioesCJLSelecionado;
+												}
+											?>
+											<div>quantidade de reuniões no mês:
+												<select id="qtdReunioesCJL" name="qtdReunioesCJL" class="form-control"
+													onchange="this.form.action='#gliepCLT'; this.form.submit()">
+													<option value="0" <?php
+														if(empty($qtdReunioesCJLSelecionado) || $qtdReunioesCJLSelecionado == "0") {
+															echo 'selected="selected"';
+														} ?>>0</option>
+													<option value="1" <?php
+														if(!empty($qtdReunioesCJLSelecionado) && $qtdReunioesCJLSelecionado == "1") {
+															echo 'selected="selected"';
+														} ?>>1</option>
+													<option value="2" <?php
+														if(!empty($qtdReunioesCJLSelecionado) && $qtdReunioesCJLSelecionado == "2") {
+															echo 'selected="selected"';
+														} ?>>2</option>
+													<option value="3" <?php
+														if(!empty($qtdReunioesCJLSelecionado) && $qtdReunioesCJLSelecionado == "3") {
+															echo 'selected="selected"';
+														} ?>>3</option>
+													<option value="4" <?php
+														if(!empty($qtdReunioesCJLSelecionado) && $qtdReunioesCJLSelecionado == "4") {
+															echo 'selected="selected"';
+														} ?>>4</option>
+													<option value="5" <?php
+														if(!empty($qtdReunioesCJLSelecionado) && $qtdReunioesCJLSelecionado == "5") {
+															echo 'selected="selected"';
+														} ?>>5</option>
+													<option value="6" <?php
+														if(!empty($qtdReunioesCJLSelecionado) && $qtdReunioesCJLSelecionado == "6") {
+															echo 'selected="selected"';
+														} ?>>6</option>
+													<option value="7" <?php
+														if(!empty($qtdReunioesCJLSelecionado) && $qtdReunioesCJLSelecionado == "7") {
+															echo 'selected="selected"';
+														} ?>>7</option>
+													<option value="8" <?php
+														if(!empty($qtdReunioesCJLSelecionado) && $qtdReunioesCJLSelecionado == "8") {
+															echo 'selected="selected"';
+														} ?>>8</option>
+													<option value="9" <?php
+														if(!empty($qtdReunioesCJLSelecionado) && $qtdReunioesCJLSelecionado == "9") {
+															echo 'selected="selected"';
+														} ?>>9</option>
+													<option value="10" <?php
+														if(!empty($qtdReunioesCJLSelecionado) && $qtdReunioesCJLSelecionado == "10") {
+															echo 'selected="selected"';
+														} ?>>10</option>
+												</select>
+												<p>R$ <?=(!empty($gcjlCLTVALOR) ? number_format($gcjlCLTVALOR, 2, ',', '.') : "0,00")?><p/>
+											</div>
+										</div>
+										<div class="form-row">
+											<label>
+												Adicional de tempo de serviço (calculado em função do tempo de serviço público sobre o padrão correspondente):
+											</label>
+											<br /><br />
+											<select id="adTempoCLT" name="adTempoCLT" class="form-control"
+												onchange="this.form.action='#gliepCLT'; this.form.submit()">
+												<option value="NA" <?php
+													if(empty($adTempoCLTSelecionado) || $adTempoCLTSelecionado == "0") {
+														echo 'selected="selected"';
+													} ?>>menos de 1 ano...</option>
+												<?php
+													//for (int i = 0; i < 36; i = i + 5) ddlEmComissaoTempo.Items.Add(new ListItem(i.ToString() + " anos", i.ToString()));
+													for($i = 5; $i < 36; $i = $i + 5) {
+														echo "<option value=" . $i . (
+															!empty($adTempoCLTSelecionado) && $adTempoCLTSelecionado == $i ? " selected=\"selected\"" : ""
+														) . ">" . $i . " anos</option>";
+														if (!empty($adTempoCLTSelecionado) && $adTempoCLTSelecionado == $i) $adTempoANOS = $i;
+													}
+												?>
+											</select>
+											<?php
+												// TODO: ao invés de usar a fórmula abaixo, que causa erros de arredondamento (da ordem de 50 centavos),
+												//	seria melhor usar os índices:
+												//	 5 = 0,0500
+												//	10 = 0,1025
+												//	15 = 0,1576
+												//	20 = 0,2155
+												//	25 = 0,2763
+												//	30 = 0,3401
+												//	35 = 0,4071
+												//new Decimal(Math.Pow(1.05, Math.Truncate(anos / 5d)) - 1)
+												//new Decimal(Math.Pow(1.05, Math.Truncate(anos / 5d)) - 1)
+												if (isset($adTempoANOS)) {
+													$adTempoVALOR =
+														($padraoCLTVALOR + $abonoCTLValor + $tercoCTLValor + $segtercoCTLValor) *
+														(pow(1.05, floor($adTempoANOS / 5)) - 1);
+												}
+											?>
+											<div>R$ <?=(isset($adTempoVALOR) && !empty($adTempoVALOR) ? number_format($adTempoVALOR, 2, ',', '.') : "0,00")?></div>
+											<br />
+										</div>
+										<div class="form-row">
+											<label>Sexta parte (20 anos de serviço público):</label>
+											<?php
+												// valorBase = padrao + ats (+ insalub conforme email sga12 de 09/08/2017)
+												// if (anos < 20) return 0; else return valorBase / 6;
+												// if($adTempoANOS < 20) {$sextaParteVALOR = 0;} else {$sextaParteVALOR = ($padraoCargoVALOR + $adTempoVALOR) / 6;}
+												// if($adTempoANOS < 20) {$sextaParteVALOR = 0;} else {$sextaParteVALOR = ($padraoCargoVALOR + $adTempoVALOR) / 6;}
+												if(isset($adTempoANOS) && $adTempoANOS < 20) {
+													$sextaParteVALOR = 0;
+												} else {
+													$sextaParteVALOR = 0.1667 * (
+														$padraoCLTVALOR + $adTempoVALOR + $adInsalubVALOR +
+														$abonoCTLValor + $tercoCTLValor + $segtercoCTLValor + $galCTLValor
+													);
+												}
+											?>
+											<div>R$ <?=(isset($sextaParteVALOR) && !empty($sextaParteVALOR) ? number_format($sextaParteVALOR, 2, ',', '.') : "0,00")?></div>
+											<br />
+										</div>
+										<div class="form-row">
+											<label>Desconto relativo ao teto:</label>
+											<?php
+												// 2012/03/28 - Não há mais exceção ao teto!
+												/*decimal bruto = padrao + gliep + ats + sp + gac + gap + gcjl + insalubr;//sem FG!!!
+												decimal descTeto = bruto - Dados.TETO;
+												if (bruto > Dados.TETO) bruto = Dados.TETO;//teto
+												bruto = bruto + fg;//incluir FG
+												*/
+												// 2014/09/15: conforme Ato nº 1142/11 e Ato nº 1228/13 (FG não barra no teto)
+												//decimal bruto = padrao + gliep + ats + sp + gac + gap + gcjl + insalubr;// +fg;
+												//decimal descTeto = bruto - teto;
+												//if (bruto > teto) bruto = teto;//teto
+												//bruto += fg;
+												$brutoVALOR = 0 + $padraoCLTVALOR + $abonoCTLValor + $galCTLValor
+													+ $adInsalubVALOR + $tercoCTLValor + $segtercoCTLValor + $gliepVALOR
+													+ $gratificVALOR + $gcjlCLTVALOR + $adTempoVALOR 	+ $sextaParteVALOR;
+												if (!empty($tetoVALOR)) {
+													$descontoTetoVALOR = $brutoVALOR - $tetoVALOR;
+													if ($descontoTetoVALOR > 0) $brutoVALOR = $tetoVALOR;
+												}
+												if ($descontoTetoVALOR < 0) $descontoTetoVALOR = 0;
+												//$brutoVALOR = $brutoVALOR + $fgVALOR;
+												/*<!--div>padraoCLTVALOR R$ <?=(!empty($padraoCLTVALOR)?number_format($padraoCLTVALOR, 2, ',', '.') : "0,00")?></div><br />
+												<div>abonoCTLValor R$ <?=(!empty($abonoCTLValor)?number_format($abonoCTLValor, 2, ',', '.') : "0,00")?></div><br />
+												<div>galCTLValor R$ <?=(!empty($galCTLValor)?number_format($galCTLValor, 2, ',', '.') : "0,00")?></div><br />
+												<div>adInsalubVALOR R$ <?=(!empty($adInsalubVALOR)?number_format($adInsalubVALOR, 2, ',', '.') : "0,00")?></div><br />
+												<div>tercoCTLValor R$ <?=(!empty($tercoCTLValor)?number_format($tercoCTLValor, 2, ',', '.') : "0,00")?></div><br />
+												<div>segtercoCTLValor R$ <?=(!empty($segtercoCTLValor)?number_format($segtercoCTLValor, 2, ',', '.') : "0,00")?></div><br />
+												<div>gliepVALOR R$ <?=(!empty($gliepVALOR)?number_format($gliepVALOR, 2, ',', '.') : "0,00")?></div><br />
+												<div>gratificVALOR R$ <?=(!empty($gratificVALOR)?number_format($gratificVALOR, 2, ',', '.') : "0,00")?></div><br />
+												<div>gcjlCLTVALOR R$ <?=(!empty($gcjlCLTVALOR)?number_format($gcjlCLTVALOR, 2, ',', '.') : "0,00")?></div><br />
+												<div>adTempoVALOR R$ <?=(!empty($adTempoVALOR)?number_format($adTempoVALOR, 2, ',', '.') : "0,00")?></div><br />
+												<div>sextaParteVALOR R$ <?=(!empty($sextaParteVALOR)?number_format($sextaParteVALOR, 2, ',', '.') : "0,00")?></div><br/-->*/
+												?>
+											<div>R$ <?=(!empty($descontoTetoVALOR) ? number_format($descontoTetoVALOR, 2, ',', '.') : "0,00")?></div>
+											<br />
+										</div>
+										<div class="form-row">
+											<label>TOTAL = R$ <?=number_format($brutoVALOR, 2, ',', '.')?></label>
+										</div>
+										<div class="form-row">
+											<label>Desconto INSS:</label>
+											<?php $inssVALOR = CalcularINSS($brutoVALOR); ?>
+											<div>R$ <?=(
+												!empty($inssVALOR) ? number_format($inssVALOR, 2, ',', '.') : "0,00"
+											)?></div>
+											<br />
+										</div>
+										<div class="form-row">
+											<label>Desconto IRRF:</label>
+											<?php
+												$baseV = $brutoVALOR - $inssVALOR;
+												$irrfVALOR = CalcularIRRF($baseV);
+											?>
+											<div>R$ <?=(
+												!empty($irrfVALOR) ? number_format($irrfVALOR, 2, ',', '.') : "0,00"
+											)?></div>
+											<br />
+										</div>
+										<div class="form-row">
+											<label>
+												TOTAL LíQUIDO = R$ <?=number_format($brutoVALOR - $inssVALOR - $irrfVALOR, 2, ',', '.')?>
+											</label>
+										</div>
+										<?php
+											} // FIM: EMPREGOS CLT	####################################################################
+
+
+											// OK! COMISSAO	####################################################################
+											if(!empty($cargoTipoSelecionado) && $cargoTipoSelecionado == "COMISSAO") {
+												//$grupoComissaoSelecionado = $_POST['grupoComissao'];
+												(array_key_exists('grupoComissao', $_POST) ? $grupoComissaoSelecionado = $_POST['grupoComissao'] : $grupoComissaoSelecionado = null);
+												//$cargoComissaoSelecionado = $_POST['cargoComissao'];
+												(array_key_exists('cargoComissao', $_POST) ? $cargoComissaoSelecionado = $_POST['cargoComissao'] : $cargoComissaoSelecionado = null);
+												//$adTempoComissaoSelecionado = $_POST['adTempoComissao'];
+												(array_key_exists('adTempoComissao', $_POST) ? $adTempoComissaoSelecionado = $_POST['adTempoComissao'] : $adTempoComissaoSelecionado = null);
+										
+												//inicializa variáveis para evitar mensagens de erro php
+												$padraoCargoSelecionado = null;
+												$adTempoANOS = null;
+												$padraoCargoVALOR = null;
+												$adTempoANOS = null;
+												$padraoCargoVALOR = null;
+										?>
+										<div class="form-row">
+											<label>Grupo:</label>
+											<select id="grupoComissao" name="grupoComissao" class="form-control"
+												onchange="this.form.action='#cargoTipo'; this.form.submit()">
+												<option value="NA" <?php
+													if(empty($grupoComissaoSelecionado) || $grupoComissaoSelecionado == "NA") {
+														echo 'selected="selected"';
+													} ?>>Selecione...</option>
+												<?php
+													$grupos = $wpdb->get_results(
+														"SELECT DISTINCT GRUPO FROM cti_sv_cargos WHERE VINCULO='COMISSAO';");
+													foreach($grupos as $grupo) {
+														echo "<option value='" . $grupo->GRUPO . "'" . (
+															!empty($grupoComissaoSelecionado) && $grupoComissaoSelecionado == $grupo->GRUPO ? "selected=\"selected\"":""
+														) . ">" . $grupo->GRUPO."</option>";
+														if (!empty($grupoComissaoSelecionado) && $grupoComissaoSelecionado == $grupo->GRUPO) $grupoSelecionado = $grupo->GRUPO;
+													}
+												?>
+											</select>
+										</div>
+										<div class="form-row">
+											<label>Cargo:</label>
+											<select id="cargoComissao" name="cargoComissao" class="form-control"
+												onchange="this.form.action='#cargoTipo'; this.form.submit()">
+												<option value="NA" <?php
+													if(empty($cargoComissaoSelecionado) || $cargoComissaoSelecionado == "NA") {
+														echo 'selected="selected"';
+													} ?>>Selecione...</option>
+												<?php
+													$cargos = $wpdb->get_results(
+														"SELECT ID, CARGO, PADRAO FROM cti_sv_cargos WHERE VINCULO='COMISSAO' AND GRUPO='"
+														. $grupoComissaoSelecionado . "';");
+													foreach($cargos as $cargo) {
+														echo "<option value='" . $cargo->ID . "'" . (
+															!empty($cargoComissaoSelecionado) && $cargoComissaoSelecionado == $cargo->ID ? "selected=\"selected\"" : ""
+														) . ">" . $cargo->CARGO."</option>";
+														if (!empty($cargoComissaoSelecionado) && $cargoComissaoSelecionado == $cargo->ID)
+															$padraoCargoSelecionado = $cargo->PADRAO;
+													}
+												?>
+											</select>
+											<?php
+												$padraoCargoSelecionadoRow = $wpdb->get_row(
+													"SELECT VALOR FROM cti_sv_quadro WHERE VINCULO='COMISSAO' AND ID = '"
+													. $padraoCargoSelecionado . "';");
+												if (!empty($padraoCargoSelecionadoRow))
+													$padraoCargoVALOR = $padraoCargoSelecionadoRow->VALOR;
+											?>
+											<div>Padrão: <?=$padraoCargoSelecionado . ' ='?> R$ <?=(!empty($padraoCargoVALOR) ? number_format($padraoCargoVALOR, 2, ',', '.') : "0,00")?></div>
+											<br />
+										</div>
+										<div class="form-row">
+											<label>
+												Adicional de tempo de serviço (calculado em função do tempo de serviço público sobre o padrão correspondente):
+											</label>
+											<br /><br />
+											<select id="adTempoComissao" name="adTempoComissao" class="form-control"
+												onchange="this.form.action='#cargoTipo'; this.form.submit()">
+												<option value="NA" <?php
+													if(empty($adTempoComissaoSelecionado) || $adTempoComissaoSelecionado == "0") {
+														echo 'selected="selected"';
+													} ?>>menos de 1 ano...</option>
+												<?php
+													//for (int i = 0; i < 36; i = i + 5) ddlEmComissaoTempo.Items.Add(new ListItem(i.ToString() + " anos", i.ToString()));
+													for($i = 5; $i < 36; $i = $i + 5) {
+														echo "<option value=" . $i.(
+															!empty($adTempoComissaoSelecionado) && $adTempoComissaoSelecionado == $i ? " selected=\"selected\"":""
+														) . ">" . $i . " anos</option>";
+														if (!empty($adTempoComissaoSelecionado) && $adTempoComissaoSelecionado == $i) {
+															$adTempoANOS = $i;
+														}
+													}
+												?>
+											</select>
+											<?php
+												// TODO: ao invés de usar a fórmula abaixo, que causa erros de arredondamento (da ordem de 50 centavos),
+												//	seria melhor usar os índices:
+												//	 5 = 0,0500
+												//	10 = 0,1025
+												//	15 = 0,1576
+												//	20 = 0,2155
+												//	25 = 0,2763
+												//	30 = 0,3401
+												//	35 = 0,4071
+												//new Decimal(Math.Pow(1.05, Math.Truncate(anos / 5d)) - 1)
+												$adTempoVALOR = $padraoCargoVALOR * (pow(1.05, floor($adTempoANOS / 5)) - 1);
+											?>
+											<div>
+												R$ <?=(
+													!empty($adTempoVALOR) ? number_format($adTempoVALOR, 2, ',', '.') : "0,00"
+												)?>
+											</div>
+											<br />
+										</div>
+										<div class="form-row">
+											<label>Sexta parte (20 anos de serviço público):</label>
+											<?php
+												// valorBase = padrao + ats
+												// if (anos < 20) return 0; else return valorBase / 6;
+												if($adTempoANOS < 20) {
+													$sextaParteVALOR = 0;
+												} else {
+													$sextaParteVALOR = ($padraoCargoVALOR + $adTempoVALOR) / 6;
+												}
+											?>
+											<div>
+												R$ <?=(
+													!empty($sextaParteVALOR) ? number_format($sextaParteVALOR, 2, ',', '.') : "0,00"
+												)?>
+											</div>
+											<br />
+										</div>
+										<div class="form-row">
+											<label>Desconto relativo ao teto:</label>
+											<?php
+												// 2012/03/28 - Não há mais exceção ao teto!
+												/*
+												decimal bruto = padrao + gliep + ats + sp + gac + gap + gcjl + insalubr; // sem FG!!!
+												decimal descTeto = bruto - Dados.TETO;
+												if (bruto > Dados.TETO) bruto = Dados.TETO;//teto
+													bruto = bruto + fg;//incluir FG
+												*/
+												// 2014/09/15: conforme Ato nº 1142/11 e Ato nº 1228/13 (FG não barra no teto)
+												/*
+												decimal bruto = padrao + gliep + ats + sp + gac + gap + gcjl + insalubr; // + fg;
+												decimal descTeto = bruto - teto;
+												if (bruto > teto) bruto = teto;//teto
+													bruto += fg;
+												*/
+												$brutoVALOR = 0 + $padraoCargoVALOR + $adTempoVALOR + $sextaParteVALOR;
+												if (!empty($tetoVALOR)) {
+													$descontoTetoVALOR = $brutoVALOR - $tetoVALOR;
+													if ($descontoTetoVALOR > 0) $brutoVALOR = $tetoVALOR;
+												}
+												if ($descontoTetoVALOR < 0) $descontoTetoVALOR = 0;
+											?>
+											<div>R$ <?=(
+												!empty($descontoTetoVALOR) ? number_format($descontoTetoVALOR, 2, ',', '.') : "0,00"
+											)?></div>
+											<br />
+										</div>
+										<div class="form-row">
+											<label>TOTAL = R$ <?=number_format($brutoVALOR, 2, ',', '.')?></label>
+										</div>
+										<div class="form-row">
+											<label>Desconto INSS:</label>
+											<?php $inssVALOR = CalcularINSS($brutoVALOR); ?>
+											<div>R$ <?=(!empty($inssVALOR) ? number_format($inssVALOR, 2, ',', '.') : "0,00")?></div>
+											<br />
+										</div>
+										<div class="form-row">
+											<label>Desconto IRRF:</label>
+											<?php
+												$baseV = $brutoVALOR - $inssVALOR;
+												$irrfVALOR = CalcularIRRF($baseV);
+											?>
+											<div>R$ <?=(!empty($irrfVALOR) ? number_format($irrfVALOR, 2, ',', '.') : "0,00")?></div>
+											<br />
+										</div>
+										<div class="form-row">
+											<label>TOTAL LíQUIDO = R$ <?=number_format($brutoVALOR - $inssVALOR - $irrfVALOR, 2, ',', '.')?></label>
+										</div>
+										<?php
+											/* 2019-07-25: não pode deixar comentário na mesma linha do <?php!!!!!!!!!!!!
+											//removido em 2018-12-03: <!--<br /><p>No caso dos Gabinetes de Vereador, o custo total por Gabinete não pode exceder R$ < ?=number_format($tetoGVVALOR, 2, ',', '.')? >.</p>-->
+											*/
+										?>
+										<?php
+									} //FIM: COMISSAO	####################################################################
+
+
+
+										// OK! COMISSIONADO	####################################################################
+										//“Servidores afastados para prestar serviço junto à CMSP” = comissionados
+										/*
+										Comissionados recebem salário do órgão de origem + GNA e GLIEP da CMSP (Art31 L13637):
+										Nível básico:   GNA <= 50% QPL-1  + GLIEP = 10% QPL-22
+										Nível médio:    GNA <= 50% QPL-7  + GLIEP = 10% QPL-22
+										Nível superior: GNA <= 50% QPL-15 + GLIEP = 10% QPL-22
+
+										Se ocupa cargo em comissão não recebe esta GNA.
+										Não pode receber GAL.
+										L13637 - Art. 31 - § 1º - Aos servidores efetivos afastados na forma do "caput", em exercício nas unidades
+											referidas neste artigo, poderá ser atribuída a Gratificação por Nível de Assessoria, no valor
+											equivalente a até 50% (cinqüenta por cento) do valor inicial do vencimento básico instituído
+											por esta lei, para cada uma das carreiras ora reorganizadas, em compatibilidade com o nível
+											de escolaridade do cargo ou função do servidor afastado.
+
+										Com relação à GNA, antes da Lei nº 16.671/2017 eram duas GNAs:
+										1.	“GNA Vereador” – atribuída aos servidores de cargo em comissão e comissionados lotados em GVs, Lideranças e Mesa Diretora, à critério do Vereador
+										2.	“GNA Administração” – atribuída pela respectiva chefia aos servidores comissionados lotados na administração (SGA, SGP, CTEO, etc)
+
+										A Lei nº 16.671/2017 extinguiu a “GNA Vereador”.
+										A “GNA Administração” está mantida e agora poderá ser paga também aos comissionados lotados nas Lideranças e Mesa Diretora.
+										*/
+										if(!empty($cargoTipoSelecionado) && $cargoTipoSelecionado == "COMISSIONADO") {
+											//$nivelSelecionado = $_POST['nivelEfetivo'];
+											(array_key_exists('nivelEfetivo', $_POST) ? $nivelSelecionado = $_POST['nivelEfetivo'] : $nivelSelecionado = null);
+										?>
+										<div class="form-row" id="nivelEfetivo">
+											<label>Nível:</label>
+											<select id="nivelEfetivo" name="nivelEfetivo" class="form-control"
+												onchange="this.form.action='#'; this.form.submit()">
+												<option value="NA" <?php
+													if(empty($nivelSelecionado) || $nivelSelecionado == "NA") {
+														echo 'selected="selected"';
+													} ?>>Selecione...</option>
+												<option value="BASICO" <?php
+													if(!empty($nivelSelecionado) && $nivelSelecionado == "BASICO") {
+														echo 'selected="selected"';
+													} ?>>Básico</option>
+												<option value="MEDIO" <?php
+													if(!empty($nivelSelecionado) && $nivelSelecionado == "MEDIO") {
+														echo 'selected="selected"';
+													} ?>>Médio</option>
+												<option value="SUPERIOR" <?php
+													if(!empty($nivelSelecionado) && $nivelSelecionado == "SUPERIOR") {
+														echo 'selected="selected"';
+													} ?>>Superior</option>
+											</select>
+										</div>
+										<?php
+											$qpl22ROW = $wpdb->get_row(
+												"SELECT VALOR FROM cti_sv_quadro WHERE VINCULO='EFETIVO' AND ID='QPL-22';");
+											if (!empty($qpl22ROW)) $baseVALOR = 0.1 * $qpl22ROW->VALOR;
+										?>
+										<div class="form-row">
+											<label>GLIEP (10% do QPL-22):</label> R$ <?=number_format($baseVALOR, 2, ',', '.')?>
+										</div>
+										<?php
+											$gnaValor = 0;
+											if(!empty($nivelSelecionado) && $nivelSelecionado == "BASICO") {
+												//Nível básico:   GNA <= 50% QPL-1  + GLIEP = 10% QPL-22
+												$qpl01ROW = $wpdb->get_row(
+													"SELECT VALOR FROM cti_sv_quadro WHERE VINCULO='EFETIVO' AND ID='QPL-01';"
+												);
+												if (!empty($qpl01ROW)) $gnaValor = (0.5 * $qpl01ROW->VALOR);
+											} else if(!empty($nivelSelecionado) && $nivelSelecionado == "MEDIO") {
+												//Nível médio:    GNA <= 50% QPL-7  + GLIEP = 10% QPL-22
+												$qpl07ROW = $wpdb->get_row(
+													"SELECT VALOR FROM cti_sv_quadro WHERE VINCULO='EFETIVO' AND ID='QPL-07';"
+												);
+												if (!empty($qpl07ROW)) $gnaValor = (0.5 * $qpl07ROW->VALOR);
+											} else if(!empty($nivelSelecionado) && $nivelSelecionado == "SUPERIOR") {
+												//Nível superior: GNA <= 50% QPL-15 + GLIEP = 10% QPL-22
+												$qpl15ROW = $wpdb->get_row(
+													"SELECT VALOR FROM cti_sv_quadro WHERE VINCULO='EFETIVO' AND ID='QPL-15';"
+												);
+												if (!empty($qpl15ROW)) $gnaValor = (0.5 * $qpl15ROW->VALOR);
+											}
+										?>
+										<div class="form-row">
+											<label>GNA máxima**:</label> R$ <?=number_format($gnaValor, 2, ',', '.')?>
+										</div>
+										<div class="form-row">
+											<?php $irrfVALOR = CalcularIRRF($baseVALOR + $gnaValor); ?>
+											<label>Desconto IRRF:</label> R$ <?=(
+												!empty($irrfVALOR) ? number_format($irrfVALOR, 2, ',', '.') : "0,00"
+											)?>
+										</div>
+										<div class="form-row">
+											<label>TOTAL LíQUIDO = R$ <?=number_format($baseVALOR + $gnaValor - $irrfVALOR, 2, ',', '.')?></label>
+										</div>
+										<br />
+										<p>
+											&nbsp;* Recebem salário do órgão de origem, ao qual a CMSP adiciona a gratificação listada.
+										</p>
+										<p>
+											** A GNA tem valor variável em função do nível de escolaridade mínimo exigido para o cargo (Lei 13637/2003, Art. 31, § 1º).
+										</p>
+									<?php
+										} //FIM: COMISSIONADO	####################################################################
+
+
+
+										// OK! APM	####################################################################
+										if(!empty($cargoTipoSelecionado) && $cargoTipoSelecionado == "APM") {
+											//$nivelAPMSelecionado = $_POST['nivelAPM'];
+											(array_key_exists('nivelAPM', $_POST) ? $nivelAPMSelecionado = $_POST['nivelAPM'] : $nivelAPMSelecionado = null);
+											
+											//declara var para evitar msg erro php
+											$gratifAPM = null;
+										?>
+											<div class="form-row">
+												<label>Nível:</label>
+												<select id="nivelAPM" name="nivelAPM" class="form-control"
+													onchange="this.form.action='#'; this.form.submit()">
+													<option value="NA" <?php
+														if(empty($nivelAPMSelecionado) || $nivelAPMSelecionado == "NA") {
+															echo 'selected="selected"';
+														} ?>>Selecione...</option>
+													<?php
+														$niveis = $wpdb->get_results(
+															"SELECT ID, REF, INDICE, VINCULO, OBS
+															FROM cti_sv_quadro_derivados WHERE VINCULO='APM';"
+														);
+														foreach($niveis as $nivel) {
+															echo "<option value='" . $nivel->ID . "'" . (
+																!empty($nivelAPMSelecionado) && $nivelAPMSelecionado == $nivel->ID ? "selected=\"selected\"":""
+															) . ">" . $nivel->OBS . "</option>";
+															if (!empty($nivelAPMSelecionado) && $nivelAPMSelecionado == $nivel->ID) {
+																$qpl = $wpdb->get_row(
+																	"SELECT VALOR FROM cti_sv_quadro WHERE VINCULO='EFETIVO' AND ID = '"
+																	. $nivel->REF . "';"
+																);
+																if (!empty($qpl)) $gratifAPM = $qpl->VALOR * $nivel->INDICE;
+															}
+														}
+													?>
+												</select>
+
+												<label>Gratificação:</label>
+												<div>R$ <?=(isset($gratifAPM) && !empty($gratifAPM) ? number_format($gratifAPM, 2, ',', '.') : "0,00")?></div>
+												<br />
+
+												<label>Desconto IRRF:</label>
+												<?php $irrfVALOR = CalcularIRRF($gratifAPM); ?>
+												<div>R$ <?=(isset($gratifAPM) && !empty($irrfVALOR) ? number_format($irrfVALOR, 2, ',', '.') : "0,00")?></div>
+												<br />
+											</div>
+											<div class="form-row">
+												<label>TOTAL LíQUIDO = R$ <?=(isset($gratifAPM) && !empty($irrfVALOR) ? number_format($gratifAPM - $irrfVALOR, 2, ',', '.') : "0,00")?></label>
+											</div>
+											<br />
+											<p>
+												&nbsp;* Recebem salário do órgão de origem, ao qual a CMSP adiciona a gratificação listada.
+											</p>
+										<?php
+											} //FIM: APM	####################################################################
+
+
+
+											// OK! GCM 	####################################################################
+											if(!empty($cargoTipoSelecionado) && $cargoTipoSelecionado == "GCM") {
+												//$nivelGCMSelecionado = $_POST['nivelGCM'];
+												(array_key_exists('nivelGCM', $_POST) ? $nivelGCMSelecionado = $_POST['nivelGCM'] : $nivelGCMSelecionado = null);
+											//declara var para evitar msg erro php
+											$gratifGCM = null;
+										?>
+											<div class="form-row">
+												<label>Nível:</label>
+												<select id="nivelGCM" name="nivelGCM" class="form-control"
+													onchange="this.form.action='#'; this.form.submit()">
+													<option value="NA" <?php
+														if(empty($nivelGCMSelecionado) || $nivelGCMSelecionado == "NA") {
+															echo 'selected="selected"';
+														} ?>>Selecione...</option>
+													<?php
+														$niveis = $wpdb->get_results(
+															"SELECT ID, REF, INDICE, VINCULO, OBS
+															FROM cti_sv_quadro_derivados WHERE VINCULO='GCM';"
+														);
+														foreach($niveis as $nivel) {
+															echo "<option value='" . $nivel->ID . "'" . (
+																!empty($nivelGCMSelecionado) && $nivelGCMSelecionado == $nivel->ID ? "selected=\"selected\"" : ""
+															) . ">" . $nivel->OBS . "</option>";
+															if (!empty($nivelGCMSelecionado) && $nivelGCMSelecionado == $nivel->ID) {
+																$qpl = $wpdb->get_row(
+																	"SELECT VALOR FROM cti_sv_quadro WHERE VINCULO='EFETIVO' AND ID = '" . $nivel->REF . "';");
+																if (!empty($qpl)) {
+																	$gratifGCM = $qpl->VALOR * $nivel->INDICE;
+																}
+															}
+														}
+													?>
+												</select>
+
+												<label>Gratificação:</label>
+												<div> R$ <?=(!empty($gratifGCM) ? number_format($gratifGCM, 2, ',', '.') : "0,00")?></div>
+												<br />
+
+												<label>Desconto IRRF:</label>
+												<?php $irrfVALOR = CalcularIRRF($gratifGCM); ?>
+												<div>R$ <?=(!empty($irrfVALOR) ? number_format($irrfVALOR, 2, ',', '.') : "0,00")?></div>
+												<br />
+											</div>
+											<div class="form-row">
+												<label>TOTAL LíQUIDO = R$ <?=number_format($gratifGCM - $irrfVALOR, 2, ',', '.')?></label>
+											</div>
+											<br />
+											<p>
+												&nbsp;* Recebem salário do órgão de origem, ao qual a CMSP adiciona a gratificação listada.
+											</p>
+										<?php
+											} //FIM: GCM	####################################################################
+
+
+
+											// OK! VEREADOR	####################################################################
+											if(!empty($cargoTipoSelecionado) && $cargoTipoSelecionado == "VEREADOR") {
+												//$ocupacaoCLTSelecionado = $_POST['ocupacaoCLT'];
+												(array_key_exists('ocupacaoCLT', $_POST) ? $ocupacaoCLTSelecionado = $_POST['ocupacaoCLT'] : $ocupacaoCLTSelecionado = null);
+										?>
+											<div class="form-row">
+												<label>Padrão:</label>
+												<?php
+													$padraoEfetivoSelecionadoRow = $wpdb->get_row(
+														"SELECT VALOR FROM cti_sv_quadro WHERE VINCULO='VEREADOR' AND ID='VEREADOR';"
+													);
+													if (!empty($padraoEfetivoSelecionadoRow)) {
+														$padraoEfetivoVALOR = $padraoEfetivoSelecionadoRow->VALOR;
+													}
+													$brutoVALOR = $padraoEfetivoVALOR;
+												?>
+												<div>R$ <?=(!empty($brutoVALOR) ? number_format($brutoVALOR, 2, ',', '.') : "0,00")?></div>
+												<br />
+
+												<label>Desconto INSS:</label>
+												<?php $inssVALOR = CalcularINSS($brutoVALOR); ?>
+												<div>R$ <?=(!empty($inssVALOR) ? number_format($inssVALOR, 2, ',', '.') : "0,00")?></div>
+												<br />
+
+												<label>Desconto IRRF:</label>
+												<?php $irrfVALOR = CalcularIRRF($brutoVALOR - $inssVALOR); ?>
+												<div>R$ <?=(!empty($irrfVALOR) ? number_format($irrfVALOR, 2, ',', '.') : "0,00")?></div>
+												<br />
+											</div>
+											<div class="form-row">
+												<label>TOTAL LíQUIDO = R$ <?=number_format($brutoVALOR - $inssVALOR - $irrfVALOR, 2, ',', '.')?></label>
+											</div>
+										<?php
+											} //FIM: VEREADOR	####################################################################
+										?>
+
+
+
+										<?php
+											if ($debugar) {
+												echo "<br />debug:POST:"; print_r($_POST);echo "<br /><br />";
+											}
+
+											//$quadro = $wpdb->get_results("SELECT * FROM cti_sv_quadro;");
+											if ($debugar) {
+												//echo "<div><br />debug:quadro: ";
+												//print_r($quadro);
+												//echo "<br />";
+												//foreach($quadro as $q) {
+												//	echo "<br />ID=" . $q->ID."; VINCULO=" . $q->VINCULO."; VALOR=" . $q->VALOR."";
+												//}
+												//echo "<br />fim:debug:quadro</div>";
+											}
+										?>
+								</div>
+							</div>
+						</fieldset>
+					</form>
+
+					<br /><br />
+
+					<h4>Legislação</h4>
+					<?php
+						$url_documentacao_legis = "http://www.saopaulo.sp.leg.br/cgi-bin/wxis.bin/iah/scripts/?IsisScript=iah.xis&lang=pt&format=detalhado.pft&base=legis&nextAction=search&form=A&indexSearch=^nTw^lTodos%20os%20campos&&exprSearch=";
+						// 2020/12/01: revogados os Ato nº 1142/11 e Ato nº 1228/13
+					?>
+					<table width="85%">
+						<tr>
+							<td><a href="<?=$url_documentacao_legis?>LEI10.827/1990">Lei 10.827/1990</a></td>
+							<td><a href="<?=$url_documentacao_legis?>DLE29/1992">Decreto Legislativo Nº 29/1992</a></td>
+						</tr>
+						<tr>
+							<td><a href="<?=$url_documentacao_legis?>LEI13.637/2003">Lei 13.637/2003</a></td>
+							<td><a href="<?=$url_documentacao_legis?>LEI13.638/2003">Lei 13.638/2003</a></td>
+						</tr>
+						<tr>
+							<td><a href="<?=$url_documentacao_legis?>LEI13.749/2004">Lei 13.749/2004</a></td>
+							<td><a href="<?=$url_documentacao_legis?>LEI13.972/2005">Lei 13.972/2005</a></td>
+						</tr>
+						<tr>
+							<td><a href="<?=$url_documentacao_legis?>LEI14.043/2005">Lei 14.043/2005</a></td>
+							<td><a href="<?=$url_documentacao_legis?>LEI14.259/2007">Lei 14.259/2007</a></td>
+						</tr>
+						<tr>
+							<td><a href="<?=$url_documentacao_legis?>LEI14.381/2007">Lei 14.381/2007</a></td>
+							<td><a href="<?=$url_documentacao_legis?>LEI15.060/2009">Lei 15.060/2009</a></td>
+						</tr>
+						<tr>
+							<td><a href="<?=$url_documentacao_legis?>LEI15.313/2010">Lei 15.313/2010</a></td>
+							<td><a href="<?=$url_documentacao_legis?>ATO*DA*CMSP*1.142/%286%29*2011">Ato da CMSP Nº 1.142/2011</a></td>
+						</tr>
+						<tr>
+							<td><a href="<?=$url_documentacao_legis?>LEI15.557/2012">Lei 15.557/2012</a></td>
+							<td><a href="<?=$url_documentacao_legis?>ATO*DA*CMSP*1.228/%286%29*2013">Ato da CMSP Nº 1.228/2013</a></td>
+						</tr>
+						<tr>
+							<td><a href="<?=$url_documentacao_legis?>ATO*DA*CMSP*1.339/%286%29*2016">Ato da CMSP Nº 1.339/2016</a></td>
+							<td><a href="<?=$url_documentacao_legis?>LEI16.667/2017">Lei 16.667/2017</a></td>
+						</tr>
+						<tr>
+							<td><a href="<?=$url_documentacao_legis?>LEI16.671/2017">Lei 16.671/2017</a></td>
+							<td><a href="<?=$url_documentacao_legis?>LEI16.972/2018">Lei 16.972/2018</a></td>
+						</tr>
+						<tr>
+							<td><a href="<?=$url_documentacao_legis?>LEI16.987/2018">Lei 16.987/2018</a></td>
+							<td><a href="<?=$url_documentacao_legis?>LEI17.153/2019">Lei 17.153/2019</a></td>
+						</tr>
+						<tr>
+							<td><a href="<?=$url_documentacao_legis?>LEI17.538/2020">Lei 17.538/2020</a></td>
+							<td><a href="<?=$url_documentacao_legis?>LEI17.730/2021">Lei 17.730/2021</a></td>
+						</tr>
+					</table>
+
+					<h4>Observações</h4>
+					<p>
+						O valor do Teto Salarial é de R$ <?=number_format($tetoVALOR, 2, ',', '.')?> em conformidade com o artigo 37 inciso XI da
+						Constituição Federal e com as exclusões listadas no Ato da CMSP nº 1.142/2011 (modificado pelos Atos da CMSP nº 1.496/2020, nº 1.339/2016 e 1.228/2013).
+						<br /><br />
+						O cargo de Procurador Legislativo tem Teto Salarial de R$ <?=number_format($tetoProcuradorVALOR, 2, ',', '.')?>.
+						<br /><br />
+						Esta página foi atualizada em Abril de 2022.
+					</p>
+
+				</section>
+
+			</article>
+
+		</div>
+
+		<!-- Sidebar -->
+		<?php  wp_reset_query(); ?>
+		<?php get_sidebar('page'); ?>
+
+	</div>
+
+</div>
+</main>  
+<?php get_footer(); ?>

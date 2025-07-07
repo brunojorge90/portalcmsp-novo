@@ -1,0 +1,183 @@
+.color-accent {
+  color: $color-primary-accent;
+}
+
+#atividade-legislativa {
+    padding-bottom: 60px;
+  .infos-participe {
+    display: flex;
+    gap: 32px;
+
+    .form-vereador {
+      flex: 1;
+      border-radius: $radius-16px;
+      border: 1px solid $color-neutral-silver;
+      background-color: $color-neutral-white;
+      padding: 32px 24px;
+
+      label {
+        display: block;
+      }
+
+      .informativos {
+        display: flex;
+        justify-content: space-between;
+
+        label {
+          margin-top: 0;
+        }
+      }
+
+      .sua-mensagem {
+        textarea {
+          height: 120px;
+        }
+
+        span {
+          margin-top: 8px;
+          font-size: 1.2rem;
+          display: block;
+          text-align: right;
+        }
+      }
+    }
+
+    .links-participe {
+      flex: 1;
+
+      .card-sugira-projeto-lei {
+        border-radius: $radius-16px;
+        border: 1px solid $color-neutral-silver;
+        background-color: $color-neutral-white;
+        padding: 32px 24px 40px 24px;
+
+        p {
+          margin: 16px 0;
+        }
+
+        a {
+          display: block;
+          text-decoration: none;
+          color: $color-primary-accent;
+          transition: all 300ms;
+          padding-left: 0;
+
+          svg {
+            margin-left: 8px;
+            transition: all 300ms;
+          }
+
+          &:hover {
+            padding-left: 16px;
+
+            svg {
+              margin-left: 0;
+            }
+          }
+        }
+
+        a + a {
+          margin-top: 16px;
+        }
+      }
+
+      .card-terciario {
+        flex: 1;
+        width: 100%;
+        min-width: 544px;
+        border-radius: $radius-16px;
+        border: 1px solid $color-neutral-silver;
+        background-color: $color-neutral-white;
+        padding: 16px;
+        text-decoration: none;
+        transition: all 300ms;
+
+        p {
+          margin: 16px 0;
+        }
+
+        span {
+          display: flex;
+          justify-content: flex-end;
+          color: $color-primary-accent;
+          padding-right: 16px;
+          transition: all 300ms;
+        }
+
+        &:hover {
+          cursor: pointer !important;
+          background-color: $color-primary-extra-5;
+          border-color: $color-primary-extra-5;
+
+          span {
+            padding-right: 0;
+          }
+        }
+      }
+    }
+  }
+
+  .infos-acompanhe {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+
+    .card-secundario {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border-radius: $radius-16px;
+      border: 1px solid $color-neutral-l-grey;
+      background-color: $color-neutral-white;
+      max-width: 256px;
+      min-width: 256px;
+      transition: all 300ms;
+
+      &:hover {
+        background-color: $color-primary-extra-5;
+        border: 1px solid $color-primary-extra-5;
+
+        .img-servicos {
+          img {
+            transform: scale(1.1);
+          }
+        }
+      }
+
+      .img-servicos {
+        max-height: 142px;
+        overflow: hidden;
+
+        img {
+          transition: all 300ms;
+          object-fit: cover;
+        }
+      }
+
+      .infos-servicos {
+        padding: 24px 16px;
+      }
+    }
+  }
+}
+
+#auditorios-online {
+  background-color: $color-neutral-silver;
+  padding-top: 64px;
+  padding-bottom: 101px;
+  .context {
+    padding: 32px;
+
+    .acessar-video {
+      color: $color-primary-accent;
+      text-decoration: none;
+      transition: all 300ms;
+      padding-left: 0;
+
+      &:hover {
+        padding-left: 16px;
+      }
+    }
+  }
+}

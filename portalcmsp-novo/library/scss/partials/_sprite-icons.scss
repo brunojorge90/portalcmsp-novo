@@ -1,0 +1,43 @@
+
+
+/***
+ * Create classes for icons that show as :before pseudo-elements 
+ * these are used by applying classes directly to the markup
+ */
+
+%icon {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+$iconfiles:
+	flag-black
+	operator-black operator-red
+	ribbon-black
+	calendar-red
+	clock-red clock-large-red
+	star-red
+	search-red
+	photo-camera-red
+	mouse-red
+	monitor-red
+	plus-red
+	suitcase-red
+	doublearrow-red
+	newspaper-red
+	checklist-red
+	archives-red
+	archives-large-red
+	pen-red pen-large-red
+	connected-large-red
+	lightbulb-red lightbulb-large-red
+	logo-dem logo-pcdob logo-phs logo-pmdb logo-pp logo-pps logo-pr logo-pros logo-psb logo-psd logo-psdb logo-psol logo-ptb logo-pv logo-pt logo-prb;
+
+@each $iconfile in $iconfiles {
+	.icon-#{$iconfile}:before {
+		@extend %icon;
+		@include get-sprite($icons, $iconfile)
+	}
+}

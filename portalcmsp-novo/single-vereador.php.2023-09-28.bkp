@@ -1,0 +1,553 @@
+<?php
+/*
+ * CUSTOM POST TYPE TEMPLATE
+ *
+ * This is the custom post type post template. If you edit the post type name, you've got
+ * to change the name of this template to reflect that name change.
+ *
+ * For Example, if your custom post type is "register_post_type( 'bookmarks')",
+ * then your single template should be single-bookmarks.php
+ *
+ * Be aware that you should rename 'custom_cat' and 'custom_tag' to the appropiate custom
+ * category and taxonomy slugs, or this template will not finish to load properly.
+ *
+ * For more info: http://codex.wordpress.org/Post_Type_Templates
+*/
+?>
+
+<?php get_header(); ?>
+
+<?php
+	//PERÍODO ELEITORAL DEMANDA OCULTAÇÃO DE DADOS COM REFERÊNCIA A CAMPANHA
+	$periodo_eleitoral = false;
+	
+	// see whatever is the current filter and set a default
+	$filter = 'default';
+	if(isset($_GET['filtro'])) { $filter = $_GET['filtro']; }
+	//DEBUG: echo '<p>filtro=' . $filter . '</p>';
+	
+	//2021-03-09: filtros existentes: default e simples
+?>
+
+<?php
+	// por padrão, mostrar breadcrumbs
+	if(strcmp($filter, 'default') == 0) {
+	
+?>
+	<div class="breadcrumbs cf">
+		<?php if ( function_exists('yoast_breadcrumb') ) {
+			yoast_breadcrumb('<p class="wrap cf">','</p>');
+		} ?>
+	</div>
+<?php
+	}
+?>
+
+	<div class="section-title">
+		<h2 class="wrap icon-connected-large-red"><?php the_title(); ?></h2>
+	</div>
+
+	<div id="content" class="<?php if(strcmp($filter, 'simples') == 0)  { ?>filtro-simples<?php } ?>">
+
+		<div id="inner-content" class="wrap cf">
+
+			<div id="main" class="cf" role="main">
+
+				<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+
+				<?php
+				$vereador_name = get_post_meta($post->ID,'_cmsp_vereador_name', true);
+				if($vereador_name == '') $vereador_name = get_the_title();
+
+				$vereador_image = get_post_meta($post->ID,'_cmsp_vereador_image', true);
+				$vereador_party = get_post_meta($post->ID,'_cmsp_vereador_party', true);
+				$page_path = strtolower( "partidos/".$vereador_party );
+				$partido = get_page_by_path( basename( untrailingslashit( $page_path ) ), OBJECT, 'partidos');
+				$logo = get_field("logo_pequeno",$partido->ID);
+
+				$vereador_bio = get_post_meta($post->ID, '_cmsp_vereador_biografia', true);
+
+				$vereador_tel = get_post_meta($post->ID, '_cmsp_vereador_contato_telefone', true);
+				$vereador_ramal = get_post_meta($post->ID, '_cmsp_vereador_contato_ramal', true);
+				$vereador_fax = get_post_meta($post->ID, '_cmsp_vereador_contato_fax', true);
+				$vereador_andar = get_post_meta($post->ID, '_cmsp_vereador_contato_andar', true);
+				$vereador_sala = get_post_meta($post->ID, '_cmsp_vereador_contato_sala', true);
+				$vereador_email = get_post_meta($post->ID, '_cmsp_vereador_contato_email', true);
+				$vereador_website = get_post_meta($post->ID, '_cmsp_vereador_contato_site', true);
+				$vereador_facebook = get_post_meta($post->ID, '_cmsp_vereador_contato_facebook', true);
+				$vereador_instagram = get_post_meta($post->ID, '_cmsp_vereador_contato_instagram', true);
+				$vereador_twitter = get_post_meta($post->ID, '_cmsp_vereador_contato_twitter', true);
+				$vereador_youtube = get_post_meta($post->ID, '_cmsp_vereador_contato_youtube', true);
+				$vereador_whatsapp = get_post_meta($post->ID, '_cmsp_vereador_contato_whatsapp', true);
+				$vereador_ativo = get_post_meta($post->ID, '_cmsp_vereador_ativo', true);
+
+				$legacy_ID = get_post_meta($post->ID, '_cmsp_vereador_legacy_id', true);
+				$splegis_ID = get_post_meta($post->ID, '_cmsp_vereador_consulta_splegis_id', true);
+				?>
+
+				<article id="post-<?php the_ID(); ?>" <?php post_class('vereador-entry cf'); ?> data-id="<?=$legacy_ID?>" role="article">
+					<input id="splegisID" type="hidden" value="<?=$splegis_ID?>"/>
+
+					<header class="vereador-header">
+						<div class="vereador-profile-thumb cf">
+							<h1 class="vereador-picture"><a href="<?php the_permalink()?>">
+								<img alt="<?=$vereador_name?>" src="<?=$vereador_image?>" /></a>
+							</h1>
+							<h3 class="vereador-party">
+								<?php if (!empty($logo['url'])) : ?>
+									<img src="<?=$logo['url']?>" width="40" title="<?=$vereador_party?>" style="margin:0" />
+								<?php endif ?>
+							</h3>
+							<p class="vereador-name">
+								<a href="<?php the_permalink(); ?>"><?=$vereador_name?></a>
+							</p>
+						</div>
+
+					<?php if(strcmp($filter, 'simples') !== 0): ?>						
+						<?php if(trim($vereador_ativo) == 'on'): ?>
+							<div class="vereador-data">
+								<h2>Fale com seu vereador</h2>
+								<ul>
+									<?php if(trim($vereador_tel)!='') { ?>
+										<li><strong>Telefone:</strong> <?=$vereador_tel?></li>
+									<?php } ?>
+
+									<?php if(trim($vereador_ramal)!='') { ?>
+										<li><strong>Ramal:</strong> <?=$vereador_ramal?></li>
+									<?php } ?>
+
+									<?php if(trim($vereador_fax)!='') { ?>
+										<li><strong>FAX:</strong> <?=$vereador_fax?></li>
+									<?php } ?>
+									<?php if(trim($vereador_whatsapp)!='') { 
+											if(strpos($vereador_whatsapp, 'http') > -1) {//https://www.saopaulo.sp.leg.br/vereador/toninho-vespoli/  -> http://bit.ly/ZapdoToninho ?>
+										<li><strong>WhatsApp:</strong> <a target="_blank" href="<?=$vereador_whatsapp?>"><?=$vereador_whatsapp?></a></li>
+									<?php   } else { //https://www.saopaulo.sp.leg.br/vereador/fernando-holiday/   ->   WhatsApp: (0xx11) 97664-0324?>
+										<li><strong>WhatsApp:</strong> <?=$vereador_whatsapp?></li>
+									<?php 	} ?>
+									<?php } ?>
+									<?php if(trim($vereador_email)!='') { ?>
+										<li><strong>E-mail:</strong> <a href='mailto:"<?=$vereador_email?>"'><?=$vereador_email?></a></li>
+									<?php } ?>
+
+									<?php if (!$periodo_eleitoral && FALSE) { //ELEIÇÕES - NÃO PODE TER LINK PARA MTERIAL DE CAMPANHA | 2022-11-09: add:"&& FALSE" equipe portal pediu ocultação provisória por pedido da procuradoria?>
+
+									<?php if(trim($vereador_website)!='') { ?>
+										<li><strong>Site Oficial:</strong> <a target="_blank" href="<?=$vereador_website?>"><?=$vereador_website?></a></li>
+									<?php } ?>
+									<?php if(trim($vereador_facebook)!='') { ?>
+										<li><strong>Facebook:</strong> <a target="_blank" href="<?=$vereador_facebook?>"><?=$vereador_facebook?></a></li>
+									<?php } ?>
+									<?php if(trim($vereador_instagram)!='') { ?>
+										<li><strong>Instagram:</strong> <a target="_blank" href="<?=$vereador_instagram?>"><?=$vereador_instagram?></a></li>
+									<?php } ?>
+									<?php if(trim($vereador_twitter)!='') { ?>
+										<li><strong>Twitter:</strong> <a target="_blank" href="<?=$vereador_twitter?>"><?=$vereador_twitter?></a></li>
+									<?php } ?>
+									<?php if(trim($vereador_youtube)!='') { ?>
+										<li><strong>Youtube:</strong> <a target="_blank" href="<?=$vereador_youtube?>"><?=$vereador_youtube?></a></li>
+									<?php } ?>
+									<?php } //ELEIÇÕES ?>
+
+									<li>
+										<strong>Endereço para correspondência:</strong>&nbsp;
+										Câmara Municipal de São Paulo - Palácio Anchieta - Viaduto Jacareí, 100 - CEP 01319-900
+									</li>
+									<?php if(trim($vereador_andar)!='') { ?>
+										<li><strong>Andar:</strong> <?=$vereador_andar?></li>
+									<?php } ?>
+									<?php if(trim($vereador_sala)!='') { ?>
+										<li><strong>Sala:</strong> <?=$vereador_sala?></li>
+									<?php } ?>
+								</ul>
+								<?php if(trim($vereador_email)!='') { ?>
+									<input type="hidden" name="vereador_email" value="<?=$vereador_email?>" />
+								<?php } ?>
+							</div>
+						<?php endif; ?>
+					</header>
+
+					<section class="entry-content cf">
+						<h1>Biografia</h1>
+						<?php if(trim($vereador_ativo) != 'on') { ?>
+							<h3>ATENÇÃO: Este vereador está licenciado ou não pertence mais à legislatura atual. Acesse a relação de Parlamentares em exercício <a href="https://www.saopaulo.sp.leg.br/vereadores/">aqui.</a></h3>
+						<?php } ?>
+						<?php if ($periodo_eleitoral) { //ELEIÇÕES - NÃO PODE TER LINK PARA MTERIAL DE CAMPANHA  ?>
+							<p>Em atendimento à legislação eleitoral, o conteúdo desta página ficará indisponível de 2 de julho de 2022 até o final do período eleitoral.</p>
+							<?php if(trim($vereador_ativo) == 'on') { ?>
+								<p>Você pode contactar diretamente o gabinete da vereadora ou vereador.<br/><-- Contatos ao lado</p>
+							<?php } ?>
+						<?php } else { //ELEIÇÕES ?>
+								<?php if(trim($vereador_bio) != '') { ?>
+								<span><?=nl2br($vereador_bio)?></span>
+								<span class="notalegal" style="font-size:0.75em;margin-top:20px;display:block;">Nota: Este texto foi produzido por e é de responsabilidade do gabinete de <?=$vereador_name?>.</span>
+							<?php } ?>
+						<?php } //ELEIÇÕES ?>
+
+					</section><!-- end article section -->
+
+					<?php if(trim($splegis_ID)!=''): ?>
+						<aside class="vereador-projects cmsp-row">
+							<?php
+								$projects_approved = get_post_meta($post->ID, '_cmsp_vereador_projects_approved', true);
+								$projects_not_approved = get_post_meta($post->ID, '_cmsp_vereador_projects_not-approved', true);
+								$projects_processing = get_post_meta($post->ID, '_cmsp_vereador_projects_processing', true);
+								//$projects_total = $projects_approved + $projects_not_approved + $projects_processing;
+							?>
+
+							<div class="box-one-third">
+								<div class="content-box box-vereador-projects">
+									<header class="content-box-top">
+										<h2 class="content-box-title icon-checklist-red">Projetos <span class="red">em tramitação</span></h2>
+									</header>
+									<article class="box-vereador-projects-chart">
+										<canvas class="vereador-projects-chart" width="200" height="200" data-label="Em Tramitação"></canvas>
+									</article>
+									<aside class="box-vereador-projects-list" id="box-vereador-projects-processing">
+										<?php if(trim($splegis_ID) != '') { ?><div class='loading'>Carregando...</div><?php } ?>
+									</aside>
+									<footer class="box-vereador-projects-footer">
+										<a href="/wp-content/uploads/php/vereador_projetos.php?vereador=<?=$splegis_ID?>&tipo=T"
+											class="cmsp-lightbox cmsp-lightbox-iframe btn-wrap"
+											data-title="<?php the_title(); ?> - Projetos em tramitação"><span class="btn">Veja Mais</span></a>
+									</footer>
+								</div>
+							</div>
+
+							<div class="box-one-third">
+								<div class="content-box box-vereador-projects">
+									<header class="content-box-top">
+										<h2 class="content-box-title icon-checklist-red">Leis <span class="red">Aprovadas</span></h2>
+									</header>
+									<article class="box-vereador-projects-chart">
+										<canvas class="vereador-projects-chart" width="200" height="200" data-label="Aprovados"></canvas>
+									</article>
+									<aside class="box-vereador-projects-list" id="box-vereador-projects-approved">
+										<?php if(trim($splegis_ID)!='') { ?><div class='loading'>Carregando...</div><?php } ?>
+									</aside>
+									<footer class="box-vereador-projects-footer">
+										<a href="/wp-content/uploads/php/vereador_projetos.php?vereador=<?=$splegis_ID?>&tipo=A"
+											class="cmsp-lightbox cmsp-lightbox-iframe btn-wrap"
+											data-title="<?php the_title(); ?> - Projetos Aprovados"><span class="btn">Veja Mais</span></a>
+									</footer>
+								</div>
+							</div>
+
+							<div class="box-one-third last">
+								<div class="content-box box-vereador-projects">
+									<header class="content-box-top">
+										<h2 class="content-box-title icon-checklist-red">Projetos <span class="red">vetados</span></h2>
+									</header>
+									<article class="box-vereador-projects-chart">
+										<canvas class="vereador-projects-chart" width="200" height="200" data-label="Vetados"></canvas>
+									</article>
+									<aside class="box-vereador-projects-list" id="box-vereador-projects-denied">
+										<?php if(trim($splegis_ID)!='') { ?><div class='loading'>Carregando...</div><?php } ?>
+									</aside>
+									<footer class="box-vereador-projects-footer">
+										<a href="/wp-content/uploads/php/vereador_projetos.php?vereador=<?=$splegis_ID?>&tipo=V"
+											class="cmsp-lightbox cmsp-lightbox-iframe btn-wrap"
+											data-title="<?php the_title(); ?> - Projetos vetados"><span class="btn">Veja Mais</span></a>
+									</footer>
+								</div>
+
+							</div>
+						</aside>
+					<?php endif ?>
+				<?php endif ?>
+
+				<?php if(strcmp($filter, 'simples') == 0)  { ?>
+					</header>
+				<?php } ?>
+					
+					<?php
+					/**
+						***************** MANDATO PARTICIPATIVO *********************
+						
+						NOTAS:
+						
+						[2021-01-27] uma assessora de vereador em primeiro mandato abriu chamado
+						             apontando que esta seção não estava funcionando. Apuramos que
+									 o erro ocorria pq não havia email cadastrado. Como não há 
+									 mensagem específica no ContactForm7 para este caso, optamos
+									 por omitir toda a seção qndo não houver email de destino,
+									 evitando confundir o cidadão e abertura de chamados desnecessários.
+									 
+						[2021-09-22] notamos que vereadores inativos estavam recebendo mensagens também			 
+					*/
+					if ($vereador_ativo == true and !empty($vereador_email)):?>
+						<aside id="mandato-participativo" class="vereador-contact cmsp-row">
+							<div class="content-box box-mandato-participativo">
+								<header class="content-box-top">
+									<h2 class="content-box-title icon-operator-red">Fale com o(a) Vereador(a) / <span class="red"><?php the_title(); ?></span></h2>
+								</header>
+
+								<article class="box-vereador-contact-form">
+									<p>Participe do mandato do vereador com propostas, sugestões e receba informativos</p>
+									<?php
+										/**
+											ALTERNATIVA "MANDATO PARTICIPATIVO" VIA CONTACT FORM 7
+										*/
+									?>
+									<?php echo do_shortcode( '[contact-form-7 id="121010" title="Mandato Participativo"]' ); ?>
+								</article>
+
+							</div>
+						</aside>
+					<?php endif ?>
+
+					<?php if(strcmp($filter, 'simples') == 0)  { ?>
+
+						<style>
+							section.header-headlines,
+							div#inner-header nav,
+							ul#atalhos,
+							div.header-search-form,
+							section.secondary-header,
+							nav.social-nav-wrapper,
+							ul#menu-footer-links,
+							div.endereco {
+								display: none;
+							}
+
+						</style> 
+
+							<div class="inner-secondary-header wrap cf">
+
+								<ul class="social-nav">
+									<?php if(trim($vereador_facebook)!='') { ?>
+										<li class="facebook"><a target="_blank" href="<?=$vereador_facebook?>">Facebook</a></li>
+									<?php } ?>
+									<?php if(trim($vereador_instagram)!='') { ?>
+										<li class="instagram"><a target="_blank" href="<?=$vereador_instagram?>">Instagram</a></li>
+									<?php } ?>
+									<?php if(trim($vereador_twitter)!='') { ?>
+										<li class="twitter"><a target="_blank" href="<?=$vereador_twitter?>">Twitter</a></li>
+									<?php } ?>
+									<?php if(trim($vereador_youtube)!='') { ?>
+										<li class="youtube"><a target="_blank" href="<?=$vereador_youtube?>">Youtube</a></li>
+									<?php } ?>
+								</ul>
+
+								<div class="vereador-data">
+									<ul>
+										<?php if(trim($vereador_tel)!='') { ?>
+											<li><strong>Telefone:</strong> <?=$vereador_tel?></li>
+										<?php } ?>
+										<?php if(trim($vereador_fax)!='') { ?>
+											<li><strong>FAX:</strong> <?=$vereador_fax?></li>
+										<?php } ?>
+										<?php if(trim($vereador_whatsapp)!='') { ?>
+											<li><strong>WhatsApp:</strong> <?=$vereador_whatsapp?></li>
+										<?php } ?>
+										<?php if(trim($vereador_email)!='') { ?>
+											<li><strong>E-mail:</strong> <a href='mailto:"<?=$vereador_email?>"'><?=$vereador_email?></a></li>
+										<?php } ?>
+										
+										<?php if (!$periodo_eleitoral) { //ELEIÇÕES - NÃO PODE TER LINK PARA MTERIAL DE CAMPANHA  ?>
+										
+										<?php if(trim($vereador_website)!='') { ?>
+											<li><strong><a target="_blank" href="<?=$vereador_website?>"><?=$vereador_website?></a></strong></li>
+										<?php } ?>
+										
+										<?php } //ELEIÇÕES ?>
+										
+										<li>
+											<strong>Endereço para correspondência:</strong>&nbsp;
+											Câmara Municipal de São Paulo - Palácio Anchieta - Viaduto Jacareí, 100 - CEP 01319-900 <?php if(trim($vereador_andar)!='') { ?>- <?=$vereador_andar?> andar <?php } ?><?php if(trim($vereador_sala)!='') { ?>- Sala: <?=$vereador_sala?><?php } ?>
+										</li>
+									</ul>
+									<?php if(trim($vereador_email)!='') { ?>
+										<input type="hidden" name="vereador_email" value="<?=$vereador_email?>" />
+									<?php } ?>
+								</div>
+							</div>
+
+							<section class="entry-content cf">
+								<h1>Biografia</h1>
+								<?php if(trim($vereador_bio) != '') { ?>
+									<span><?=nl2br($vereador_bio)?></span>
+									<span class="notalegal">Este texto foi produzido por e é de responsabilidade do gabinete do vereador(a) <?=$vereador_name?>.</span>
+								<?php } ?>
+
+							</section><!-- end article section -->
+
+ 					<?php } ?>
+
+				</article>
+
+				<?php endwhile; ?>
+
+				<?php else : ?>
+					<article id="post-not-found" class="hentry cf">
+						<header class="article-header">
+							<h1><?php _e( 'Oops, Post Not Found!', 'bonestheme' ); ?></h1>
+						</header>
+						<section class="entry-content">
+							<p><?php _e( 'Uh Oh. Something is missing. Try double checking things.', 'bonestheme' ); ?></p>
+						</section>
+						<footer class="article-footer">
+							<p><?php _e( 'This is the error message in the single-custom_type.php template.', 'bonestheme' ); ?></p>
+						</footer>
+					</article>
+				<?php endif; ?>
+
+			</div>
+
+		</div>
+
+	</div>
+	
+	<style>
+/******* estilos específicos para o filtro de visualização simples em single-vereador.php ******/
+@media only screen and (max-width: 768px) {
+	.filtro-simples .section-title h2 {
+	    font-size: 2em;
+	    line-height: 2em;
+	    font-weight: bolder;
+	    text-transform: uppercase;
+	    padding: 15px 0;
+	    position: relative;
+	    text-align: center;
+	}
+
+	.filtro-simples .vereador-profile-thumb .vereador-picture img {
+	    display: block;
+	    width: 100%;
+	    border: none;
+	    border-bottom: 3px solid #b70704;
+	}
+
+	.filtro-simples .vereador-profile-thumb .vereador-name, .filtro-simples .vereador-profile-thumb .vereador-position, .vereador-profile-thumb .vereador-party {
+	    border: none;
+	}
+
+	.filtro-simples .vereador-profile-thumb .vereador-party:after {
+	    width: 0;
+	}
+
+	.filtro-simples .vereador-profile-thumb .vereador-name {
+	    width: 181px;
+	    padding-left: 5px;
+	    padding-top: 15px;
+	    font-size: 1em;
+	    float: right;
+	    border-left: none;
+	}
+
+	.filtro-simples .content-box-top {
+	    border: none;
+	}
+
+	.filtro-simples .content-box-top .content-box-title:before {
+	    border-right: none;
+	}
+
+	.filtro-simples aside#mandato-participativo {
+	    background: #e4e4e4;
+	    padding: 20px;
+	    width: calc(100% + 20px);
+	    margin: 0 0 0 -10px;
+	}
+
+	.filtro-simples .type-vereador .vereador-data li {
+	    margin: 0 0 10px 0;
+	    padding: 5px 10px;
+	    border-radius: 5px;
+	    background: #8f8f8f;
+	    color: #fff;
+	}
+
+	.filtro-simples .type-vereador .vereador-data li a {
+		color: #e4e4e4;
+	}
+
+	.filtro-simples .type-vereador .vereador-data li a:hover {
+		color: #f1f1f1;
+	}
+
+	.filtro-simples .social-nav {
+	    width: auto;
+	    height: 42px;
+	    margin: 1.5em auto 10px;
+	    display: flex;
+	}
+
+	.filtro-simples .social-nav li {
+	    float: none;
+	    margin: 0;
+	    background: #8f8f8f;
+	    padding: 5px;
+	    margin-right: 5px;
+	    border-radius: 5px;
+	    text-align: center;
+	    flex-basis: calc(100% - 5px);
+	}
+
+	.filtro-simples button, html .filtro-simples input[type="button"], .filtro-simples input[type="reset"], .filtro-simples input[type="submit"] {
+	    -webkit-appearance: button;
+	    cursor: pointer;
+	    width: 100%;
+	    background: #b50101;
+	    border-radius: 7px;
+	    border: none;
+	    font-weight: bolder;
+	    text-transform: uppercase;
+	    padding: 5px 10px;
+	    color: #fff;
+	}
+
+	.notalegal {
+	    font-size: 0.75em;
+	    margin-top: 20px;
+	    display: block;
+	}
+
+	.filtro-simples .social-nav li.facebook a, .filtro-simples .social-nav li.facebook a:hover {
+	    background: url(https://www.saopaulo.sp.leg.br/wp-content/uploads/2021/04/redessociais.png) 0 0 no-repeat;
+	}
+
+	.filtro-simples .social-nav li.twitter a, .filtro-simples .social-nav li.twitter a:hover {
+	    background: url(https://www.saopaulo.sp.leg.br/wp-content/uploads/2021/04/redessociais.png) 0 -32px no-repeat;
+	}
+
+	.filtro-simples .social-nav li.instagram a, .filtro-simples .social-nav li.instagram a:hover {
+	    background: url(https://www.saopaulo.sp.leg.br/wp-content/uploads/2021/04/redessociais.png) 0 -64px no-repeat;
+	}
+
+	.filtro-simples .social-nav li.youtube a, .filtro-simples .social-nav li.youtube a:hover {
+	    background: url(https://www.saopaulo.sp.leg.br/wp-content/uploads/2021/04/redessociais.png) 0 -96px no-repeat;
+	}
+}
+
+@media only screen and (min-width: 768px) {
+	.filtro-simples .type-vereador .vereador-contact {
+	    clear: none;
+	    padding-left: 217px;
+	}
+
+	.filtro-simples .inner-secondary-header.wrap.cf {
+	    padding-left: 217px;
+	    text-align: center;
+	}
+
+	.filtro-simples .social-nav {
+	    height: 60px;
+	    text-align: center;
+	    clear: both;
+	}
+
+	.filtro-simples .type-vereador .vereador-data li a,
+	.filtro-simples .type-vereador .vereador-data li a:hover {
+		color: #b70704;
+	}
+}
+
+@media only screen and (min-width: 1030px) {
+	.filtro-simples .type-vereador .vereador-contact {
+	    padding-left: 0;
+	}
+}
+</style>
+
+<?php get_footer(); ?>

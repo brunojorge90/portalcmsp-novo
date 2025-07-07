@@ -1,0 +1,40 @@
+<section class="content-box box-network box-network-posts-only">
+  <header class="content-box-top">
+    <h2 class="content-box-title icon-mouse-red"><a href="https://www.facebook.com/camarasaopaulo">Últimas da Rede / <span class="red">CMSP</span></a>
+	</h2>
+  </header>
+
+<!--   <div class="box-network-wrapper">
+
+    <article class="box-network-posts">
+      <h3>Posts</h3>
+      <ul>
+        <?php
+        if(bp_has_activities(bp_ajax_querystring('activity') . '&max=5&action=activity_update')) :
+        $count = 0;
+        while(bp_activities()): bp_the_activity(); $count++;
+        $content = strip_tags(bp_get_activity_content_body());
+        ?>
+          <li class="box-network-post<?php if($count == 1) echo ' active'; ?>">
+            <a href="<?php bp_activity_user_link(); ?>" class="avatar-container"><?php bp_activity_avatar(); ?></a>
+            <span class="post"><?php echo substr($content, 0, 25); if(strlen($content) > 26) echo '...' ?></span>
+          </li>
+        <?php endwhile; endif; ?>
+      </ul>
+
+      <ul class="box-network-posts-nav">
+        <li><a href="#" class="prev">Anterior</a></li>
+        <li><a href="#" class="next">Próxima</a></li>
+      </ul>
+    </article>
+
+  </div> -->
+
+
+  <!-- <footer class="box-network-footer">
+    <a href="<?php echo home_url(); ?>/rede-social/registrar/" class="btn btn-yellow-arrow cadastre-se-participe">Cadastre-se e participe</a>
+  </footer> -->
+
+<iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fcamarasaopaulo%2F&tabs=timeline&width=231&height=151&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false&appId" width="231" height="151" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
+
+</section><!-- end box-network-posts -->

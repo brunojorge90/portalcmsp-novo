@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Jogo Pong</title>
+    <style>
+        canvas {
+            background: #000;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+<canvas id="pong" width="800" height="400"></canvas>
+<script>
+    // Configurações do jogo
+    const canvas = document.getElementById("pong");
+    const context = canvas.getContext("2d");
+
+    // Criação dos objetos do jogo
+    const bola = {
+        x: canvas.width / 2,
+        y: canvas.height / 2,
+        raio: 10,
+        velocidadeX: 4,
+        velocidadeY: 4,
+        direcaoX: 1,
+        direcaoY: 1
+    };
+
+    const jogador = {
+        x: 0,
+        y: canvas.height / 2 - 40,
+        largura: 10,
+        altura: 80,
+        velocidade: 8,
+        pontuacao: 0
+    };
+
+    const oponente = {
+        x: canvas.width - 10,
+        y: canvas.height / 2 - 40,
+        largura: 10,
+        altura: 80,
+        velocidade: 4
+    };
+
+    // Função para desenhar os objetos na tela
+    function desenhar() {
+        // Limpa o canvas
+        context.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Desenha a bola
+        context.beginPath();
+        context.arc(bola.x, bola.y, bola.raio, 0, Math.PI * 2);
+        context.fillStyle = "#FFFFFF";
+        context.fill();
+        context.closePath();
+
+        // Desenha o jogador
+        context.fillStyle = "#FFFFFF";
+        context.fillRect(jogador.x, jogador.y, jogador.largura, jogador.altura);
+
+        // Desenha o oponente
+        context.fillStyle = "#FFFFFF";
+        context.fillRect(oponente.x, oponente.y, oponente.largura, oponente.altura);
+    }
+
+    // Função para atualizar a posição dos objetos
+    function atualizar() {
+        // Movimenta a bola
+        bola.x += bola.velocidadeX * bola.direcaoX;
+        bola.y += bola.velocidadeY * bola.direcaoY;
+
+        // Verifica colisão com as bordas do canvas
+        if (bola.y + bola.raio > canvas.height || bola.y - bola.raio < 0) {
+            bola.direcaoY *= -1;
+        }
+
+        // Verifica colisão com o jogador
+        if (
+            bola.x - bola.raio < jogador.x + jogador.largura &&
+            bola.y + bola.raio > jogador.y &&
+            bola.y - bola.raio < jogador.y + jogador.altura
+        ) {
+            bola.direcaoX *= -1;
+        }
+
+        // Verifica colisão com o oponente
+        if (
+            bola.x + bola.raio > oponente.x &&
+            bola.y + bola.raio > oponente.y &&
+            bola.y - bola.raio < oponente.y + oponente.altura
+        ) {
+            bola.direcaoX *= -1;
+        }
+    }
+
+    // Função principal do jogo
+    function jogo() {
+        atualizar();
+        desenhar();
+    }
+
+    // Loop do jogo
+    setInterval(jogo, 1000 / 60);
+
+</script>
+</body>

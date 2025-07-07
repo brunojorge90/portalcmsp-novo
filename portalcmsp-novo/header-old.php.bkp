@@ -1,0 +1,467 @@
+<!doctype html>
+
+<!--[if lt IE 7]><html <?php language_attributes(); ?> class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html <?php language_attributes(); ?> class="no-js lt-ie9 lt-ie8"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html <?php language_attributes(); ?> class="no-js lt-ie9"><![endif]-->
+<!--[if gt IE 8]><!--> <html <?php language_attributes(); ?> class="no-js"><!--<![endif]-->
+
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-TNTR2BS');</script>
+    <!-- End Google Tag Manager -->
+
+    <meta charset="utf-8">
+
+    <?php // force Internet Explorer to use the latest rendering engine available ?>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title><?php wp_title(''); ?></title>
+
+    <?php // mobile meta (hooray!) ?>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <?php // FB Open Graph tags ?>
+    <?php
+    if (isset($post) and is_object($post)) {
+        $rg_post = $post->ID;
+        $post_data = get_post( $rg_post );
+        $excerpt = $post_data->post_excerpt;
+        if(!$excerpt) $excerpt = get_bloginfo( 'description' );
+        //$excerpt = preg_replace('/\[span class=\"media-credit\"\](.*?)\[\/span\]/is',"",$excerpt);
+        //$excerpt = wp_strip_all_tags($excerpt);
+    }
+    ?>
+    <!--
+		<?php echo get_permalink();?>
+	-->
+    <meta name="description" content="<?php bloginfo( 'description' ); ?>" />
+    <meta property="og:title" content="<?php wp_title( '|', true, 'right' ); ?>"/>
+    <meta property="og:url" content="<?php if (isset($post) and is_object($post)) { echo get_permalink($post->ID); } ?>"/>
+    <meta property="og:site_name" content="<?php bloginfo( 'name' ); ?>"/>
+    <meta property="og:description" content="<?php if (isset($excerpt)) {echo $excerpt;} ?>"/>
+    <meta property="og:type" content="website"/>
+    <meta property="fb:app_id" content="1501788923465105" />
+    <meta property="fb:pages" content="113507215403008" />
+
+    <?php if(is_single() && has_post_thumbnail($post->ID)){ ?>
+        <meta property="og:image" content="<?php echo wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'large' )[0]; ?>"/>
+    <?php } elseif(catch_that_image()){ ?>
+        <meta property="og:image" content="<?php echo catch_that_image(); ?>"/>
+    <?php } else { ?>
+        <meta property="og:image" content="/wp-content/themes/portal-cmsp/library/images/og-image.jpg"/>
+    <?php } ?>
+
+    <?php // icons & favicons (for more: https://www.jonathantneal.com/blog/understand-the-favicon/) ?>
+    <link rel="apple-touch-icon" href="<?php echo get_template_directory_uri(); ?>/library/images/apple-icon-touch.png">
+    <link rel="icon" href="<?php echo get_template_directory_uri(); ?>/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+    <!--[if IE]>
+		<link rel="shortcut icon" href="<?php echo get_template_directory_uri(); ?>/favicon.ico">
+	<![endif]-->
+    <!-- canvas support for old IE -->
+    <!--[if lte IE 8]>
+		<script src="<?php echo get_template_directory_uri(); ?>/library/js/libs/excanvas.compiled.js"></script>
+	<![endif]-->
+    <?php // or, set /favicon.ico for IE10 win ?>
+    <meta name="msapplication-TileColor" content="#f01d4f">
+    <meta name="msapplication-TileImage" content="<?php echo get_template_directory_uri(); ?>/library/images/win8-tile-icon.png">
+
+    <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
+
+    <?php // wordpress head functions ?>
+    <?php wp_head(); ?>
+    <?php // end of wordpress head ?>
+
+    <?php // typekit function ?>
+    <!--
+    <script src="//use.typekit.net/eqp3auo.js"></script>
+    <script>try{Typekit.load();}catch(e){}</script>
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+    -->
+    <?php // end typekit ?>
+
+    <?php if(is_page(40456)): ?>
+        <style>
+            .entry-content td {padding:0px;}
+            span.wpcf7-not-valid-tip {margin: -73px 0px 53px 180px;}
+            div.wpcf7-mail-sent-ok {border: 0px;font-size: 1.5em; padding-bottom: 40px;text-align: center;}
+        </style>
+    <?php endif; ?>
+
+    <?php if(false): // trocar "false" por "is_page(11)" para reativar o popup "Regularização Imob." ?>
+        <link rel='stylesheet' href='<?php echo get_template_directory_uri();?>/library/css/popup.css' type='text/css' media='all' />
+    <?php endif; ?>
+
+    <link rel='stylesheet' href='<?php echo get_template_directory_uri(); ?>/library/css/simpletabs.css' type='text/css' media='all' />
+    <script src="<?php echo get_template_directory_uri(); ?>/library/js/simpletabs_1.3.js"></script>
+
+    <!-- Facebook Pixel Code -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1029284900547215');
+        fbq('track', 'PageView');
+    </script>
+    <noscript>
+        <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1029284900547215&ev=PageView&noscript=1" />
+    </noscript>
+    <!-- End Facebook Pixel Code -->
+
+    <!-- Google Webmaster -->
+    <meta name="google-site-verification" content="OA27lFNtloM_YplcPLVfwgQ_4m7dWFmVthUpLgggFBY" />
+    <!-- end - Google Webmaster -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-57400553-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-57400553-1');
+    </script>
+    <!-- Google Analytics - end -->
+</head>
+
+<body <?php body_class(); ?>>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TNTR2BS"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div id="fb-root"></div>
+<script>
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.8&appId=1063515973681507";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
+<script src="https://apis.google.com/js/platform.js" async defer>
+    {lang: 'pt-BR'}
+</script>
+<script src="//platform.linkedin.com/in.js">
+    lang: pt_BR
+</script>
+
+<div id="container">
+    <?php get_template_part('banners/banners'); ?>
+
+    <header class="header" role="banner">
+
+        <section class="header-headlines">
+            <div class="inner-header-headlines wrap cf">
+
+                <h2>Em Pauta</h2>
+                <div class="headlines-nav">
+                    <a href="#" class="headlines-prev">Anterior</a>
+                    <a href="#" class="headlines-next">Próximo</a>
+                </div>
+
+                <div class="container-headlines">
+                    <?php
+                    $featuredQuery = new WP_Query(array(
+                        'post_type' => 'post',
+                        'posts_per_page' => 5,
+                        'meta_query' => array(
+                            array(
+                                'key' => '_cmsp_post_is-on-the-agenda-article',
+                                'value' => 'on',
+                            ),
+                        ),
+                    ));
+                    $count = 0;
+                    while($featuredQuery->have_posts()): $featuredQuery->the_post(); $count++;
+                        ?>
+
+                        <article class="headline-<?php echo $count; if($count == 1) echo ' active'; ?>">
+                            <h1><a href="<?php echo the_permalink(); ?>"><?php echo the_title(); ?></a></h1>
+                        </article>
+
+                    <?php endwhile; wp_reset_postdata(); ?>
+                </div>
+
+                <div class="transparencia-menu-wrapper">
+                    <a href="/transparencia/" class="link-transparencia">Transparência</a>
+
+                    <nav>
+                        <?php  wp_nav_menu(array(
+                            'container'       => false,                                     // remove nav container
+                            'container_class' => 'menu cf',                                 // class of container (should you choose to use it)
+                            'menu'            => __( 'Transparência Menu', 'bonestheme' ),  // nav name
+                            'menu_class'      => 'nav transparencia-menu cf',               // adding custom nav class
+                            'theme_location'  => 'transparencia-menu',                      // where it's located in the theme
+                            'before'          => '',                                        // before the menu
+                            'after'           => '',                                        // after the menu
+                            'link_before'     => '',                                        // before each link
+                            'link_after'      => '',                                        // after each link
+                            'depth'           => 0,                                         // limit the depth of the nav
+                            'fallback_cb'     => ''                                         // fallback function (if there is one)
+                        ));?>
+                    </nav>
+                </div>
+
+            </div>
+        </section><!-- end header-headlines -->
+        <!-- Atalhos -->
+        <section class="main-header wrap">
+            <ul id="atalhos">
+                <li><a href="#irconteudo" accesskey="1">Ir para o Conteúdo [1]</a></li>
+                <li><a href="#irmenu" accesskey="2">Ir para o menu principal [2]</a></li>
+                <li><a href="#irbusca" accesskey="3">Ir para a busca [3]</a></li>
+            </ul>
+        </section>
+
+        <section class="main-header">
+            <div id="inner-header" class="inner-main-header wrap cf">
+
+                <?php // to use a image just replace the bloginfo('name') with your img src and remove the surrounding <p> ?>
+                <h1 id="logo" class="h1">
+                    <a href="<?php echo home_url(); ?>" rel="nofollow">
+                        <img src="<?php echo get_stylesheet_directory_uri(); ?>/library/images/logo-camara.png" alt="<?php bloginfo('name'); ?>">
+                    </a>
+                </h1>
+
+                <?php // if you'd like to use the site description you can un-comment it below ?>
+                <?php // bloginfo('description'); ?>
+
+                <nav role="navigation">
+                    <?php wp_nav_menu(array(
+                        'container'       => false,                                // remove nav container
+                        'container_class' => 'menu cf',                            // class of container (should you choose to use it)
+                        'menu'            => __( 'The Main Menu', 'bonestheme' ),  // nav name
+                        'menu_class'      => 'nav top-nav cf',                     // adding custom nav class
+                        'theme_location'  => 'main-nav',                           // where it's located in the theme
+                        'before'          => '',                                   // before the menu
+                        'after'           => '',                                   // after the menu
+                        'link_before'     => '',                                   // before each link
+                        'link_after'      => '',                                   // after each link
+                        'depth'           => 0,                                    // limit the depth of the nav
+                        'fallback_cb'     => ''                                    // fallback function (if there is one)
+                    ));?>
+                </nav>
+
+                <div class="header-search-form">
+                    <?php get_search_form();?>
+                </div>
+
+            </div>
+        </section><!-- end main header -->
+
+        <section class="secondary-header">
+            <div class="inner-secondary-header wrap cf">
+
+                <nav id="irmenu" role="navigation" class="top-nav-2-wrapper">
+                    <ul class="nav top-nav-2 cf">
+                        <?php
+                        $menuID = 3;
+                        $menu_items = wp_get_nav_menu_items($menuID);
+
+                        // save an array with IDs of first level items that have children
+                        $second_level = array();
+                        $parents = array();
+                        $second_level_parents = array();
+                        foreach($menu_items as $menu_item) {
+                            if($menu_item->menu_item_parent != 0) {
+                                array_push($second_level, $menu_item->ID);
+
+                                // only add the item into the array if the item's parent is not a second level item the item isn't already there
+                                $parent = $menu_item->menu_item_parent;
+                                if(!in_array($parent, array_merge($parents, $second_level))) {
+                                    array_push($parents, $parent);
+                                }
+                                elseif(!in_array($parent,array_merge($parents, $second_level_parents)) && in_array($parent, $second_level)) {
+                                    array_push($second_level_parents, $parent);
+                                }
+                            }
+                        }
+
+                        foreach($menu_items as $menu_item):
+
+                            $item_title = $menu_item->title;
+                            $item_url  = $menu_item->url;
+
+                            // output first level items
+                            if($menu_item->menu_item_parent == 0):
+                                $item_classes = '';
+                                foreach($menu_item->classes as $class) {
+                                    $item_classes .= ' ' . $class;
+                                }
+                                ?>
+                            <li class="<?php echo $item_classes; ?>">
+                                <a href="<?php echo $item_url; ?>"><?php echo $item_title; ?></a>
+
+                                <?php
+                                if(in_array($menu_item->ID, $parents)):
+                                    $parentID = $menu_item->ID;
+                                    ?>
+                                    <ul class="sub-menu">
+                                        <h2><?php echo $item_title; ?></h2>
+                                        <?php
+                                        // output second level items
+                                        foreach($menu_items as $menu_item):
+                                            if($menu_item->menu_item_parent == $parentID):
+
+                                                $subitem_class = '';
+                                                foreach($menu_item->classes as $class) {
+                                                    $item_classes .= ' ' . $class;
+                                                }
+                                                if(in_array($menu_item->ID,$second_level_parents)) $subitem_class .= ' featured';
+                                                ?>
+                                            <li class="<?php echo $subitem_class; ?>">
+                                                <a href="<?php echo $menu_item->url; ?>" class="lv-2-item <?php if(in_array($menu_item->ID,$second_level_parents)) echo 'featured-menu-title'; ?>"><?php echo $menu_item->title; ?></a>
+
+                                                <?php
+                                                if(in_array($menu_item->ID,$second_level_parents)):
+                                                    $subparentID = $menu_item->ID;
+                                                    ?>
+                                                    <ul class="feature-menu">
+                                                        <?php
+                                                        // output third level items
+                                                        foreach($menu_items as $menu_item):
+                                                            if($menu_item->menu_item_parent == $subparentID):
+                                                                $postID = $menu_item->object_id;
+
+                                                                $feature_title = get_post_meta($postID, '_cmsp_feature-page_title', true);
+                                                                if($feature_title == '') $feature_title = $menu_item->title;
+                                                                $feature_icon = get_post_meta($postID, '_cmsp_feature-page_icon', true);
+                                                                if($feature_icon == '') $feature_icon = 'flag-black';
+                                                                $feature_image = get_post_meta($postID, '_cmsp_feature-page_image', true);
+                                                                $feature_text = get_post_meta($postID, '_cmsp_feature-page_text', true);
+                                                                $feature_link = get_post_meta($postID, '_cmsp_feature-page_link', true);
+                                                                if($feature_link == '') $feature_link = $menu_item->url;
+                                                                ?>
+                                                                <li>
+                                                                    <a href="<?php echo $feature_link; ?>" class="feature-title icon-<?php echo $feature_icon; ?>"><?php echo $feature_title; ?></a>
+                                                                    <a href="<?php echo $feature_link; ?>" class="feature-image">
+                                                                        <img src="<?php echo $feature_image; ?>">
+                                                                        <span class="feature-link-text"><?php echo $feature_text; ?></span>
+                                                                    </a>
+                                                                </li>
+                                                            <?php endif; endforeach; ?>
+                                                    </ul>
+                                                <?php endif; ?>
+
+                                                </li><?php /* end second level item */ ?>
+                                            <?php endif; endforeach; ?>
+
+                                    </ul>
+
+                                <?php endif; ?>
+                                </li><?php /* end first level item */ ?>
+
+
+                            <?php endif; endforeach; ?>
+
+                    </ul>
+
+                </nav>
+
+                <nav class="social-nav-wrapper">
+                    <?php wp_nav_menu(array(
+                        'container'       => false,                                  // remove nav container
+                        'container_class' => 'menu cf',                              // class of container (should you choose to use it)
+                        'menu'            => __( 'Social Networks', 'bonestheme' ),  // nav name
+                        'menu_class'      => 'nav social-nav cf',                    // adding custom nav class
+                        'theme_location'  => 'social-nav',                           // where it's located in the theme
+                        'before'          => '',                                     // before the menu
+                        'after'           => '',                                     // after the menu
+                        'link_before'     => '',                                     // before each link
+                        'link_after'      => '',                                     // after each link
+                        'depth'           => 0,                                      // limit the depth of the nav
+                        'fallback_cb'     => ''                                      // fallback function (if there is one)
+                    )); ?>
+                </nav>
+
+            </div>
+        </section>
+
+    </header>
+    <div id="irconteudo">
+        <?php if(is_page_template('page-home.php')): //display the slider ?>
+            <div class="top-slider">
+                <div class="inner-top-slider wrap cf">
+
+                    <section class="slider-container">
+                        <div class="cmsp-rslides">
+                            <?php
+                            $sliderQuery = new WP_Query(array(
+                                'post_type' => 'slider-home',
+                                'posts_per_page' => 5
+                            ));
+                            while($sliderQuery->have_posts()): $sliderQuery->the_post();
+                                $slide_img = get_post_meta($post->ID, '_cmsp_slider_image', true);
+                                $slide_text = get_post_meta($post->ID, '_cmsp_slider_text', true);
+                                $slide_sub_text = get_post_meta($post->ID, '_cmsp_slider_sub_text', true);
+                                $slide_link = get_post_meta($post->ID, '_cmsp_slider_link', true);
+                                $slide_target = get_post_meta($post->ID, '_cmsp_slider_target', true);
+                                ?>
+
+                                <article class="top-slide">
+                                    <a href="<?php echo $slide_link; ?>" target="<?php echo $slide_target; ?>">
+                                        <img alt="<?php echo $slide_text; ?>" src="<?php echo $slide_img; ?>">
+                                    </a>
+                                    <?php if($slide_text != ''): ?>
+                                        <div class="margem">
+                                            <h3 class="titulo"><?php echo $slide_text; ?></h3>
+                                            <h4 class="subtitulo"><?php echo $slide_sub_text; ?></h4>
+                                        </div>
+                                    <?php endif; ?>
+                                </article>
+
+                            <?php endwhile; ?>
+                        </div>
+                    </section>
+
+                    <?php if(is_page_template('page-home.php')): /* Schedule box on câmara home */?>
+                        <div class="slider-side">
+                            <?php
+                            // Agenda -- Removida temporariamente
+                            get_template_part('content-boxes/box','agenda');
+                            ?>
+                        </div>
+                    <?php endif; ?>
+                    <?php if(is_page_template('page-participe.php')): /* Schedule box on câmara home */ ?>
+                        <div class="slider-side">
+                            <?php
+                            // Agenda
+                            get_template_part('content-boxes/box','transparency');
+                            ?>
+                        </div>
+                    <?php endif; ?>
+
+                </div>
+            </div>
+        <?php endif; // end slider ?>
+
+        <?php if(is_page_template('page-home.php')): //display the slider ?>
+            <div class="container-top-nav-3">
+                <nav class="wrap">
+                    <?php  wp_nav_menu(array(
+                        'container' => false,                           // remove nav container
+                        'container_class' => 'menu cf',                 // class of container (should you choose to use it)
+                        'menu' => __( 'Secondary Menu', 'bonestheme' ),  // nav name
+                        'menu_class' => 'nav top-nav-3 cf',               // adding custom nav class
+                        'theme_location' => 'third-nav',                 // where it's located in the theme
+                        'before' => '',                                 // before the menu
+                        'after' => '',                                  // after the menu
+                        'link_before' => '',                            // before each link
+                        'link_after' => '',                             // after each link
+                        'depth' => 0,                                   // limit the depth of the nav
+                        'fallback_cb' => ''                             // fallback function (if there is one)
+                    )); ?>
+                </nav>
+            </div>
+        <?php endif; ?>

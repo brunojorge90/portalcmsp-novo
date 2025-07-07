@@ -1,0 +1,11 @@
+http://www.saopaulo.sp.leg.br/comunicacao/noticias/
+
+
+A URL acima possui um box à direita que está numa pasta fora do padrão:
+
+/var/www/sistemas/CR0313/wp-content/themes/portal-cmsp/sidebar.php
+
+
+Há outra cópia do box no caminho abaixo, mas não parece estar em uso:
+
+/var/www/sistemas/CR0313/wp-content/themes/portal-cmsp/library/box-latest.news.php

@@ -1,0 +1,449 @@
+//Fields
+//Input
+
+
+
+.field-style {
+  padding: 16px 20px;
+  width: 100%;
+  background: $color-primary-extra-5;
+  border: 1px solid $color-primary-extra-5;
+  border-radius: $radius-8px;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+  color: $color-neutral-black;
+  transition: all 300ms;
+
+  @media (max-width: 768px) {
+    padding: 12px 10px;
+    font-size: 1.4rem;
+    line-height: 2.4rem;
+    height: auto;
+
+  }
+
+  &::placeholder {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    color: $color-neutral-d-grey-2;
+  }
+
+  &:hover {
+    border: 1px solid $color-primary-extra-2;
+  }
+
+  &:focus {
+    background: $color-neutral-white;
+    border: 1px solid $color-primary-extra-2;
+    outline: $color-primary-extra-2;
+  }
+
+  &:disabled {
+    &::placeholder {
+      color: $color-neutral-grey-blue;
+    }
+  }
+}
+
+
+@media (max-width: 768px) {
+    .field-style::placeholder {
+        font-size: 1.4rem;
+        line-height: 2.4rem;
+    }
+}
+.field-style-warning {
+  background: $color-warning-lemon-l !important;
+}
+
+.field-style-error {
+  background: $color-danger-d-red-l !important;
+}
+
+label.label {
+  font-weight: 400;
+  font-size: 1.4rem;
+  line-height: 2.0rem;
+  color: $color-neutral-black;
+  text-transform: inherit;
+  padding-left: 0px;
+  margin-top: 16px;
+
+  &:before {
+    display: none;
+  }
+    @media (max-width: 768px) {
+        font-size: 1.2rem;
+        line-height: 1.8rem;
+    }
+}
+
+select.select, select.field-style {
+  background-color: $color-primary-extra-5;
+  border-radius: 8px;
+  font-style: normal;
+  font-weight: 400;
+  border: none;
+  appearance: none;
+  font-size: 1.6rem;
+  line-height: 24px;
+  color: $color-neutral-d-grey;
+  padding: 16px 20px;
+  height: 56px;
+  background-image: url("../images/chevron-default.svg") !important;
+  background-repeat: no-repeat;
+  background-position: right center !important;
+
+  @media (max-width: 768px) {
+    padding: 12px 10px;
+    font-size: 1.4rem;
+    line-height: 2.4rem;
+    height: auto;
+    &::placeholder {
+      font-size: 1.4rem;
+      line-height: 2.4rem;
+    }
+  }
+
+  &:focus {
+    background: white url("../images/chevron-default.svg") no-repeat right center !important;
+  }
+}
+
+.label + .select {
+  margin-top: 8px;
+}
+
+//Date
+.field-date {
+  position: relative;
+  appearance: none;
+  &::-webkit-calendar-picker-indicator {
+    position: absolute;
+    display: block;
+    content: "";
+    width: 24px;
+    height: 24px;
+    right: 16px;
+    top: 50%;
+    transform: translate(0%, -50%);
+    background-image: url(../../assets/images/icon-calendario-input-date.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+}
+
+/***************************************************/
+
+//Select controls
+//Checkbox
+.select-checkbox {
+  appearance: none;
+  position: relative;
+  height: 24px;
+  width: 24px;
+  background: $color-neutral-white;
+  border: 1px solid $color-neutral-l-grey;
+  border-radius: $radius-4px;
+  transition: all 300ms;
+  cursor: pointer;
+
+  &:hover {
+    border: 1px solid $color-link;
+
+    &:checked {
+      &::before {
+        background-color: $color-link-d;
+      }
+    }
+  }
+
+  &:focus {
+    border: 1px solid $color-neutral-d-grey-2;
+  }
+
+  &:disabled {
+    border: none;
+    background: $color-neutral-l-blue;
+    cursor: default;
+
+    &:checked {
+      &::before {
+        background: $color-neutral-l-blue;
+        background-image: url(../images/icon_check_grey.svg);
+        background-repeat: no-repeat;
+        background-position: center center;
+      }
+    }
+  }
+
+  &::before {
+    transition: all 300ms;
+    position: absolute;
+    display: block;
+    content: "";
+    width: 24px;
+    height: 24px;
+    left: -1;
+    top: -1;
+    background-color: $color-link;
+    background-image: url(../images/icon_check.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    border-radius: $radius-4px;
+    opacity: 0;
+  }
+
+  &:checked {
+    &::before {
+      opacity: 1;
+    }
+  }
+}
+
+.select-checkbox-error {
+  border: 1px solid $color-danger-m-red;
+
+  &:hover, &:focus {
+    border: 1px solid $color-danger-m-red;
+
+    &:checked {
+      &::before {
+        background-color: $color-danger-m-red;
+      }
+    }
+  }
+
+  &:checked {
+    &::before {
+      opacity: 1;
+      background-color: $color-danger-m-red;
+    }
+  }
+}
+
+/***************************************************/
+
+//Select controls
+//Radio
+.select-radio {
+  appearance: none;
+  position: relative;
+  height: 24px;
+  width: 24px;
+  background: $color-neutral-white;
+  border: 1px solid $color-neutral-l-grey;
+  border-radius: $radius-100px;
+  transition: all 300ms;
+  cursor: pointer;
+
+  &:hover {
+    border: 1px solid $color-link;
+
+    &:checked {
+      &::before {
+        border: 1px solid $color-link-d;
+      }
+
+      &::after {
+        background: $color-link-d;
+      }
+    }
+  }
+
+  &:focus {
+    border: 1px solid $color-neutral-d-grey-2;
+  }
+
+  &:disabled {
+    border: none;
+    background: $color-neutral-l-blue;
+    cursor: default;
+
+    &:checked {
+      &::before {
+        border: none;
+        background: $color-neutral-l-blue;
+      }
+
+      &::after {
+        background-color: $color-neutral-grey-blue-2;
+      }
+    }
+  }
+
+  &::before {
+    transition: all 300ms;
+    position: absolute;
+    display: block;
+    content: "";
+    width: 22px;
+    height: 22px;
+    left: -1;
+    top: -1;
+    background-color: $color-neutral-white;
+    border: solid 1px $color-link;
+    border-radius: $radius-100px;
+    opacity: 0;
+  }
+
+  &::after {
+    transition: all 300ms;
+    position: absolute;
+    display: block;
+    content: "";
+    width: 12px;
+    height: 12px;
+    left: 5px;
+    top: 5px;
+    background-color: $color-link;
+    border-radius: $radius-100px;
+    opacity: 0;
+  }
+
+  &:checked {
+    &::before, &::after {
+      opacity: 1;
+    }
+  }
+}
+
+.select-radio-error {
+  border: 1px solid $color-danger-m-red;
+
+  &:hover, &:focus {
+    border: 1px solid $color-danger-m-red;
+
+    &:checked {
+
+      &::before {
+        border: 1px solid $color-danger-m-red;
+      }
+
+      &::after {
+        background-color: $color-danger-m-red;
+      }
+    }
+  }
+
+  &:checked {
+    &::before {
+      opacity: 1;
+      border: 1px solid $color-danger-m-red;
+    }
+
+    &::after {
+      background-color: $color-danger-m-red;
+    }
+  }
+}
+
+/***************************************************/
+
+//Select controls
+//Switch
+.select-switch {
+  appearance: none;
+  position: relative;
+  height: 24px;
+  width: 48px;
+  transition: all 300ms;
+  cursor: pointer;
+
+  &:hover {
+    &::before {
+      border: solid 1px $color-primary-extra-2;
+    }
+
+    &::after {
+      background-color: $color-primary-extra-2;
+    }
+
+    &:checked {
+      &::before {
+        background-color: $color-primary-extra-2;
+        border: solid 1px $color-primary-extra-2;
+      }
+    }
+  }
+
+  &:focus {
+    &::before {
+      border: solid 1px $color-neutral-d-grey-2;
+    }
+
+    &:checked {
+      &::before {
+        border: solid 1px $color-neutral-d-grey-2;
+      }
+    }
+  }
+
+  &:disabled {
+    &::before {
+      background-color: $color-neutral-silver;
+      border: solid 1px $color-neutral-silver;
+    }
+
+    &::after {
+      background-color: $color-neutral-grey-blue-2;
+    }
+
+    &:checked {
+      &::before {
+        background-color: $color-neutral-silver;
+        border: solid 1px $color-neutral-silver;
+      }
+
+      &::after {
+        background-color: $color-neutral-grey-blue-2;
+      }
+    }
+  }
+
+  &::before {
+    transition: all 300ms;
+    position: absolute;
+    display: block;
+    content: "";
+    width: 48px;
+    height: 24px;
+    left: 0px;
+    top: 0px;
+    background-color: $color-neutral-white;
+    border: solid 1px $color-neutral-grey;
+    border-radius: $radius-100px;
+  }
+
+  &::after {
+    transition: all 300ms;
+    position: absolute;
+    display: block;
+    content: "";
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 4px;
+    transform: translate(0%, -50%);
+    background-color: $color-neutral-grey;
+    border-radius: $radius-100px;
+  }
+
+  &:checked {
+    &::before {
+      background-color: $color-primary-accent;
+      border: solid 1px $color-primary-accent;
+    }
+
+    &::after {
+      left: 28px;
+      background-color: $color-neutral-white;
+    }
+  }
+}

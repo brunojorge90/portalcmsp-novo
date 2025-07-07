@@ -1,0 +1,199 @@
+
+  .comentarios {
+    z-index: 99;
+    box-sizing: border-box;
+
+    &.act {
+      right: 0px;
+    }
+
+    transition: right ease-in-out 300ms;
+    right: -650px;
+    top: 0px;
+    position: fixed;
+    max-height: 100vh;
+    overflow: auto;
+    max-width: 609px;
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    padding: 50px 50px 50px 50px;
+    box-shadow: -5px -5px 150px 0px rgba(0, 0, 0, 0.25);
+
+    .form {
+      margin-top: 32px;
+
+      h2 {
+        font-weight: bold;
+      }
+    }
+
+    .comment .vcard {
+      margin-left: 0px;
+      padding: 0px;
+    }
+
+    .comment {
+      background-color: white !important;
+      padding: 16px 0px 32px 0px;
+      border-bottom: 1px solid $color-neutral-silver;
+      &:last-child {
+        border-bottom: 0px;
+      }
+    }
+
+    .fn {
+      a {
+        pointer-events: none;
+        color: #000000;
+        text-decoration: none;
+        font-size: 1.8rem;
+        font-family: Montserrat, sans-serif;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 2.4rem;
+      }
+    }
+
+    time {
+      margin-top: 8px;
+
+      a {
+        pointer-events: none;
+        color: #000000;
+        font-size: 1.2rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1.6rem;
+      }
+    }
+
+    .comment_content p {
+      /* Desktop/Body 3 */
+      font-size: 1.4rem;
+      font-family: Montserrat, sans-serif;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 2.0rem;
+      margin-bottom: 0px;
+    }
+
+    h3 {
+      /* Desktop/Headline 3 */
+      font-size: 2.8rem;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 3.6rem;
+      margin-bottom: 24px;
+    }
+
+    .comment-author > img {
+      display: none;
+    }
+
+    .comment-respond {
+      padding: 0;
+      margin-top: 32px;
+      border: none;
+    }
+  }
+
+  .close {
+    cursor: pointer;
+  }
+
+  .aviso {
+    padding: 16px;
+    background: $color-neutral-silver;
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 2.4rem;
+    margin-top: 32px;
+
+    .aviso-2 {
+      background: $color-neutral-grey;
+      padding: 8px;
+      color: white;
+      font-size: 1.6rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 2.4rem;
+      margin-top: 16px;
+    }
+  }
+
+  #email-notes, .required-field-message, .comment-form-cookies-consent {
+    display: none;
+  }
+
+  .form-submit {
+    text-indent: -1000000px;
+    margin-top: 24px;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 0px;
+
+    .button-primary {
+      float: inherit;
+    }
+  }
+
+  #comments-title {
+    border-top: 0px;
+    padding: 0px 0px 8px;
+    margin-top: 32px;
+    border-bottom: 1px solid $color-neutral-silver;
+  }
+
+  .comment-reply-title small {
+    margin-left: 24px;
+  }
+
+  .clearfix:before, .clearfix:after, .cf:before, .cmsp-row:before, .entry-content .camaraexpressa-list:before, .comment-respond:before, .cf:after, .cmsp-row:after, .entry-content .camaraexpressa-list:after, .comment-respond:after {
+    display: none;
+  }
+
+  .comment-reply-link {
+    float: inherit;
+    width: 100%;
+    text-align: right;
+    text-decoration: none;
+  }
+
+  .comment:not(.depth-1) {
+    margin-top: 24px;
+    padding-left: 16px;
+    margin-left: 8px;
+    border-left: 2px solid $color-primary-accent;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    border-bottom: 0px;
+
+    .comment-reply-link {
+      display: none;
+    }
+  }
+
+  .overlayComment {
+    background: rgb(44 44 44 / 45%);
+    display: none;
+    position: fixed;
+    opacity: 1;
+    width: 100vw;
+    height: 100vh;
+    left: 0px;
+    top: 0px;
+    z-index: 89;
+  }
+
+  .comentarios {
+    .current_page_item, .current-menu-item {
+      a {
+        font-weight: bold !important;
+      }
+
+      a:after {
+        width: calc(100% - 16px) !important;
+      }
+    }
+  }

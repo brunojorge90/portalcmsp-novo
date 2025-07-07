@@ -1,0 +1,145 @@
+/******************************************************************
+Site Name:
+Author:
+
+Stylesheet: Mixins Stylesheet
+
+This is where you can take advantage of Sass' great features: Mixins.
+I won't go in-depth on how they work exactly,
+there are a few articles below that will help do that. What I will
+tell you is that this will help speed up simple changes like
+changing a color or adding CSS3 techniques gradients.
+
+A WORD OF WARNING: It's very easy to overdo it here. Be careful and
+remember less is more.
+
+Helpful:
+http://sachagreif.com/useful-sass-mixins/
+http://thesassway.com/intermediate/leveraging-sass-mixins-for-cleaner-code
+http://web-design-weekly.com/blog/2013/05/12/handy-sass-mixins/
+
+******************************************************************/
+
+
+/*********************
+TRANSITION
+*********************/
+
+/*
+I totally rewrote this to be cleaner and easier to use.
+You'll need to be using Sass 3.2+ for these to work.
+Thanks to @anthonyshort for the inspiration on these.
+USAGE: @include transition(all 0.2s ease-in-out);
+*/
+
+@mixin transition($transition...) {
+  // defining prefixes so we can use them in mixins below
+  $prefixes:      ("-webkit-", "" );
+  @each $prefix in $prefixes {
+    #{$prefix}transition: $transition;
+  }
+}
+
+@mixin transform($transform...) {
+  // defining prefixes so we can use them in mixins below
+  $prefixes:      ("-webkit-", "-moz-", "-o-", "" );
+  @each $prefix in $prefixes {
+    #{$prefix}transform: $transform;
+  }
+}
+
+/*********************
+CSS3 GRADIENTS
+Be careful with these since they can
+really slow down your CSS. Don't overdo it.
+*********************/
+
+/* @include css-gradient(#dfdfdf,#f8f8f8); */
+@mixin css-gradient($from: #dfdfdf, $to: #f8f8f8) {
+	background-color: $to;
+	background-image: -webkit-gradient(linear, left top, left bottom, from($from), to($to));
+	background-image: -webkit-linear-gradient(top, $from, $to);
+	background-image: -moz-linear-gradient(top, $from, $to);
+	background-image: -o-linear-gradient(top, $from, $to);
+	background-image: linear-gradient(to bottom, $from, $to);
+}
+
+/*********************
+BOX SIZING
+*********************/
+
+/* @include box-sizing(border-box); */
+/* NOTE: value of "padding-box" is only supported in Gecko. So
+probably best not to use it. I mean, were you going to anyway? */
+@mixin box-sizing($type: border-box) {
+	-webkit-box-sizing: $type;
+	-moz-box-sizing:    $type;
+	-ms-box-sizing:     $type;
+	box-sizing:         $type;
+}
+
+/*********************
+SPRITES
+*********************/
+
+/* creating sprites with the compass functions will
+not let you use @extend inside media queries, so we
+need to use this custom SASS mixin to generate our 
+file and variables */
+
+/* source: https://gist.github.com/brubrant/3166895 */
+
+// http://compass-style.org/reference/compass/helpers/sprites/
+@mixin get-sprite($map, $sprite, $repeat: no-repeat, $height: true, $width: true) {
+ 
+	//http://compass-style.org/reference/compass/helpers/sprites/#sprite-file
+	$sprite-image: sprite-file($map, $sprite);
+	// http://compass-style.org/reference/compass/helpers/sprites/#sprite-url
+	$sprite-map: sprite-url($map);
+	// http://compass-style.org/reference/compass/helpers/sprites/#sprite-position
+	$sprite-position: sprite-position($map, $sprite);
+	// Returns background
+	background: $sprite-map $sprite-position $repeat;
+	// http://compass-style.org/reference/compass/helpers/image-dimensions/
+	// Checks to see if the user wants height returned
+	@if $height == true {
+	// Gets the height of the sprite-image
+	$sprite-height: image-height($sprite-image);
+	// Returns the height
+	height: $sprite-height; }
+	// http://compass-style.org/reference/compass/helpers/image-dimensions/
+	// Checks to see if the user wants height returned
+	@if $width == true {
+	// Gets the width of the sprite-image
+	$sprite-width: image-width($sprite-image);
+	// Returns the width
+	width: $sprite-width; }
+
+}
+
+// generate the sprite map
+$icons: sprite-map('../images/sprite-icons/*.png');
+
+/* use like this:
+	@include get-sprite($icons, play-btn-large);
+*/
+
+/**************
+VIDEO CONTAINER
+***************/
+
+.video-container {
+	position: relative;
+	padding-bottom: 54.25%; /* 16:9 aspect ratio */
+	padding-top: 25px;
+	height: 0;
+	margin: 1.5em 0;
+
+	iframe, object {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+}

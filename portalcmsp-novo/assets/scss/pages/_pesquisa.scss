@@ -1,0 +1,131 @@
+.pesquisa {
+  padding:40px 45px;
+  border-radius: 8px;
+  background: #FFF;
+  box-shadow: 4px 4px 16px 0px rgba(0, 0, 0, 0.15);
+  svg {
+    position: absolute;
+    top: 9px;
+    left: 8px;
+    z-index: 1;
+  }
+
+  .position-relative{
+    position: relative;
+    width: 100%;
+  }
+  input[type=search] {
+    box-sizing: border-box;
+    border-radius: 8px;
+    border: 1px solid #CFD0D1;
+    height: 48px;
+    padding: 8px 8px 8px 42px;
+    margin-bottom: 0px;
+    outline: none;
+  }
+}
+
+&.search {
+  .config-image-bg {
+    max-height: 450px;
+    img {
+      max-height: 450px;
+      min-height: 450px;
+    }
+  }
+}
+
+.tags-type {
+  margin-top:54px;
+  a {
+    display: flex;
+    padding: 16px;
+    align-items: flex-start;
+    gap: 8px;
+    text-decoration: none;
+    border-radius: 50px;
+    border: 1px solid $color-primary-accent;
+    background: var(--neutral-white, #FFF);
+
+    &.act {
+      color: white;
+      background-color: $color-primary-accent;
+    }
+  }
+}
+
+.busca-termo {
+  .flex {
+    gap: 16px;
+  }
+  margin-bottom: 56px;
+  margin-top: 56px;
+  color: #2C2C2C;
+  font-size: 2.0rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 28px; /* 140% */
+
+  a.tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: none !important;
+    background: #FFF1F5;
+    color: $color-primary-accent;
+    text-align: center;
+    /* Button & Link/Text Small */
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px; /* 133.333% */
+  }
+}
+
+
+&.search {
+  .h2.entry-title {
+    a {
+      color: $color-neutral-black;
+      font-size: 2.0rem;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 28px;
+    }
+  }
+
+  #main {
+    article {
+      margin: 0;
+      padding: 16px;
+      border: 1px solid black;
+      border-radius: 16px;
+      border: 1px solid $color-neutral-silver;
+
+      .article-header {
+        padding: 0px;
+      }
+
+      .entry-content {
+        padding: 0px;
+        margin-top: 8px;
+      }
+
+      .entry-content p {
+        margin-bottom: 0px;
+        color: #000;
+
+        font-size: 1.8rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 28px; /* 155.556% */
+      }
+    }
+
+    article + article {
+      margin-top: 16px;
+    }
+  }
+}

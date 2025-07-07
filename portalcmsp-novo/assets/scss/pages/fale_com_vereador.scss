@@ -1,0 +1,59 @@
+#enviar-mensagem-para-vereador{
+    padding-bottom: 0;
+    
+    .mensagem-vereador{
+        padding: 32px;
+        border-radius: 8px;
+        border: 1px solid $color-neutral-silver;
+        background: $color-neutral-white;
+    
+        label{
+            display: block;
+        }
+    
+        .informativos{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+    
+        .sua-mensagem{
+            textarea {
+                height: 268px;
+            }
+    
+            span {
+                margin-top: 8px;
+                font-size: 1.2rem;
+                display: block;
+                text-align: right;
+            }
+        }
+    
+        .botao{
+            display: flex;
+            justify-content: flex-end;
+        }
+    }
+}
+
+#sugestao-projeto-lei{
+    .container{
+        display: flex;
+        gap: 32px;
+
+        .img-container{
+            width: 100%;
+            max-width: 449px;
+            border-radius: $radius-16px;
+            overflow: hidden;
+        }
+
+        .texto-projeto-lei{
+            display: flex;
+            align-items: flex-start;
+            flex-direction: column;
+            justify-content: center;
+        }
+    }
+}

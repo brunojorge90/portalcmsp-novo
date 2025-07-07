@@ -1,0 +1,124 @@
+@media (max-width: 1160px) {
+  .container, .wrap.cf, .breadcrumbs .wrap {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+
+
+@media (max-width: 1051px) {
+  #menu-menu-topo-1 {
+    display: none;
+  }
+}
+
+
+
+@media (max-width: 1024px) {
+  .rede_camara .ultimos-videos .context {
+    > .flex {
+      gap: 20px !important;
+    }
+  }
+
+
+  #agenda-completa .proximos-eventos .flex-eventos {
+    .col {
+      flex-basis: calc(50% - 16px);
+      width: 100%;
+      .thumbnail {
+        img {
+          width: 100%;
+          height: auto;
+        }
+      }
+    }
+  }
+
+  #inner-content {
+    #main {
+      width: auto;
+      flex: 2;
+      * {
+        max-width: 100%;
+        height: auto;
+      }
+    }
+  }
+
+  .sidebar {
+    flex: 1;
+    max-width: 352px;
+    width: 100%;
+  }
+
+  .entry-content {
+    padding: 0px;
+  }
+
+  iframe.__youtube_prefs__ {
+    margin-top: 26px;
+    aspect-ratio: 16 / 9;
+    height: auto;
+  }
+
+  iframe
+  .menu-menu-lateral-container {
+    .brasao {
+      display: none;
+    }
+  }
+
+  .menu-lateral .menu-context {
+    padding: 40px 20px;
+  }
+
+  .menu-lateral .menu-wp {
+    max-height:calc(100vh - 160px);
+    margin-top: 16px !important;
+  }
+  #agenda-completa .abs .container {
+    gap: 16px;
+    align-items: center;
+
+    .itens-esquerda {
+      align-items: center;
+    }
+
+    .itens-direita {
+      align-items: center;
+    }
+  }
+  .header .otherwise li a {
+    text-align: center;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .overflow-mobile {
+    overflow: auto;
+  }
+
+  .consulta-paginas .consulta .thumbnail {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .rede_camara .ultimos-videos .item {
+    flex: 1;
+    max-width: calc(50% - 10px);
+    min-width: auto;
+    img {
+      height: auto;
+    }
+  }
+
+  .tags {
+    flex-wrap: wrap;
+  }
+
+  .organograma .filtragem {
+    flex-direction: column;
+  }
+}

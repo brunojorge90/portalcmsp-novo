@@ -1,0 +1,56 @@
+<section class="content-box box-network">
+  <header class="content-box-top">
+    <h2 class="content-box-title icon-mouse-red"><a href="<?php echo home_url(); ?>/rede-social/atividade/">Últimas da Rede / <span class="red">CMSP</span></a></h2>
+  </header>
+
+  <div class="box-network-wrapper box-height-adjust">
+
+    <article class="box-network-userlist">
+      <ul>
+        <?php 
+        if(bp_has_members(bp_ajax_querystring('members') . '&max=16&type=random')):
+        while (bp_members()) : bp_the_member();
+          $membername = bp_get_member_name();
+          if(strpos($membername, ' ')){
+            $membername = substr($membername, 0, strpos($membername, ' '));
+          }
+        ?>
+
+          <li class="box-network-user">
+            <a href="<?php bp_member_permalink(); ?>">
+              <?php bp_member_avatar(); ?><?php echo $membername; ?>
+            </a>
+          </li>
+
+        <?php endwhile; endif; ?>
+      </ul>
+    </article>
+
+    <article class="box-network-posts">
+      <h3>Últimos Posts</h3>
+      <ul>
+        <?php
+        if(bp_has_activities(bp_ajax_querystring('activity') . '&max=5&action=activity_update')) :
+        $count == 0;
+        while(bp_activities()): bp_the_activity(); $count++
+        ?>
+          <li class="box-network-post<?php if($count == 1) echo ' active'; ?>">
+            <a href="<?php bp_activity_user_link(); ?>" class="avatar-container"><?php bp_activity_avatar(); ?></a>
+            <span class="post"><?php echo strip_tags(bp_get_activity_content_body()); ?></span>
+          </li>
+        <?php endwhile; endif; ?>
+      </ul>
+
+      <ul class="box-network-posts-nav">
+        <li><a href="#" class="prev">Anterior</a></li>
+        <li><a href="#" class="next">Próxima</a></li>
+      </ul>
+    </article>
+
+  </div>
+
+  <footer class="box-network-footer cf">
+    <a href="<?php echo home_url(); ?>/wp-login.php?redirect_to=<?php echo home_url(); ?>%2Frede-social%2Fatividade%2F" class="btn btn-yellow-arrow login">Login</a>
+    <a href="<?php echo home_url(); ?>/rede-social/registrar/" class="btn btn-yellow-arrow cadastre-se">Cadastre-se</a>
+  </footer>
+</section><!-- end box-network -->

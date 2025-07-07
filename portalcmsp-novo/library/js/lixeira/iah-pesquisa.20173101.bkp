@@ -1,0 +1,153 @@
+
+// limpar preposicoes da busca
+function limparPreposicoes(str) {
+	str = str.replace(/ dos /gi, " ");
+	str = str.replace(/ das /gi, " ");
+	str = str.replace(/ do /gi, " ");
+	str = str.replace(/ da /gi, " ");
+	str = str.replace(/ de /gi, " ");
+	str = str.replace(/ nos /gi, " ");
+	str = str.replace(/ nas /gi, " ");
+	str = str.replace(/ no /gi, " ");
+	str = str.replace(/ na /gi, " ");
+	str = str.replace(/ em /gi, " ");
+	str = str.replace(/ aos /gi, " ");
+	str = str.replace(/ às /gi, " ");
+	str = str.replace(/ ao /gi, " ");
+	str = str.replace(/ à /gi, " ");
+	str = str.replace(/ a /gi, " ");
+	str = str.replace(/ e /gi, " ");
+	str = str.replace(/ o /gi, " ");
+	str = str.replace(/ os /gi, " ");
+	str = str.replace(/ as /gi, " ");
+	return str;
+}
+
+function limparAcentos(str)
+{
+    /*
+    str = str.replace(/[ÀÁÂÃÄÅ]/,"A");
+    str = str.replace(/[àáâãäå]/,"a");
+    str = str.replace(/[ÈÉÊË]/,"E");
+    str = str.replace(/[èéêë]/,"e");
+    str = str.replace(/[ÌÍÎÏ]/,"I");
+    str = str.replace(/[ìíîï]/,"i");
+    str = str.replace(/[ÒÓÔÕÖ]/,"O");
+    str = str.replace(/[òóôõö]/,"o");
+    str = str.replace(/[ÙÚÛÜ]/,"U");
+    str = str.replace(/[ùúûü]/,"u");
+    str = str.replace(/[Ç]/,"C");
+    str = str.replace(/[ç]/,"c");
+
+    // o resto
+    return str.replace(/[^a-z0-9 ]/gi,'');
+    */
+   	var r=str.toLowerCase();
+	//r = r.replace(new RegExp("\\s", 'g'),"");
+	r = r.replace(new RegExp("[àáâãäå]", 'g'),"a");
+	r = r.replace(new RegExp("æ", 'g'),"ae");
+	r = r.replace(new RegExp("ç", 'g'),"c");
+	r = r.replace(new RegExp("[èéêë]", 'g'),"e");
+	r = r.replace(new RegExp("[ìíîï]", 'g'),"i");
+	r = r.replace(new RegExp("ñ", 'g'),"n");
+	r = r.replace(new RegExp("[òóôõö]", 'g'),"o");
+	r = r.replace(new RegExp("œ", 'g'),"oe");
+	r = r.replace(new RegExp("[ùúûü]", 'g'),"u");
+	r = r.replace(new RegExp("[ýÿ]", 'g'),"y");
+	//r = r.replace(new RegExp("\\W", 'g'),"");
+	return r;
+}
+
+var montarLinkIah = function(baseDados, projetoTipo, projetoNumero, projetoAno, autorNome, assunto) {
+	var domain = "http://documentacao.camara.sp.gov.br/cgi-bin/wxis.exe/iah/scripts/?IsisScript=iah.xis";
+	var params = "&form=A&format=standard.pft&navBar=OFF&hits=200&lang=pt&nextAction=search&base=" + baseDados + "&conectSearch=init";
+
+	var parExprSearch  = "&exprSearch=";
+	var parIndexSearch = "&indexSearch=";
+	var parEydatabase  = "%5EyDATABASE";
+
+	var inputProjetoTipo = '';
+	if (projetoTipo === '') { inputProjetoTipo = "";
+	} else {
+		var parProjetoTipo = '';
+		if (baseDados == "proje") { parProjetoTipo = "%5EnCm%5ELTipo+de+projeto%5Etshort%5Ex%2F20"; }
+		if (baseDados == "legis") { parProjetoTipo = "%5EnTn%5ELTipo+de+norma%5Ex%2F5"; }
+		if (projetoTipo == "TODOS") { projetoTipo = "$"; }
+		inputProjetoTipo = parExprSearch + projetoTipo + parIndexSearch + parProjetoTipo + parEydatabase;
+	}
+
+	var inputProjetoNumero = '';
+	if (projetoNumero === '') { inputProjetoNumero = "";
+	} else {
+		var parProjetoNumero = '';
+		if (baseDados == "proje") { parProjetoNumero = "%5EnPj%5ELN%FAmero+do+projeto%5Ex%2F30"; }
+		if (baseDados == "legis") { parProjetoNumero = "%5EnNn%5ELN%FAmero+da+norma%5Ex%2F6"; }
+		inputProjetoNumero = parExprSearch + parseInt(projetoNumero, 10) + parIndexSearch + parProjetoNumero + parEydatabase;
+	}
+
+	var inputProjetoAno = '';
+	if (projetoAno==='') { inputProjetoAno = "";
+	} else {
+		var parProjetoAno = '';
+		if (baseDados == "proje") { parProjetoAno = "%5EnDp%5ELAno+do+projeto%5Ex%2F40%5Etshort"; }
+		if (baseDados == "legis") { parProjetoAno = "%5EnDn%5ELAno+da+norma%5Ex%2F10"; }
+		inputProjetoAno = parExprSearch + projetoAno + parIndexSearch + parProjetoAno + parEydatabase;
+	}
+
+	var inputAutorNome = '';
+	if (autorNome==='') { inputAutorNome = "";
+	} else {
+		var parAutorNome = '';
+		if (baseDados == "proje") { parAutorNome = "%5EnAu%5ELAutor+do+projeto%5Ex%2F50"; }
+		if (baseDados == "legis") { parAutorNome = "%5EnAu%5ELAutor+do+projeto%5Ex%2F32"; }
+		inputAutorNome = parExprSearch + autorNome + parIndexSearch + parAutorNome + parEydatabase;
+	}
+
+	assunto = limparAcentos(assunto);
+	assunto = limparPreposicoes(assunto);
+
+	var inputAssunto = "";
+	if (assunto==='') { inputAssunto = "";
+	} else {
+		assuntoPalavras = assunto.split(" ");
+		var contador=0;
+		while (contador < assuntoPalavras.length) {
+			// adaptacao para otimizacao do sistema (sugestao da marcia em 06/08/2010)
+			var temp = assuntoPalavras[contador].substring(0, assuntoPalavras[contador].length);
+			assuntoPalavras[contador] = "" + (temp) + "/(70)"; // assunto
+
+			//somente base proje
+			if (baseDados == "proje") {
+				assuntoPalavras[contador] = assuntoPalavras[contador] + "%20OR%20" + (temp) + "/(71)"; // nome de logradouro
+				assuntoPalavras[contador] = assuntoPalavras[contador] + "%20OR%20" + (temp) + "/(72)"; // homenageado
+			}
+
+			//substituido para ir ate ultimo caracter
+			//assuntoPalavras[contador] = (assuntoPalavras[contador].substring(0,assuntoPalavras[contador].length));
+			contador += 1;
+		}
+		//assuntoFrase = assuntoPalavras.join("$%20AND%20"); substituido para nao haver truncamento
+		assuntoFrase = assuntoPalavras.join(")%20AND%20(");
+		//inputAssunto = parExprSearch +       assuntoFrase +"$"  + parIndexSearch + "^nTw^LTodos+os+campos^2Todos+los+campos^3All+fields^yDATABASE^xALL+";  substituido para nao haver truncamento
+		//inputAssunto = parExprSearch + "(" + assuntoFrase + ")" + parIndexSearch + "^nTw^LTodos+os+campos^2Todos+los+campos^3All+fields^yDATABASE^xALL+";
+		inputAssunto =   parExprSearch + "(" + assuntoFrase + ")";// + parIndexSearch;
+		//Procurar pelo termo completo Ex. Lei 14.485/2007 [08/04/2016]
+		inputAssunto = inputAssunto + " OR (" + assunto + ")" + parIndexSearch;
+		inputAssunto = inputAssunto + "%5EnTw%5ELTodos+os+campos%5E2Todos+los+campos%5E3All+fields" + parEydatabase + "%5ExALL+";
+	}
+
+	var parAnd  = "&conectSearch=and";
+	var URL = domain + params + inputProjetoTipo;
+	if(inputProjetoNumero !== "") URL += parAnd + inputProjetoNumero;
+	if(inputProjetoAno    !== "") URL += parAnd + inputProjetoAno;
+	if(inputAutorNome     !== "") URL += parAnd + inputAutorNome;
+	if(inputAssunto       !== "") URL += parAnd + inputAssunto;
+	return URL;
+}
+
+function mostrarPopupIah(baseDados, projetoTipo, projetoNumero, projetoAno, autorNome, assunto) {
+	var URL = montarLinkIah(baseDados, projetoTipo, projetoNumero, projetoAno, autorNome, assunto);
+	var parPopup = "toolbar=0,scrollbars=1,location=no,statusbar=0,menubar=0,resizable=0,width=790,height=500,left=465,top=275";
+	window.open(URL, "resultado", parPopup);
+	return false;
+}

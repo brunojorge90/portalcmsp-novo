@@ -1,0 +1,158 @@
+.rede_camara {
+  background: #FFF1F5;
+  padding: 112px 0px;
+
+  h2 {
+    color: $color-primary-accent;
+  }
+
+  p {
+    min-height: 80px;
+    -webkit-line-clamp: 4; /* number of lines to show */
+    line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    display: -webkit-box;
+    font-weight: 400;
+    font-size: 1.4rem;
+    line-height: 20px;
+    /* or 143% */
+    color: #000000;
+  }
+
+  .youtube {
+    img {
+      width: 100%;
+      height: 307px;
+      object-fit: cover;
+    }
+  }
+
+  a.span {
+    justify-content: flex-end;
+    padding: 5px 17px;
+    margin-top: 0;
+    text-decoration: none;
+  }
+
+  .ultimos-videos {
+    background: #F9CBD8;
+    .webradio {
+      iframe {
+        width: 100%;
+        min-height: 434px;
+        height: 100%;
+        display: block;
+        margin: 0px;
+        border-radius: 7px;
+      }
+    }
+    nav a:not(.active):not(:hover) {
+      color: white;
+    }
+
+    .context {
+      padding:0px 31px 31px 31px ;
+    }
+
+    .item {
+      background: $color-neutral-white;
+      border-radius: 7px;
+      height: 202px;
+      max-width: 225px;
+      min-width: 225px;
+      text-decoration: none;
+      img {
+        height: 126px;
+        width: 100%;
+        border-radius: 7px 7px 0px 0px;
+      }
+      h3 {
+        font-weight: 400;
+        font-size: 1.2rem;
+        line-height: 15px;
+        color: #000000 !important;
+        -webkit-line-clamp: 2; /* number of lines to show */
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        display: -webkit-box;
+      }
+      .context-item {
+        padding: 16px;
+      }
+    }
+  }
+}
+
+.bolinha {
+  animation: piscar 2s infinite;
+}
+
+@keyframes piscar {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+
+@media (max-width: 768px) {
+
+  .rede_camara {
+    padding: 32px 0px;
+    .desktop-headeline-5 {
+      font-size: 1.6rem;
+      line-height: 2.4rem;
+    }
+
+    .youtube img {
+      aspect-ratio: 16 / 9;
+      height: auto;
+    }
+    .youtube:after {
+      background-size: 63px;
+    }
+  }
+
+  .rede_camara .ultimos-videos .item {
+    max-width: 100%;
+    height: auto;
+    width: 100%;
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+
+  .rede_camara a.mt-56 {
+    margin-top: 24px !important;
+  }
+
+  .rede_camara {
+    .tags {
+      flex-wrap: wrap !important;
+    }
+  }
+
+  .logo-camara {
+      img {
+        max-width: 85px;
+        height: auto;
+        margin:0 auto;
+      }
+  }
+
+  .tag {
+    font-size: 1.2rem;
+    padding:8px;
+    line-height: 1.6rem;
+  }
+
+}

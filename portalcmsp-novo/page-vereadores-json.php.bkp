@@ -1,0 +1,236 @@
+<?php
+/*
+ Template Name: Home Vereadores Membros - JSON
+*/
+?>
+/*
+filtro=ordem-alfabetica
+filtro=partido
+filtro=mesa-diretora
+filtro=corregedoria
+filtro=liderancas
+filtro=licenciados
+suplentes: https://sig.tse.jus.br/ords/dwapr/r/seai/sig-eleicao-resultados/resultado-da-elei%C3%A7%C3%A3o?p0_ano=2020&p0_regiao=SUDESTE&p0_uf=SP&p0_municipio=S%C3%83O%20PAULO&p0_tipo_eleicao=Elei%C3%A7%C3%A3o%20Ordin%C3%A1ria&p0_turno=1&p0_cargo_consolidado=Vereador
+*/
+<?php
+/*
+Listar todos os vereadores ativos
+*/
+$filter = 'ordem-alfabetica';
+if (isset($_GET['filtro'])) {
+    $filter = $_GET['filtro'];
+}
+
+?>
+
+<div class="vereadores">
+    
+            <div class="ct-vereadores">
+                <div class="conjunto-cards mt-56">
+                    <?php
+                    // see whatever is the current filter and set a default
+                    $filter = 'ordem-alfabetica';
+                    if (isset($_GET['filtro'])) {
+                        $filter = $_GET['filtro'];
+                    }
+                    ?>
+
+                    <?php
+                    // default arguments for the query
+                    $defaultArgs = array(
+                        'post_type' => 'vereador',
+                        'posts_per_page' => -1,
+                        'post_status' => 'publish',
+                        //'meta_key' => '_cmsp_vereador_ativo',
+                        'meta_key' => '_cmsp_vereador_name',
+                        'orderby' => 'meta_value _cmsp_vereador_name', //'title',
+                        'order' => 'ASC'
+                    );
+                    $finalArgs = $defaultArgs;
+                    $finalArgs['meta_query'] = array(
+                        array(
+                            'key' => '_cmsp_vereador_ativo',
+                            'value' => 'on',
+                        ),
+                    );
+
+                    // tweak args for each filter
+
+                    if ($filter == 'partido') {
+                        $finalArgs['orderby'] = 'meta_value';
+                        $finalArgs['meta_key'] = '_cmsp_vereador_party';
+                        if (isset($_GET['partido'])) {
+                            $finalArgs['meta_query'] = array(
+                                'relation' => 'AND',
+                                array(
+                                    'key' => '_cmsp_vereador_party',
+                                    'value' => $_GET['partido'],
+                                ),
+                                array(
+                                    'key' => '_cmsp_vereador_ativo',
+                                    'value' => 'on',
+                                ),
+                            );
+                        } else {
+                            $finalArgs['meta_query'] = array(
+                                array(
+                                    'key' => '_cmsp_vereador_ativo',
+                                    'value' => 'on',
+                                ),
+                            );
+                        }
+                    }
+
+                    if ($filter == 'mesa-diretora') {
+                        $finalArgs['orderby'] = 'meta_value title';
+                        $finalArgs['meta_key'] = '_cmsp_vereador_hierarquia';
+                        $finalArgs['meta_query'] = array(
+                            'relation' => 'AND',
+                            array(
+                                'key' => '_cmsp_vereador_mesa-diretora',
+                                'value' => 'on',
+                            ),
+                            array(
+                                'key' => '_cmsp_vereador_ativo',
+                                'value' => 'on',
+                            ),
+                        );
+                    }
+
+                    if ($filter == 'corregedoria') {
+                        $finalArgs['orderby'] = 'meta_value title';
+                        $finalArgs['meta_key'] = '_cmsp_vereador_hierarquia';
+                        $finalArgs['meta_query'] = array(
+                            'relation' => 'AND',
+                            array(
+                                'key' => '_cmsp_vereador_corregedoria',
+                                'value' => 'on',
+                            ),
+                            array(
+                                'key' => '_cmsp_vereador_ativo',
+                                'value' => 'on',
+                            ),
+                        );
+                    }
+
+                    if ($filter == 'liderancas') {
+                        $finalArgs['orderby'] = 'meta_value';
+                        $finalArgs['meta_key'] = '_cmsp_vereador_party';
+                        $finalArgs['meta_query'] = array(
+                            'relation' => 'OR',
+                            array(
+                                'key' => '_cmsp_vereador_lider_partido',
+                                'value' => 'on',
+                            ),
+                            array(
+                                'key' => '_cmsp_vereador_vice_lider_partido',
+                                'value' => 'on',
+                            ),
+                        );
+                    }
+
+                    if ($filter == 'licenciados') {
+                        $finalArgs['orderby'] = 'meta_value';
+                        $finalArgs['meta_key'] = '_cmsp_vereador_party';
+                        $finalArgs['meta_query'] = array(
+                            array(
+                                'key' => '_cmsp_vereador_licenciado',
+                                'value' => 'on',
+                            ),
+                        );
+                    }
+
+                    if ($filter == 'suplentes') {
+                        $finalArgs['orderby'] = 'meta_value';
+                        $finalArgs['meta_key'] = '_cmsp_vereador_party';
+                        $finalArgs['meta_query'] = array(
+                            array(
+                                'key' => '_cmsp_vereador_suplente',
+                                'value' => 'on',
+                            ),
+                        );
+                    }
+
+                    $vereadoresQuery = new WP_Query($finalArgs);
+                    // Query lista de partidos
+                    // Essa meta query filtra a lista para mostrar partidos com vereadores ativos.
+                    $defaultArgs['meta_query'] = array(
+                        array(
+                            'key' => '_cmsp_vereador_ativo',
+                            'value' => 'on',
+                        ),
+                    );
+                    $partidosQuery = new WP_Query($defaultArgs);
+                    $partidos = array();
+
+                    while ($partidosQuery->have_posts()): $partidosQuery->the_post();
+                        $vereador_partido = get_post_meta($post->ID, '_cmsp_vereador_party', true);
+                        array_push($partidos, $vereador_partido);
+                    endwhile;
+
+                    asort($partidos);
+                    $unique_partidos = array_unique($partidos);
+
+                    //Exibir primeiro o lider
+                    $partido_anterior = '';
+                    while ($vereadoresQuery->have_posts()): $vereadoresQuery->the_post();
+
+                        $vereador_name = get_post_meta($post->ID, '_cmsp_vereador_name', true);
+                        if ($vereador_name == '') $vereador_name = get_the_title();
+                        $vereador_image = get_post_meta($post->ID, '_cmsp_vereador_image', true);
+                        $vereador_party = get_post_meta($post->ID, '_cmsp_vereador_party', true);
+                        $page_path = strtolower("partidos/" . $vereador_party);
+                        $partido = get_page_by_path(basename(untrailingslashit($page_path)), OBJECT, 'partidos');
+                        $logo = get_field("logo_grande", $partido->ID);
+                        $vice_lider = get_post_meta($post->ID, '_cmsp_vereador_vice_lider_partido', true);
+
+                        if ($filter == 'partido' || $filter == 'liderancas') {
+                            if ($partido_anterior == '' or $partido_anterior != $vereador_party) {
+                                echo '<h2 class="w100 mt-16" style="margin-bottom: 0px;text-transform: uppercase">' . $vereador_party . '</h2>';
+                                $partido_anterior = $vereador_party;
+                            }
+                        }
+                        ?>
+                        <!--card vereador-->
+                        <div class="card-vereador">
+			    <thumbnail_vereador = "<?php echo $vereador_image ?>" />
+			    <thumbnail_partido = "<?php echo $logo ?>" />
+			    <nome_vereador ="<?php echo $vereador_name ?>" />
+                            <div class="img-vereador">
+                                <img class="thumbnail" src="<?php echo $vereador_image ?>" alt="foto do vereador"
+                                     class="w100">
+                                <div class="img-partido">
+                                    <img src="<?php echo $logo['url'] ?>" alt="partido do vereador" class="w100">
+                                </div>
+                            </div>
+                            <div class="context mt-16">
+                                <h3 class="desktop-headeline-5"><?php echo $vereador_name ?></h3>
+                                <?php if ($filter == 'mesa-diretora' || $filter == 'corregedoria'): ?>
+                                    <?php
+                                    $position = get_post_meta($post->ID, '_cmsp_vereador_mesa-diretora-posicao', true);
+                                    if ($position != 'Corregedor Geral' && $filter == "corregedoria") $position = 'Demais Membros';
+                                    ?>
+                                    <p class="vereador-position"><?php echo $position; ?></p>
+                                <?php endif; ?>
+                            </div>
+                            <div class="infos-vereador mt-32">
+                                <a href="<?php echo get_permalink(get_the_ID())?>" class="button-primary w100">Acessar</a>
+                                <a href="<?php echo get_permalink(get_the_ID())?>#contato" class="button-secondary w100 mt-16">Enviar mensagem</a>
+                            </div>
+                        </div>
+                    <?php endwhile; ?>
+                    <!--card vereador-->
+                </div>
+            </div>
+</section>
+<script>
+    <?php if($_GET['filtro']) : ?>
+    var anchor = document.querySelector('#vereadores');
+    window.scroll({ top: anchor.offsetTop, left: 0, behavior: 'smooth' });
+    <?php endif ?>
+</script>
+
+<?php
+//endwhile;
+//endif;
+?>

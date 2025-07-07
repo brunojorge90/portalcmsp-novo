@@ -1,0 +1,213 @@
+<section class="content-box box-quick-search">
+    <script>
+
+      function mostraprojetosleis(){
+        var1 = "http://www.cmspbdoc.inf.br/cgi-bin/wxis.bin/iah/scripts/?IsisScript=iah.xis&environment=%5Ed%2Fiah%2F%5Ec%2Fhome%2Fq31251%2Fpublic_html%2Fcamaramunicipalsp%2Fiah%2Fscripts%2F%5Eb%2Fhome%2Fq31251%2Fpublic_html%2Fcamaramunicipalsp%2Fbases%2Fiah%2F%5Ep%2Fhome%2Fq31251%2Fpublic_html%2Fcamaramunicipalsp%2Fbases%2Fiah%2Fpar%2F%5Esiah.xis%5Ev3.1.1&avaibleFormats=%5Enstandard.pft%5E1Resumido%5E2Resumido%5E3Resumed&avaibleFormats=%5Endetalhado.pft%5E1Detalhado%5E2Datallado%5E3Detailed&avaibleFormats=%5EnDEFAULT%5Efstandard.pft&apperance=%5Eefjlopes%40qaplaweb.com.br%5ErON%5Em%5Eapt&gizmoDecod=&avaibleForms=F%2CA&form=A&navBar=Off&hits=200&format=standard.pft&lang=pt&user=GUEST&baseFeatures=%5Ee%5Ef&related=&nextAction=search&base=legis&conectSearch=init";
+        varTP = document.getElementById("leistip").value;
+        var27 = "&conectSearch=and";
+        varNumberPj = document.getElementById("leisnumber").value;
+        var28 = "&conectSearch=and";
+        varYearPj = document.getElementById("leisyear").value;
+
+        if (document.getElementById("leistip").value=='TODOS'){ varTP = "&exprSearch=$&indexSearch=%5EnTn%5ELTipo+de+norma%5Ex%2F5%5EyDATABASE"; }
+        else if (document.getElementById("leistip").value==''){ varTP = "" }
+        else { varTP = "&exprSearch=" + document.getElementById("leistip").value + "&indexSearch=%5EnTn%5ELTipo+de+norma%5Ex%2F5%5EyDATABASE"; }
+
+        if (document.getElementById("leisnumber").value==''){ varNumberPj = "" }
+        else { varNumberPj = "&exprSearch=" + parseInt(document.getElementById("leisnumber").value,10) + "&indexSearch=%5EnNn%5ELN%FAmero+da+norma%5Ex%2F6%5EyDATABASE"; }
+
+        if (document.getElementById("leisyear").value==''){ varYearPj = ""; }
+        else { varYearPj = "&exprSearch=" + document.getElementById("leisyear").value + "&indexSearch=%5EnDn%5ELAno+da+norma%5Ex%2F10%5EyDATABASE"; }
+
+        URL = var1 + varTP + var27 + varNumberPj + var28 + varYearPj;
+
+        window.open(URL,'Resultado','toolbar=0,scrollbars=1,location=no,statusbar=0,menubar=0,resizable=0,width=790,height=500');
+      }
+
+      function mostraprojetosprojetos(){
+        var1 = "http://www.cmspbdoc.inf.br/cgi-bin/wxis.bin/iah/scripts/?IsisScript=iah.xis&environment=^d%2Fiah%2F^c%2Fhome%2Fq31251%2Fpublic_html%2Fcamaramunicipalsp%2Fiah%2Fscripts%2F^b%2Fhome%2Fq31251%2Fpublic_html%2Fcamaramunicipalsp%2Fbases%2Fiah%2F^p%2Fhome%2Fq31251%2Fpublic_html%2Fcamaramunicipalsp%2Fbases%2Fiah%2Fpar%2F^siah.xis^v3.1.1&avaibleFormats=^nstandard.pft^1Resumido^2Resumido^3Resumed&avaibleFormats=^ndetalhado.pft^1Detalhado^2Datallado^3Detailed&avaibleFormats=^nDEFAULT^fstandard.pft&apperance=^efjlopes%40qaplaweb.com.br^rON^m^apt&gizmoDecod=&avaibleForms=F%2CA&form=A&navBar=OFF&hits=200&format=standard.pft&lang=pt&user=GUEST&baseFeatures=^e^f&related=&nextAction=search&base=proje&conectSearch=init";
+        varTP = document.getElementById('tip').value;
+        var27 = "&conectSearch=and";
+        varNumberPj = document.getElementById('number').value;
+        var28 = "&conectSearch=and";
+        varYearPj = document.getElementById('year').value;
+
+        if (document.getElementById('tip').value=="TODOS"){ varTP = "&exprSearch=$&indexSearch=%5EnCm%5ELTipo+de+projeto%5Etshort%5Ex%2F20%5EyDATABASE"; }
+        else if (document.getElementById('tip').value==""){ varTP = "" }
+        else { varTP = "&exprSearch=" + document.getElementById('tip').value + "&indexSearch=%5EnCm%5ELTipo+de+projeto%5Etshort%5Ex%2F20%5EyDATABASE"; }
+
+        if (document.getElementById('number').value==""){ varNumberPj = "" }
+        else { varNumberPj = "&exprSearch=" + parseInt(document.getElementById('number').value,10) + "&indexSearch=%5EnPj%5ELN%FAmero+do+projeto%5Ex%2F30%5EyDATABASE"; }
+
+        if (document.getElementById('year').value==""){ varYearPj = ""; }
+        else { varYearPj = "&exprSearch=" + document.getElementById('year').value + "&indexSearch=%5EnDp%5ELAno+do+projeto%5Ex%2F40%5Etshort%5EyDATABASE"; }
+
+        URL = var1 + varTP + var27 + varNumberPj + var28 + varYearPj;
+
+        window.open(URL,"_blank","toolbar=0,scrollbars=1,location=yes,statusbar=0,menubar=0,resizable=0,width=790,height=500");
+      }
+
+    </script>
+    <header class="content-box-top">
+      <h2 class="content-box-title icon-search-red"><a href="#">Consulta Rápida / <span class="red">Atividade Legislativa</span></a></h2>
+    </header>
+
+    <div class="box-quick-search-container">
+
+      <nav class="box-quick-search-nav">
+        <select class="nav-mobile mobile-only">
+          <option value="item-vereadores">Vereadores</option>
+          <option value="item-projetos">Projetos</option>
+          <option value="item-leis">Leis</option>
+          <option value="item-sessao-plenaria">Sessão Plenária</option>
+          <option value="item-comissoes">Comissões</option>
+          <option value="item-audiencia-publica">Audiência Pública</option>
+        </select>
+
+        <ul class="mobile-hide">
+          <li class="item-vereadores active"><a href="#">Vereadores</a></li>
+          <li class="item-projetos"><a href="#">Projetos</a></li>
+          <li class="item-leis"><a href="#">Leis</a></li>
+          <li class="item-sessao-plenaria"><a href="#">Sessão Plenária</a></li>
+          <li class="item-comissoes"><a href="#">Comissões</a></li>
+          <li class="item-audiencia-publica"><a href="#">Audiência Pública</a></li>
+        </ul>
+      </nav>
+
+      <?php
+      $vereadoresQuery = new WP_Query(array(
+          'post_type' => 'vereador',
+          'posts_per_page' => -1,
+          'orderby' => 'title',
+          'order' => 'ASC'
+        ));
+
+      $vereadores_options = '<option value="">Escolha um vereador</option>';
+      $mandato_options = $vereadores_options;
+      while($vereadoresQuery->have_posts()){ $vereadoresQuery->the_post();
+
+        $vereador_name = get_post_meta($post->ID,'_cmsp_vereador_name', true);
+        if($vereador_name == '') $vereador_name = get_the_title();
+
+        $vereadores_options .='<option value="'. get_the_permalink() .'">'. $vereador_name .'</option>';
+        $mandato_options .='<option value="'. get_the_permalink() .'#mandato-participativo">'. $vereador_name .'</option>';
+      }
+      ?>
+
+      <div class="box-quick-search-items">
+        <article class="box-quick-search-item item-vereadores active">
+          <h3>Perfil</h3>
+          <div class="form-row">
+            <select class="white" onchange="javascript:document.location.href=this.value;">
+              <?php echo $vereadores_options; ?>
+            </select>
+          </div>
+
+          <h3>Mandato Participativo</h3>
+          <p>Cadastre-se e participe do mandato do vereador com propostas, sugestões e receba informativos</p>
+          <form>
+            <div class="form-row">
+              <select class="white" onchange="javascript:document.location.href=this.value;">
+                <?php echo $mandato_options; ?>
+              </select>
+            </div>
+          </form>
+        </article>
+
+        <article class="box-quick-search-item item-projetos">
+          <h3>Consulta de Projetos</h3>
+          <form onsubmit="javascript:mostraprojetosprojetos(); return false;">
+            <div class="form-row">
+              <select id="tip" name="tip">
+                <option value="TODOS">Todos os tipos</option>
+                <option value="%22PROJETO DE LEI%22">Projeto de Lei</option>
+                <option value="%22PROJETO DE EMENDA A LEI ORGANI%22">Projeto de Emenda à Lei Orgânica</option>
+                <option value="%22PROJETO DE DECRETO LEGISLATIVO%22">Projeto de Decreto Legislativo</option>
+                <option value="%22PROJETO DE RESOLUCAO%22">Projeto de Resolução</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label for="number">Número</label>
+              <input type="text" id="number" name="number">
+            </div>
+            <div class="form-row">
+              <label for="year">Ano</label>
+              <input type="text" id="year" name="year" placeholder="AAAA">
+            </div>
+            <div class="form-row">
+              <input type="submit" class="btn" value="Pesquisar">
+            </div>
+          </form>
+        </article>
+
+        <article class="box-quick-search-item item-leis">
+          <h3>Consulta de Leis</h3>
+          <form onsubmit="javascript:mostraprojetosleis(); return false;">
+            <div class="form-row">
+              <select id="leistip" name="leistip">
+                <option value="%22TODOS%22">Todos os tipos</option>
+                <option value="%22LEI%22">Lei Ordinária</option>
+                <option value="%22DECRETO%22">Decreto</option>
+                <option value="%22DECRETO LEGISLATIVO%22">Decreto Legislativo</option>
+                <option value="%22DECRETO-LEI%22">Decreto-Lei</option>
+                <option value="%22EMENDA%22">Emenda à Lei Orgânica</option>
+                <option value="%22ATO DA CMSP%22">Ato da CMSP</option>
+                <option value="%22ATO AMC%22">Ato da AMC</option>
+                <option value="%22ACTO%22">Acto</option>
+                <option value="%22ACTO EXECUTIVO%22">Acto Executivo</option>
+                <option value="%22ATO GOVERNO PROVISÓRIO%22">Ato do Governo Provisório</option>
+                <option value="%22RESOLUÇÃO DA CMSP%22">Resolução da CMSP</option>
+                <option value="%22RESOLUÇÃO AMC%22">Resolução da AMC</option>
+                <option value="%22RESOLUÇÃO%22">Resolução</option>
+                <option value="%22MEMORANDO%22">Memorando</option>
+                <option value="%22REQUERIMENTO%22">Requerimento</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label for="leisnumber">Número</label>
+              <input type="text" id="leisnumber" name="leisnumber">
+            </div>
+            <div class="form-row">
+              <label for="leisyear">Ano</label>
+              <input type="text" id="leisyear" name="leisyear" placeholder="AAAA">
+            </div>
+            <div class="form-row">
+              <input type="submit" class="btn" value="Pesquisar">
+            </div>
+          </form>
+        </article>
+
+        <article class="box-quick-search-item item-sessao-plenaria">
+          <h3>Sessão Plenária</h3>
+
+          <ul>
+            <li><a href="<?php echo home_url(); ?>/atividade-legislativa/sessao-plenaria/pauta-das-sessoes/">Pauta das Sessões</a></li>
+            <li><a href="<?php echo home_url(); ?>/atividade-legislativa/sessao-plenaria/presenca-em-plenario/">Presença em plenário</a></li>
+            <li><a href="<?php echo home_url(); ?>/atividade-legislativa/sessao-plenaria/votacao-em-plenario/">Votação em Plenário</a></li>
+            <li><a href="<?php echo home_url(); ?>/atividade-legislativa/sessao-plenaria/registro-das-sessoes/">Registro das Sessões</a></li>
+            <li><a href="<?php echo home_url(); ?>/atividade-legislativa/sessao-plenaria/projetos/">Projetos</a></li>
+            <li><a href="<?php echo home_url(); ?>/atividade-legislativa/sessao-plenaria/materias-em-condicao-de-pauta/">Matérias em condição de Pauta</a></li>
+          </ul>
+        </article>
+
+        <article class="box-quick-search-item item-comissoes">
+          <h3>Comissões</h3>
+          <ul>
+            <li><a href="<?php echo home_url(); ?>/atividade-legislativa/comissoes/comissoes-tecnicas-composicao/">Comissões Técnicas - composição</a></li>
+            <li><a href="<?php echo home_url(); ?>/atividade-legislativa/comissoes/pauta-das-comissoes/">Pauta das Comissões</a></li>
+            <li><a href="<?php echo home_url(); ?>/atividade-legislativa/comissoes/presencas-em-comissoes/presencas-em-comissoes-<?php echo date('Y'); ?>">Presenças em Comissões</a></li>
+            <li><a href="<?php echo home_url(); ?>/atividade-legislativa/comissoes/votacao-em-comissoes/">Votação em Comissões</a></li>
+          </ul>
+        </article>
+
+        <article class="box-quick-search-item item-audiencia-publica">
+          <h3>Audiências Públicas</h3>
+          <ul>
+            <li>Conferir a <a href="<?php echo home_url(); ?>/atividade-legislativa/agenda-da-camara/">agenda</a> para as próximas Audiências Públicas convocadas pelas Comissões</li>
+            <li>Consultar o <a href="<?php echo home_url(); ?>/atividade-legislativa/audiencias-publicas/registro-escrito/">registro escrito</a> das Audiências Públicas já realizadas</li>
+          </ul>
+        </article>
+      </div>
+
+    </div>
+</section><!-- end .box-quick-search -->

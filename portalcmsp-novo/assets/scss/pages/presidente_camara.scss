@@ -1,0 +1,330 @@
+#cover-presidente-camara{
+    .config-image-bg{
+        &::before{
+            display: none;
+        }
+    }
+}
+
+.iframe-video {
+    width: 100%;
+    iframe {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16/9;
+    }
+}
+
+#infos-presidente-camara {
+    position: relative;
+  
+    .abs {
+  
+        .container {
+            margin-top: -130px;
+    
+            .sobre-presidente-camara {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+    
+                .foto-perfil-presidente-camara {
+                    max-width: 255px;
+                    max-height: 255px;
+                    border: 8px solid $color-neutral-white;
+                    border-radius: $radius-500px;
+                    overflow: hidden;
+                    margin: 0 auto;
+                    
+                    img {
+                        width: 239px;
+                        height: 239px;
+                        object-fit: cover;
+                    }
+                }
+
+                .textos-presidente-camara{
+                    display: flex;
+                    gap: 32px;
+
+                    .coluna-esquerda{
+
+                        h2{
+                            color: $color-primary-accent;
+                        }
+
+                        a{
+                            display: block;
+                            margin-top: 14px;
+                            color: $color-link;
+                            text-align: center;
+                        }
+                    }
+
+                    .coluna-direita{
+                        width: 100%;
+                        max-width: 352px;
+
+                        .compartilhe-redes{
+                            display: flex;
+                            justify-content: space-between;
+                        }
+
+                        .infos-gabinete{
+                            width: 100%;
+                            padding: 16px;
+                            border-radius: 16px;
+                            border: 1px solid $color-neutral-silver;
+
+                            ul{
+                                list-style: none;
+                                padding: 0;
+                                margin: 0;
+
+                                li + li{
+                                    display: flex;
+                                    gap: 8px;
+
+                                    &:last-child{
+                                        align-items: flex-start;
+                                    }
+
+                                    strong{
+                                        display: inline;
+                                        box-sizing: none;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+} 
+
+#midia-presidente-camara{
+    h2{
+        color: $color-primary-accent;
+    }
+
+    .noticias-videos-presidente {
+        display: flex;
+        gap: 32px;
+
+        h2 {
+            align-self: flex-start;
+            width: 100%;
+            margin-bottom: 24px;
+        }
+
+        .noticias-presidente {
+            flex: 1;
+
+            .noticia-individual {
+                border-radius: $radius-8px;
+                border: 1px solid $color-neutral-grey-blue;
+                padding: 16px;
+                min-height: 144px;
+                display: flex;
+                gap: 16px;
+                text-decoration: none;
+                transition: all .3s ease-in-out;
+            
+                .img-noticia {
+                    img {
+                    width: 185px;
+                    height: 102px;
+                    object-fit:cover;
+                    border-radius: 8px;
+                    }
+                }
+
+                .infos-noticia {
+                    max-width: 309px;
+                    display: flex;
+                    flex-direction: column;
+
+                    span {
+                        padding-left: 0;
+                        color: $color-primary-accent;
+                        transition: all .3s ease-in-out;
+                    }
+                }
+
+                &:hover {
+                    cursor: pointer !important;
+                    text-decoration: none;
+                    background-color: $color-primary-extra-5;
+                    border-color: $color-primary-extra-5;
+
+                    .infos-noticia {
+                        span {
+                            padding-left: 16px;
+                        }
+                    }
+                }
+            }
+
+            .button-primary {
+                display: block;
+            }
+        }
+
+        .videos-presidente {
+            flex: 1;
+            max-width: 544px;
+
+            .galeria-videos {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 32px;
+
+                a {
+                    max-width: 256px;
+                    flex: 1;
+                    width: 100%;
+                    min-width: 255px;
+                    overflow: hidden;
+                    border-radius: $radius-8px;
+                    border: 1px solid $color-neutral-grey-blue;
+                    text-decoration: none;
+                    transition: all .3s ease-in-out;
+
+                    div {
+                        overflow: hidden;
+                        height: 143px;
+
+                        img {
+                            object-fit: cover;
+                            transition: all .3s ease-in-out;
+                        }
+                    }
+
+
+                    span {
+                        display: block;
+                        padding: 16px 16px 32px 16px;
+                    }
+
+                    &:hover {
+                        cursor: pointer !important;
+                        text-decoration: none;
+                        background-color: $color-primary-extra-5;
+                        border-color: $color-primary-extra-5;
+
+                        div {
+                            img {
+                                transform: scale(1.1);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+#pronunciamentos-presidente-camara{
+    h2{
+        color: $color-primary-accent;
+    }
+
+    .galeria-pronunciamentos {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 32px;
+
+        .pronunciamento-individual {
+            max-width: 256px;
+            min-width: 256px;
+            flex: 1;
+            width: 100%;
+            min-width: 255px;
+            overflow: hidden;
+            border-radius: $radius-8px;
+            border: 1px solid $color-neutral-grey-blue;
+            text-decoration: none;
+            transition: all .3s ease-in-out;
+
+            div {
+                overflow: hidden;
+                height: 143px;
+
+                img {
+                    object-fit: cover;
+                    transition: all .3s ease-in-out;
+                }
+            }
+
+
+            span {
+                display: block;
+                padding: 16px;
+            }
+
+            &:hover {
+                cursor: pointer !important;
+                text-decoration: none;
+                background-color: $color-primary-extra-5;
+                border-color: $color-primary-extra-5;
+
+                div {
+                    img {
+                        transform: scale(1.1);
+                    }
+                }
+            }
+        }
+
+        .link-pronunciamento{
+            display: block;
+            margin: 15px auto 0 auto;
+            color: $color-link;
+        }
+    }    
+}
+
+#mensagem-presidente-camara{
+    h2{
+        color: $color-primary-accent;
+        margin-bottom: 16px;
+    }
+
+    .mensagem-presidente{
+        padding: 32px;
+        border-radius: 8px;
+        border: 1px solid $color-neutral-silver;
+        background: $color-neutral-white;
+
+        label{
+            display: block;
+        }
+
+        .informativos{
+            p {
+                display: flex;
+                gap: 16px;
+                align-items: center;
+            }
+        }
+
+        .sua-mensagem{
+            textarea {
+                height: 268px;
+            }
+  
+            span {
+                margin-top: 8px;
+                font-size: 1.2rem;
+                display: block;
+                text-align: right;
+            }
+        }
+
+        .botao{
+            display: flex;
+            justify-content: flex-end;
+        }
+    }
+}

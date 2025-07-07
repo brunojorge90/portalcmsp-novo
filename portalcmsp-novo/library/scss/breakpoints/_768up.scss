@@ -1,0 +1,1259 @@
+/******************************************************************
+Site Name:
+Author:
+
+Stylesheet: Tablet & Small Desktop Stylesheet
+
+Here's where you can start getting into the good stuff.
+This size will work on iPads, other tablets, and desktops.
+So you can start working with more styles, background images,
+and other resources. You'll also notice the grid starts to
+come into play. Have fun!
+
+******************************************************************/
+
+/* hide mobile navs and such, and show their non-mobile counterparts */
+.mobile-only {
+	display: none;
+}
+.mobile-hide {
+	display: block; 
+}
+
+/*********************
+GENERAL STYLES
+*********************/
+
+body {}
+
+/*********************
+LAYOUT & GRID STYLES
+*********************/
+
+.wrap {
+	width: 760px;
+}
+
+/*********************
+HEADER STYLES
+*********************/
+
+.header {}
+
+	.header-headlines {
+		display: block;
+		background: $black;
+		height: 40px;
+		color: $white;
+		text-transform: uppercase;
+
+		.inner-header-headlines {
+			border-right: 1px solid $cmsp-grey6;
+			position: relative;
+		}
+
+		h2, .container-headlines {
+			display: block;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			line-height: 4rem;
+			color: $cmsp-yellow;
+			float: left;
+			margin: 0;
+			position: relative;
+			width: 80px;
+			padding-left: 32px;
+			white-space: nowrap;
+			border-left: 1px solid $cmsp-grey6;
+		}
+
+		.container-headlines {
+			float: left;
+			position: relative;
+			width: 542px;
+			height: 100%;
+		}
+
+		article {
+			position: absolute;
+			top: 0;
+			left: 60px;
+			width: 100%;
+			opacity: 0;
+			@include transition(opacity .3s linear);
+
+			&.active {
+				opacity: 1;
+				z-index: 1;
+			}
+			
+			h1 {
+				margin: 0;
+				font-size: 1.5rem;
+				line-height: 4rem;
+
+				a {
+					color: $white;
+
+					&:hover {
+						color: $cmsp-yellow;
+						text-decoration: underline;
+					}
+				}
+			}
+		}
+
+		.headlines-nav {
+			display: block;
+			position: absolute;
+			left: 0;
+			top: 0;
+
+			a {
+				float: left;
+				width: 30px;
+				height: 40px;
+				text-indent: -9999em;
+
+				&:focus {
+					outline: none;
+				}
+			}
+
+			.headlines-prev {
+				@include get-sprite($icons, arrow-left-yellow);
+
+				&:hover {
+					@include get-sprite($icons, arrow-left-white);
+				}
+			}
+
+			.headlines-next {
+				@include get-sprite($icons, arrow-right-yellow);
+				border-right: 1px solid $cmsp-grey6;
+				margin-left: 65px;
+
+				&:hover {
+					@include get-sprite($icons, arrow-right-white);
+				}
+			}
+		}
+
+		.transparencia-menu-wrapper {
+			width: 125px;
+			float: right; 
+			position: relative;
+
+			.link-transparencia {
+				display: block;
+			}
+
+			.transparencia-menu {
+				display: none;
+				height: auto;
+				padding: 0.8em 0;
+			}
+
+			&:hover {
+
+				.transparencia-menu {
+					display: block;
+					position: absolute;
+					top: 40px;
+					right: -1px;
+					width: 186px;
+					z-index: 10;
+				}
+			}
+		}
+	}
+	
+	.main-header {}
+
+		#logo {
+			float: left;
+			img {
+				margin: 0;
+			}
+		}
+
+		.header-search-form {
+			clear: both;
+		}
+
+	.secondary-header {
+		height: 65px;
+		background: $cmsp-grey1;
+		box-shadow: inset 0px 3px 5px rgba(0,0,0,.3);
+		border-bottom: 3px solid $black;
+
+		.inner-secondary-header {
+			position: relative;
+		}
+		.social-nav-wrapper {
+			display: none;
+		}
+	}
+
+/*********************
+NAVIGATION STYLES
+*********************/
+
+.nav {
+	border: 0;
+	ul {
+		margin-top:0;
+	}
+	li {
+		float: left;
+		position: relative;
+
+		a {
+			border-bottom: 0;
+
+			/*
+			you can use hover styles here even though this size
+			has the possibility of being a mobile device.
+			*/
+			&:hover, &:focus {
+				background-color: $cmsp-red;
+				border-color: $cmsp-red;
+				color: $white;
+			}
+		}
+
+		&:first-child {}
+		&:last-child {}
+
+		
+
+	} /* end .menu ul li */
+
+	/* highlight current page */
+	li.current-menu-item,
+	li.current_page_item,
+	li.current_page_ancestor {
+		a {}
+	}  /* end current highlighters */
+
+} /* end .nav */
+
+.top-nav {
+	float: right;
+	margin-top: 55px;
+
+	li {
+
+		a {
+			border-bottom: 3px solid $cmsp-red;
+
+			&:hover, &:focus {
+				box-shadow: 0px 14px 0px rgba(255, 255, 255, 0.2) inset, 0px 0px 10px rgba(0,0,0,0.3);
+			}
+		}
+	}
+
+	/* highlight current page */
+	li.current-menu-item,
+	li.current_page_item,
+	li.current_page_ancestor {
+		a {
+			background-color: $cmsp-red;
+			border-color: $cmsp-red;
+			color: $white;
+			box-shadow: 0px 14px 0px rgba(255, 255, 255, 0.2) inset, 0px 0px 10px rgba(0,0,0,0.3);
+		}
+	}  /* end current highlighters */
+
+} /* end .top-nav */
+
+.top-nav-2 {
+	height: 100%;
+
+	li {
+		height: 100%;
+		overflow: visible;
+		position: static;
+
+		a {
+			height: 100%;
+			line-height: 38px;
+			padding: .75em .6em;
+
+			&:hover, &:focus {
+				color: $cmsp-red;
+				background-color: transparent;
+				border-bottom: 9px solid $cmsp-red;
+			} 
+		}
+
+		&.home a {
+			width: 30px;
+			text-indent: -9999em;
+			@include get-sprite($icons, nav-home);
+
+			&:hover {
+				@include get-sprite($icons, nav-home-hover);
+			}
+		}
+
+		/*
+		plan your menus and drop-downs wisely.
+		*/
+		ul.sub-menu {
+			display: block; 
+
+			width: 100%;
+			min-height: 330px;
+			margin-top: -4px;
+			padding: 30px 40px;
+			visibility: hidden;
+			z-index: 8999;
+
+			background: $white;
+			border-top: 1px solid $cmsp-red;
+			box-shadow: 0px 3px 3px rgba(0,0,0,0.3);
+			
+			position: relative;
+			position: absolute;
+			top: auto;
+			left: 0;
+
+			h2 {
+				font-size: 3rem;
+				line-height: 3rem;
+				font-weight: 600;
+				color: $cmsp-red;
+				text-transform: uppercase;
+				margin: 0 0 20px 0;
+			}
+
+			li {
+				float: none;
+				width: 220px;
+
+				a {
+					font-size: 1.4rem;
+					line-height: 1.8rem;
+					padding: 4px 0 4px 10px;
+					border-right: 0;
+					display: block;
+					border-bottom: 1px solid #ccc;
+					text-align: left;
+					position: relative;
+
+					&.lv-2-item:before {
+						content: '';
+						display: block;
+						@include get-sprite($icons, arrow-right-small-red);
+						position: absolute;
+						left: 0;
+						top: -2px;
+					}
+
+					&:hover,
+					&:focus {}
+
+					&:link {}
+				}
+
+				&:first-child {}
+
+				&:last-child {
+
+					a {
+						border-bottom: 0;
+					}
+				}
+
+				&.featured {
+					position: absolute;
+					right: 20px;
+					top: 30px;
+					width: 480px;
+
+					.featured-menu-title {
+						display: block;
+						height: auto;
+						color: $cmsp-red;
+						font-weight: 600;
+						margin-left: 20px;
+						padding: 0;
+						margin-bottom: 16px;
+					}
+
+					a::before {
+						display: none;
+					}
+
+					.feature-menu {
+
+					}
+
+						li {
+							float: left;
+							width: 200px;
+							margin: 0 20px;
+
+							.feature-title {
+								padding: 6px 6px 6px 48px;
+								margin-bottom: 1px;
+								font-size: 1.5rem;
+								line-height: 24px;
+								font-weight: 600;
+								border: 1px solid $black;
+								border-left: none;
+								border-right: none;
+								position: relative;
+
+								&:before {
+									content: '';
+									display: block;
+									position: absolute;
+									top: 0;
+									left: 5px;
+								}
+
+								&:after {
+									content: '';
+									width: 1px;
+									height: 25px;
+									background: $black;
+									position: absolute;
+									left: 40px;
+									top: 6px;
+								}
+							}
+
+							.feature-image {
+								padding: 0;
+								height: 192px;
+								position: relative;
+
+								img {
+
+								}
+
+								.feature-link-text {
+									width: 140px;
+									height: 42px;
+									position: absolute;
+									display: block;
+									bottom: 16px;
+									left: 50%;
+									margin-left: -70px;
+									background: $cmsp-red;
+									font-size: 1.6rem;
+									line-height: 42px;
+									color: $white;
+									text-align: center;
+
+									&:before {
+										content: '';
+										display: block;
+										@include get-sprite($icons, arrow-right-small-yellow);
+										position: absolute;
+										top: 7px;
+										left: 14px;
+									}
+								}
+
+								&:hover .feature-link-text {
+									color: $cmsp-yellow;
+								}
+							}
+						}
+				}
+
+				/*
+				if you need to go deeper, go nuts
+				just remember deeper menus suck
+				for usability. k, bai.
+				*/
+				ul {
+					top:0;
+					left:100%;
+				}
+			}
+
+			/* highlight sub-menu current page */
+			li.current-menu-item,
+			li.current_page_item,
+			li.current_page_ancestor {
+
+				a { }
+			}
+		}
+
+		/* showing sub-menus */
+		&:hover ul.sub-menu {
+			top: auto;
+			visibility:visible;
+		}
+	}
+}
+
+.social-nav {
+}
+
+
+
+
+.top-nav-3 {
+	
+	ul {
+
+	}
+
+	li {
+		width: 20%;
+		border: 1px solid $cmsp-grey3;
+		border-left: none;
+		height: 65px;
+
+		&:first-of-type {
+			border-left: 1px solid $cmsp-grey3;
+		}
+		
+		&:hover {
+			background: $cmsp-red;
+
+			a {
+				background-color: transparent;
+				color: $white;
+				border-bottom: 3px solid $white;
+			}
+		}
+
+		a {
+			height: 100%;
+			line-height: 40px;
+
+			&:hover, &:focus {
+				background-color: transparent;
+				color: $white;
+				border-bottom: 3px solid $white;
+			}
+		}
+	}
+}
+/* end top-nav-3 */
+
+/*********************
+POSTS & CONTENT STYLES
+*********************/
+
+/* row and column layout */
+
+.box-half {
+	width: 48%;
+	float: left;
+}
+
+	.box-half-right {
+		float: right;
+	}
+
+	.box-clear {
+		clear: both;
+	}
+
+.box-one-third {
+	width: 32%;
+	float: left;
+	margin-right: 2%;
+
+	&.last {
+		float: right;
+		margin-right: 0;
+	}
+}
+
+/* top-slider */
+
+.cmsp-rslides {
+	position: relative;
+	list-style: none;
+	overflow: hidden;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+
+	li, article {
+		-webkit-backface-visibility: hidden;
+		position: absolute;
+		display: none;
+		width: 100%;
+		left: 0;
+		top: 0;
+
+		&:first-child {
+			position: relative;
+			display: block;
+			float: left;
+		}
+	}
+
+	img {
+		display: block;
+		height: auto;
+		float: left;
+		width: 100%;
+		border: 0;
+	}
+}
+
+.top-slider {
+	display: block;
+	background: lighten($cmsp-grey2, 3%);
+
+	.inner-top-slider {
+		background: $white;
+	}
+
+	.slider-container {
+		width: 100%;
+		height: auto;
+		position: relative;
+
+		img {
+			width: 100%;
+			height: auto;
+		}
+
+		.text {
+			position: absolute;
+			left: 0px;
+			bottom: 0px;
+			padding: 20px;
+			width: 100%;
+			max-width: 690px;
+			margin: 0px;
+
+			a {
+				color: #FFF;
+				font-size: 1.6rem;
+				line-height: 2.4rem;
+				display: inline;
+				background: none repeat scroll 0% 0% #7F1A22;
+				padding: 0px 3px;
+			}
+		}
+
+		.cmsp-rslides_tabs {
+			position: absolute;
+			bottom: 18px;
+			right: 10px;
+			z-index: 10;
+			margin: 0;
+
+			li {
+				float: left;
+				margin-right: 8px;
+			}
+
+			a {
+				display: block;
+				width: 12px;
+				height: 12px;
+				border-radius: 6px;
+				background: $cmsp-grey5;
+				text-indent: -9999em;
+
+				&:focus {
+					outline: none;
+				}
+			}
+
+			.cmsp-rslides_here {
+
+				a {
+					background: $cmsp-red;
+				}
+			}
+		}
+
+	}
+
+	.slider-side {
+		display: none;
+	}
+}
+
+/* boxes */
+
+	/* Consulta Rápida */
+
+	.box-quick-search {
+
+		.box-quick-search-container {
+			position: relative;
+			border-left: 158px solid #eee;
+		}
+
+		.box-quick-search-nav {
+			position: absolute;
+			left: -158px;
+			top: 0;
+			padding-left: 40px;
+
+			ul {
+				margin: 0;
+				padding-top: 10px;
+			}
+
+				li {
+					font-size: 1.4rem;
+					line-height: 1em;
+					width: 100px;
+					margin: 12px 0;
+
+					a {
+						display: block;
+						color: $black;
+						text-transform: uppercase;
+						text-decoration: none;
+						font-weight: 800;
+						position: relative;
+						padding-left: 12px;
+
+						&:before {
+							content: '';
+							display: block;
+							@include get-sprite($icons, arrow-right-small-red);
+							position: absolute;
+							top: 50%;
+							left: 0;
+							margin-top: -15px;
+						}
+
+						&:hover, &:focus {
+							color: $cmsp-red;
+						}
+
+						&:focus {
+							outline: none;
+						}
+					}
+
+					&.active a {
+						color: $cmsp-red;
+
+						&::after {
+							content: '';
+							display: block;
+							position: absolute;
+							right: -27px;
+							top: 0;
+							height: 16px;
+							width: 16px;
+							background: $white;
+							border: 1px solid $cmsp-grey3;
+							border-right: none;
+							border-bottom: none;
+							@include transform(rotate(-45deg));
+						}
+					}
+				}
+		}
+
+			.box-quick-search-item {
+				min-height: 260px;
+			}
+	}
+
+/* small banners */
+
+
+.banners-row {
+
+	ul { }
+
+		li {
+			width: 178px;
+			float: left;
+			margin: 26px 16px 26px 0;
+
+			&.first { }
+
+			&.last {
+				margin-right: 0;
+			}
+
+			a { }
+
+			img { }
+		}
+}
+
+.banners-column {
+	li {
+	}
+}
+
+/* Vereadores */
+
+
+	.vereador-profile-thumb {
+		width: 187px;
+		float: left;
+
+		&:nth-of-type(even) {
+			margin-right: 4px;
+		}
+
+		&:nth-of-type(4n) {
+			margin-right: 0;
+		}
+
+		.vereador-picture {
+
+		}
+
+		.vereador-party {
+			
+		}
+
+		.vereador-name {
+			width: 135px;
+		}
+	}
+
+/* Home Vereadores */
+
+
+.vereadores {
+
+	.vereadores-header {
+		h2 {
+
+		}
+	}
+
+		.vereadores-filter {
+			position: relative;
+			height: 40px;
+			margin-bottom: 40px;
+			padding-left: 221px;
+			float: right;
+
+			h2 {
+				width: 220px;
+				position: absolute;
+				top: 0;
+				left: 0;
+
+				&:before {
+					content: '';
+					display: block;
+					@include get-sprite($icons, list-red);
+					position: absolute;
+					top: 0;
+					left: -5px;
+				}
+			}
+
+			ul {
+				display: block;
+				margin: 0;
+				border-left: 1px solid $cmsp-grey3;
+				background: $cmsp-grey1;
+			}
+
+				li {
+					float: left;
+					height: 40px;
+					border: 1px solid $cmsp-grey3;
+					border-left: none;
+					position: relative;
+					background: $white;
+
+					a {
+						display: block;
+						height: 100%;
+						padding: 8px 12px 8px 22px;
+						color: $black;
+						font-size: 1.4rem;
+						text-transform: uppercase;
+						font-weight: 700;
+						text-decoration: none;
+						position: relative;
+
+						&:before {
+							content: '';
+							display: block;
+							@include get-sprite($icons, arrow-right-small-red);
+							position: absolute;
+							left: 10px;
+							top: 5px;
+						}
+
+						&:hover, &:focus, &.active {
+							color: $white;
+							background: $cmsp-red;
+
+							&:before {
+								@include get-sprite($icons, arrow-right-small-white);
+							}
+						}
+					}
+
+					ul {
+						display: none;
+						position: absolute;
+						top: 100%;
+						left: 0;
+						z-index: 1;
+						width: 100%;
+						border-bottom: 1px solid $cmsp-grey3;
+						
+						li {
+							border: none;
+							border-right: 1px solid $cmsp-grey3;
+							border-bottom: 1px solid $white;
+							width: 100%;
+						}
+					}
+
+					&:hover ul {
+						display: block;
+					}
+				}
+		}
+
+	.vereadores-list {
+		width: 100%;
+	}
+}
+
+/* Vereador Single */
+
+.type-vereador {
+	.vereador-header {
+		float: left;
+		width: 193px;
+		margin: 1.5em 1.5em 0 0;
+	}
+
+	.entry-content {
+		float: right;
+		width: 540px;
+		padding-bottom: 1.5em;
+	}
+
+	aside {
+		margin: 1.5em 0 0;
+	}
+
+	.vereador-projects {
+		clear: both;
+	}
+
+	.vereador-contact {
+		clear: both;
+	}
+}
+
+/* breadcrumbs */
+
+.breadcrumbs {
+	position: relative;
+	top: -3px;
+}
+
+/* Gallery Pages */
+
+.gallery-list {
+	width: 731px;
+
+	.gallery-item {
+
+		&:nth-of-type(even) {
+			margin-right: 16px;
+		}
+
+		&:nth-of-type(3n) {
+			margin-right: 0;
+		}
+	}
+}
+
+/* posts and pages */
+
+.section-title {
+	margin-top: -3px;
+}
+
+.hentry {
+
+	.article-header {
+		padding-left: 0;
+		padding-right: 0;
+
+		.share-buttons {
+
+			li {
+				float: left;
+			}
+
+				.twitter {
+					margin-left: 20px
+				}
+		}
+	}
+
+	.article-footer {
+		padding-left: 0;
+		padding-right: 0;
+
+		.box-downloads {
+			width: 50%;
+		}
+	}
+}
+
+	.entry-content {
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+.webradio-sobre {
+	width: 420px;
+	float: left;
+}
+
+.webradio-menu {
+	width: 300px;
+	float: right;
+}
+
+/*********************
+SIDEBARS & ASIDES
+*********************/
+
+/* 'main' sections with sidebars have float left and set width */
+
+.two-column-main {
+	width: 420px;
+	float: left;
+}
+
+.sidebar {
+	width: 300px;
+	float: right;
+	margin-top: 2.2em;
+	padding-bottom: 2.2em;
+
+	.top-nav-3 {
+		width: 100%;
+
+		li {
+			float: none;
+			width: 100%;
+			border-left: 1px solid $cmsp-grey3;
+			border-bottom: none;
+
+			&:last-of-type {
+				border-bottom: 1px solid $cmsp-grey3;
+			}
+		}
+	}
+
+	.box-latest-news {
+
+		.box-latest-news-item {
+			.article-title {
+				.date {
+					height: 42px;
+
+					&:after {
+						height: 44px;
+					}
+				}
+			}
+		}
+	}
+}
+
+	.widgettitle {
+		border-bottom: 2px solid #444;
+		margin-bottom: 0.75em;
+	}
+
+	.widget {
+		padding: 0 10px;
+		margin: 2.2em 0;
+
+		ul {
+			li {
+				margin-bottom: 0.75em;
+
+				&:first-child {}
+				&:last-child {}
+				a {}
+				/* deep nesting */
+
+				ul {
+					margin-top: 0.75em;
+					padding-left: 1em;
+				}
+			}
+		}
+	}
+
+
+	/* links widget */
+	.widget_links {}
+	.widget_links ul {}
+	.widget_links ul li {}
+	.widget_links ul li a {}
+
+	/* meta widget */
+	.widget_meta {}
+	.widget_meta ul {}
+	.widget_meta ul li {}
+	.widget_meta ul li a {}
+
+	/* pages widget */
+	.widget_pages {}
+	.widget_pages ul {}
+	.widget_pages ul li {}
+	.widget_pages ul li a {}
+
+	/* recent-posts widget */
+	.widget_recent_entries {}
+	.widget_recent_entries ul {}
+	.widget_recent_entries ul li {}
+	.widget_recent_entries ul li a {}
+
+	/* archives widget */
+	.widget_archive {}
+	.widget_archive ul {}
+	.widget_archive ul li {}
+	.widget_archive ul li a {}
+	.widget_archive select {}
+	.widget_archive option {}
+
+	/* tag-cloud widget */
+	.widget_links {}
+	.widget_links li:after {}
+	.widget_links li:before {}
+	.widget_tag_cloud {}
+	.widget_tag_cloud a {}
+	.widget_tag_cloud a:after {}
+	.widget_tag_cloud a:before {}
+
+	/* calendar widget */
+	.widget_calendar {}
+	#calendar_wrap {}
+	#calendar_wrap th {}
+	#calendar_wrap td {}
+	#wp-calendar tr td {}
+	#wp-calendar caption {}
+	#wp-calendar a {}
+	#wp-calendar #today {}
+	#wp-calendar #prev {}
+	#wp-calendar #next {}
+	#wp-calendar #next a {}
+	#wp-calendar #prev a {}
+
+	/* category widget */
+	.widget_categories {}
+	.widget_categories ul {}
+	.widget_categories ul li {}
+	.widget_categories ul ul.children {}
+	.widget_categories a {}
+	.widget_categories select{}
+	.widget_categories select#cat {}
+	.widget_categories select.postform {}
+	.widget_categories option {}
+	.widget_categories .level-0 {}
+	.widget_categories .level-1 {}
+	.widget_categories .level-2 {}
+	.widget_categories .level-3 {}
+
+	/* recent-comments widget */
+	.recentcomments {}
+	#recentcomments {}
+	#recentcomments li {}
+	#recentcomments li a {}
+	.widget_recent_comments {}
+
+	/* search widget */
+	#searchform {}
+	.widget_search {}
+	.screen-reader-text {}
+
+	/* text widget */
+	.textwidget {}
+	.widget_text {}
+	.textwidget p {}
+
+
+/*********************
+FOOTER STYLES
+*********************/
+
+.footer {
+	padding-top: 20px;
+	text-align: left;
+
+	.copyright {
+		float: left;
+	}
+
+	.endereco {
+		position: relative;
+		padding-right: 155px;
+
+		.gmaps-link {
+			position: absolute;
+			width: 155px;
+			text-align: center;
+			right: 0;
+			top: 50%;
+			margin-top: -12px;
+		}
+	}
+}
+/*
+you'll probably need to do quite a bit
+of overriding here if you styled them for
+mobile. Make sure to double check these!
+*/
+.footer-links {
+	float: right;
+	font-size: 1.4rem;
+	margin-top: 14px;
+
+	li {
+		a {
+			padding: 0 .75em;
+			height: 30px;
+			line-height: 27px;
+
+			&:hover, &:focus {
+				background: transparent;
+				color: $cmsp-red;
+			}
+
+			&:before {
+				content: '';
+				display: block;
+				@include get-sprite($icons, arrow-right-small-red);
+				position: absolute;
+				left: 0;
+				top: 0;
+			}
+		}
+		/*
+		be careful with the depth of your menus.
+		it's very rare to have multi-depth menus in
+		the footer.
+		*/
+		ul {}
+	}
+} /* end .footer-links */
+

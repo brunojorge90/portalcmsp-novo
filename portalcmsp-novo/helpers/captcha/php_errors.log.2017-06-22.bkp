@@ -1,0 +1,4 @@
+[18-May-2017 06:51:35 America/Sao_Paulo] PHP Notice:  Undefined index: _CAPTCHA in /var/www/sistemas/CR0313/wp-content/themes/portal-cmsp/helpers/captcha/simple-php-captcha.php on line 113
+[29-May-2017 19:24:31 America/Sao_Paulo] PHP Notice:  Undefined index: _CAPTCHA in /var/www/sistemas/CR0313/wp-content/themes/portal-cmsp/helpers/captcha/simple-php-captcha.php on line 113
+[10-Jun-2017 07:22:20 America/Sao_Paulo] PHP Notice:  Undefined index: _CAPTCHA in /var/www/sistemas/CR0313/wp-content/themes/portal-cmsp/helpers/captcha/simple-php-captcha.php on line 113
+[22-Jun-2017 04:16:31 America/Sao_Paulo] PHP Notice:  Undefined index: _CAPTCHA in /var/www/sistemas/CR0313/wp-content/themes/portal-cmsp/helpers/captcha/simple-php-captcha.php on line 113

@@ -1,0 +1,128 @@
+<?php
+/*
+ Template Name: Largura Total para iFrame (sem título)
+*/
+?>
+
+<?php get_header(); ?>
+
+			<div id="content" style="background-image: url(/wp-content/uploads/dce/minhocao/images/bg.jpg);">
+
+			<div class="breadcrumbs cf">
+				<?php if ( function_exists('yoast_breadcrumb') ) {
+					yoast_breadcrumb('<p class="wrap cf">','</p>');
+				} ?>
+			</div>
+
+				<div id="inner-content" class="wrap cf">
+
+						<div id="main" class="cf" role="main">
+
+							<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+
+							<article id="post-<?php the_ID(); ?>" <?php post_class( 'cf' ); ?> role="article" itemscope itemtype="http://schema.org/BlogPosting">
+
+								<section class="entry-content cf" itemprop="articleBody" style="background-image: url(/wp-content/uploads/dce/minhocao/images/bg.jpg);">
+								<style>
+								::-webkit-scrollbar {
+									  width: 0px;
+								}
+								.semscroll {
+									overflow:hidden;
+								}
+								</style>
+									<?php
+										// the content (pretty self explanatory huh)
+										the_content();
+
+										// include an iframe of legacy content if selected in the admin
+										if(get_post_meta($post->ID,'_cmsp_page_legacy-type',true) == 'iframe') {
+											$iframe_src = get_post_meta($post->ID,'_cmsp_page_legacy-url',true);
+											$iframe_height = get_post_meta($post->ID,'_cmsp_page_legacy-height',true);
+											if(preg_match('/saopaulo.sp.leg.br\/index.php/',$iframe_src) == 1) {
+												$iframe_src .= '&template=none';
+											}
+											//adiciona http ou https, se não tiver
+											/**if (!preg_match("~^(?:f|ht)tps?://~i", $iframe_src)) {
+												if (is_ssl()) {
+													$iframe_src = "https://" . $iframe_src;
+												} else {
+													$iframe_src = "http://" . $iframe_src;
+												}
+											}*/
+											echo '<iframe class="external-content-iframe" src="'. $iframe_src .'" class="semscroll" seamless></iframe>';
+										} else if(get_post_meta($post->ID,'_cmsp_page_legacy-type',true) == 'tab') {
+											$link = get_post_meta($post->ID,'_cmsp_page_legacy-url',true);
+											//abrir popup ou nova aba
+											echo '<script>window.open("'.$link.'","_blank");</script>';
+										}
+
+										/*
+										 * Link Pages is used in case you have posts that are set to break into
+										 * multiple pages. You can remove this if you don't plan on doing that.
+										 *
+										 * Also, breaking content up into multiple pages is a horrible experience,
+										 * so don't do it. While there are SOME edge cases where this is useful, it's
+										 * mostly used for people to get more ad views. It's up to you but if you want
+										 * to do it, you're wrong and I hate you. (Ok, I still love you but just not as much)
+										 *
+										 * http://gizmodo.com/5841121/google-wants-to-help-you-avoid-stupid-annoying-multiple-page-articles
+										 *
+										*/
+										wp_link_pages( array(
+											'before'      => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', 'bonestheme' ) . '</span>',
+											'after'       => '</div>',
+											'link_before' => '<span>',
+											'link_after'  => '</span>',
+										) );
+									?>
+								</section> <?php // end article section ?>
+								<!--
+								<footer class="article-footer cf">
+									<?php
+									$page_downloads = get_post_meta($post->ID, '_cmsp_page_download-files', true);
+									if(isset($page_downloads[0]['title'])):
+									?>
+										<section class="content-box box-downloads">
+											<header class="content-box-top box-downloads-header">
+												<h2 class="content-box-title icon-archives-red">Downloads</h2>
+											</header>
+											<ul class="box-downloads-list">
+												<?php
+												foreach($page_downloads as $file):
+												$blank = false;
+												if(isset($file['blank'])){
+													if($file['blank'] == 'on') $blank = true;
+												}
+												?>
+													<li><a <?php if($blank) echo 'target="_blank" '; ?> href="<?php echo $file['file']; ?>"><?php echo $file['title']; ?></a></li>
+												<?php endforeach; ?>
+											</ul>
+										</section>
+									<?php endif; ?>
+								</footer>
+								-->
+							</article>
+
+							<?php endwhile; else : ?>
+
+									<article id="post-not-found" class="hentry cf">
+										<header class="article-header">
+											<h1><?php _e( 'Oops, Post Not Found!', 'bonestheme' ); ?></h1>
+										</header>
+										<section class="entry-content">
+											<p><?php _e( 'Uh Oh. Something is missing. Try double checking things.', 'bonestheme' ); ?></p>
+										</section>
+										<footer class="article-footer">
+												<p><?php _e( 'This is the error message in the page.php template.', 'bonestheme' ); ?></p>
+										</footer>
+									</article>
+
+							<?php endif; ?>
+
+						</div>
+				</div>
+
+			</div>
+</main>
+<?php get_footer(); ?>

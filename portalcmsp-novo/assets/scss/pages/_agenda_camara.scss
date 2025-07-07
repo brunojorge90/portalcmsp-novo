@@ -1,0 +1,205 @@
+#topo-agenda {
+}
+
+#agenda-completa {
+  position: relative;
+
+  .abs {
+
+    .barra-acoes {
+      margin: -257px auto 48px auto;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding: 16px;
+      background-color: $color-neutral-white;
+      border-radius: $radius-16px;
+      border-radius: 16px;
+      box-shadow: 4px 4px 16px 0px rgba(0, 0, 0, 0.15);
+
+      .itens-esquerda {
+        flex: 1;
+        display: flex;
+        gap: 16px;
+
+        input {
+          width: 100%;
+          max-width: 100%;
+        }
+
+        span {
+          display: block;
+          margin: auto 0;
+          color: $color-neutral-black;
+        }
+      }
+
+      .itens-direita {
+        flex: 1;
+        display: flex;
+        gap: 16px;
+        justify-content: flex-end;
+      }
+    }
+
+    .container {
+      background-color: $color-neutral-white;
+      border-radius: $radius-24px;
+
+      .ct-agenda {
+        padding: 32px;
+
+        .topo-proximos-eventos {
+          display: flex;
+
+          h2 {
+            flex: 1;
+            color: $color-primary-accent;
+            margin-bottom: 20px;
+          }
+
+          .cj-exibicao {
+            flex: 1;
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            align-items: flex-start;
+
+            input {
+              appearance: none;
+              position: relative;
+              width: 28px;
+              height: 28px;
+              cursor: pointer;
+
+              &::before {
+                transition: all 300ms;
+                position: absolute;
+                display: block;
+                content: "";
+                width: 28px;
+                height: 28px;
+                left: 0px;
+                top: 0px;
+                background-color: $color-primary-extra-5;
+                border-radius: $radius-4px;
+              }
+
+              &:checked {
+                &::before {
+                  background-color: $color-primary-accent;
+                }
+              }
+            }
+
+            .exibicao-card {
+              &::before {
+                background-image: url(../images/icon-list-card-active.svg);
+                background-repeat: no-repeat;
+                background-position: center center;
+              }
+
+              &:checked {
+                &::before {
+                  background-image: url(../images/icon-list-card-inactive.svg);
+                }
+              }
+
+            }
+
+            .exibicao-lista {
+              &::before {
+                background-image: url(../images/icon-list-list-active.svg);
+                background-repeat: no-repeat;
+                background-position: center center;
+              }
+
+              &:checked {
+                &::before {
+                  background-image: url(../images/icon-list-list-inactive.svg);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+    .flex-eventos {
+        h2 {
+            display: none;
+        }
+    }
+
+  .flex-list.flex-eventos {
+    flex-direction: column;
+
+    .col {
+      max-width: 100%;
+      flex-direction: row !important;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .flex-mobile {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .col .context {
+      max-width: 500px;
+    }
+
+    .partido, .partido > a {
+      justify-content: flex-start;
+    }
+
+    .col h3 {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
+    }
+
+    [class^=button-] {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+    .col .thumbnail {
+      padding: 16px 0px 16px 16px;
+
+      img {
+        border-radius: 8px;
+      }
+    }
+
+    .col p {
+      margin: 0px;
+    }
+
+    .abs-event {
+      display: none;
+    }
+
+    h2 {
+      margin-top: 32px;
+      margin-bottom: 0px;
+      gap: 0px;
+     display: block;
+      strong {
+        font-weight: bold;
+      }
+
+      color: var(--neutral-black, #212121);
+      font-size: 3.6rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 44px; /* 122.222% */
+      padding-bottom: 9px;
+      padding-left: 0px;
+      border-bottom: 2px solid $color-primary-accent;
+    }
+  }
+}

@@ -1,0 +1,179 @@
+<?php
+/*
+ Template Name: Seminario Direitos humanos e cidadania
+*/
+?>
+
+
+<?php get_header(); ?>
+
+
+<style>
+
+.two-column-main { width: 100%; max-width: 760px; }	
+
+a, a:visited { color: #741789; font-weight: bold; text-decoration: none; }
+a:hover { color: #741789; font-weight: 500; text-decoration: none; }
+
+#back-logo { 
+	background: url(https://www.saopaulo.sp.leg.br/wp-content/uploads/2021/11/textura-seminario.png); 
+	background-size: cover; background-position: top center; background-repeat: no-repeat;
+}
+
+
+img.logo-seminario { display: block; margin: auto;  }
+
+.breadcrumbs {  margin-bottom: -3px;}
+
+
+table.topo { background: #f7e7cd; border-radius: 10px; border:0; margin-top: 40px; }
+
+h2, h3  { margin: 0;  }
+h2 span.titulo { color: #000; padding-left: 15px;  }
+h3 span.titulo { color: #000; padding-left: 15px;  }
+
+p { text-align: justify; }
+
+
+.eixo { 
+	margin-left: 30px;
+    margin-right: 30px; }
+
+
+table.perfil { background: #f7e7cd; border-radius: 10px; border: 0; }
+.entry-content td { border-right: 1px solid #741789; padding: 10px; width: 33%; }
+.color2 { background: #fefaef; }
+
+.entry-content td .wp-caption {background: transparent !important; margin-bottom: 0 !important;}
+
+.entry-content tr {border-bottom: 0 !important;}
+
+
+table.perfil p a, table.perfil p a:hover  { text-decoration: none;  }
+
+table.perfil span.titulo-perfil { 
+	text-align: center !important;
+	color: #f7e7cd;
+    background: #741789;
+    text-decoration: none;
+    font-size: 14px;
+    display: block;
+    font-weight: bold;
+    padding: 5px 0;
+    border-radius: 5px; }
+
+
+table.perfil span.texto-perfil {color: #000; text-align: center !important; font-weight: 500;  text-decoration: none; display: block; font-size: 16px; }
+
+table.perfil p.nota { font-weight: bold; font-weight: bold; text-align: center; font-size: 12px; }
+
+
+.credits { margin-top: 40px; border-radius: 10px;
+    background: #f7e7cd; color: #000; padding:20px; font-size: 12px;}
+
+
+
+@media only screen and (max-width: 480px) {
+
+.breadcrumbs {  margin-bottom: -3px; margin-top: 20px;}	
+
+.secondary-header { display: none; }
+.header-search-form { display: none; }	
+
+.wrap {width: 100%;}
+
+img.logo-seminario { width: 100%; }
+
+.entry-content td { width: 100% !important; display: block; text-align: center; border: 0; }	
+
+.entry-content td .wp-caption {display: contents;}
+
+
+
+}	
+
+	</style>
+
+
+
+
+			<div id="content">
+
+			<div class="breadcrumbs cf">
+				<?php if ( function_exists('yoast_breadcrumb') ) {
+					yoast_breadcrumb('<p class="wrap cf">','</p>');
+				} ?>
+			</div>
+
+			<div id="back-logo">
+			<img class="logo-seminario" src="https://www.saopaulo.sp.leg.br/wp-content/uploads/2021/11/logo_seminario.png">
+		    </div>
+
+
+				<div id="inner-content" class="wrap cf">
+
+						<div id="main" class="two-column-main cf" role="main">
+
+							<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+
+							<article id="post-<?php the_ID(); ?>" <?php post_class( 'cf' ); ?> role="article" itemscope itemtype="http://schema.org/BlogPosting">
+
+								<section class="entry-content cf" itemprop="articleBody">
+									<?php
+										// the content (pretty self explanatory huh)
+										the_content();
+
+										// include an iframe of legacy content if selected in the admin
+										if(get_post_meta($post->ID,'_cmsp_page_legacy-type',true) == 'iframe') {
+											$iframe_src = get_post_meta($post->ID,'_cmsp_page_legacy-url',true);
+											$iframe_height = get_post_meta($post->ID,'_cmsp_page_legacy-height',true);
+											if(preg_match('/saopaulo.sp.leg.br\/index.php/',$iframe_src) == 1) {
+												$iframe_src .= '&template=none';
+											}
+											echo '<iframe class="external-content-iframe" src="'. $iframe_src .'" style="height:'.$iframe_height.'px;"></iframe>';
+										}
+
+										/*
+										 * Link Pages is used in case you have posts that are set to break into
+										 * multiple pages. You can remove this if you don't plan on doing that.
+										 *
+										 * Also, breaking content up into multiple pages is a horrible experience,
+										 * so don't do it. While there are SOME edge cases where this is useful, it's
+										 * mostly used for people to get more ad views. It's up to you but if you want
+										 * to do it, you're wrong and I hate you. (Ok, I still love you but just not as much)
+										 *
+										 * http://gizmodo.com/5841121/google-wants-to-help-you-avoid-stupid-annoying-multiple-page-articles
+										 *
+										*/
+										wp_link_pages( array(
+											'before'      => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', 'bonestheme' ) . '</span>',
+											'after'       => '</div>',
+											'link_before' => '<span>',
+											'link_after'  => '</span>',
+										) );
+
+									?>
+									<div class="one-column">
+										<div class="credits">
+											<?php echo get_field("creditos"); ?><br>© <?php echo date("Y");?> Câmara Municipal de São Paulo
+										</div>
+									</div>
+								</section> <?php // end article section ?>
+
+							</article>
+
+							<?php endwhile; endif; ?>
+
+						</div>
+						<style>
+						        #sidebar1 { width:200px; float:right; margin-top:22px;}
+
+						</style>
+						
+						
+
+				</div>
+
+			</div>
+
+<?php get_footer(); ?>

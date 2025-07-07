@@ -1,0 +1,130 @@
+.premio-layout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+.premio{
+  flex: 1 1 40%;
+  display: flex;
+  flex-direction: column;
+}
+.premio-imagem {
+  flex: 1 1 40%;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+   align-items: center;
+}
+
+.premio-imagem img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.premio-detalhes {
+  flex: 1 1 55%;
+}
+
+.premio-detalhes h2 {
+  margin-top: 1.5rem;
+}
+
+.botao-download {
+  display: inline-block;
+  margin: 0.5rem 0;
+  padding: 0.6rem 1rem;
+  background: #004080;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.botao-download:hover {
+  background: #003060;
+}
+
+.status-encerrado {
+  color: #a00;
+  background: #fee;
+  padding: 0.5rem 1rem;
+  border-left: 4px solid #a00;
+  margin: 1rem 0;
+  font-weight: bold;
+}
+
+.status-ativa {
+  color: #007300;
+  background: #eaffea;
+  padding: 0.5rem 1rem;
+  border-left: 4px solid #007300;
+  margin: 1rem 0;
+  font-weight: bold;
+}
+
+
+
+/*arqchive archive-premios.php */
+
+.grid-premios {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.card-premio {
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card-premio:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+.card-premio a img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-conteudo {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.card-conteudo h2 {
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+}
+
+.card-conteudo .ano-premio {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.botao-vermais {
+  margin-top: auto;
+  padding: 0.5rem 1rem;
+  background-color: #0073aa;
+  color: #fff;
+  border-radius: 4px;
+  text-align: center;
+  display: inline-block;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.botao-vermais:hover {
+  background-color: #005d8f;
+}

@@ -1,0 +1,39 @@
+
+<section class="content-box box-tools">
+  <header class="content-box-top">
+    <h2 class="content-box-title icon-suitcase-red"><a href="#">Ferramentas de Participação</a></h2>
+  </header>
+
+  <div class="box-tools-banner">
+    <img src="<?php echo get_stylesheet_directory_uri(); ?>/library/images/banners/banner-participacao.png" width="480" height="96" />
+  </div>
+  
+  <nav>
+    <ul class="box-tools-list cf">
+      <li class="mandato">
+        <a class="cmsp-lightbox cmsp-lightbox-iframe" href="<?php echo home_url(); ?>/vereadores/mandato-participativo/" data-title="Mandato Participativo">
+          <strong>Mandato Participativo</strong>
+          Participe das decisões que definem o futuro da cidade
+        </a>
+      </li>
+      <li class="mandato">
+        <a href="/fale-conosco/ouvidoria/" target="_blank">
+          <strong>Ouvidoria</strong>
+          Converse com o parlamento
+        </a>
+      </li>
+      <li class="assinado">
+        <a class="cmsp-lightbox cmsp-lightbox-iframe" href="<?php echo home_url(); ?>/abaixo-assinado-virtual/" data-title="Abaixo-Assinado Virtual">
+          <strong>Abaixo-Assinado Virtual</strong>
+          Mobilize as pessoas para causas que fazem diferença
+        </a>
+      </li>
+      <li class="audiencia">
+        <a href="<?php echo home_url(); ?>/transparencia/auditorios-online/">
+          <strong>Audiência Pública Virtual</strong>
+          Opine sobre os projetos do seu interesse na cidade
+        </a>
+      </li>
+    </ul>
+  </nav>
+</section><!-- end .box-tools -->

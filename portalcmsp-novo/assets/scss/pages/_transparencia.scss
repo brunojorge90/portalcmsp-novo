@@ -1,0 +1,143 @@
+#conteudo-transparencia {
+  position: relative;
+
+  .abs {
+    .container {
+      background-color: $color-neutral-white;
+      margin-top: -301px;
+      border-radius: $radius-24px;
+
+      .ct-transparência {
+        padding: 32px;
+
+        .acessos-transparencia {
+          display: flex;
+          gap: 32px;
+          flex-wrap: wrap;
+
+          .card-individual {
+            display: flex;
+            width: 100%;
+            flex-direction: column;
+            overflow: hidden;
+            border-radius: $radius-16px;
+            border: 1px solid $color-neutral-l-grey;
+            background-color: $color-neutral-white;
+            max-width: 256px;
+            min-width: 256px;
+            transition: all 300ms;
+
+            &:hover {
+              background-color: $color-primary-extra-5;
+              border: 1px solid $color-primary-extra-5;
+
+              .img-transparencia {
+                img {
+                  transform: scale(1.1);
+                }
+              }
+            }
+
+            .img-transparencia {
+              max-height: 142px;
+              overflow: hidden;
+
+              img {
+                height: auto;
+                object-fit: cover;
+                transition: all 300ms;
+                object-fit: cover;
+              }
+            }
+
+            .infos-transparencia {
+              padding: 24px 16px;
+              flex: 1 1 auto;
+            }
+
+            .btnt {
+              padding: 0px 16px 24px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+#consulta-acesse {
+  h2 {
+    color: $color-primary-accent;
+  }
+
+  .consulta .context {
+    padding: 16px 16px 29px;
+  }
+
+  .consulta .thumbnail {
+    width: 505px;
+    height: 224px;
+    object-fit: contain;
+    object-position: center center;
+    margin-bottom: 20px;
+  }
+
+  .consulta {
+    background: #fff;
+    border: 1px solid #c6d3d9;
+    border-radius: 16px;
+  }
+
+  .box-acesse-tambem {
+    border-radius: $radius-16px;
+    border: 1px solid $color-neutral-l-grey;
+    background-color: $color-neutral-white;
+    padding: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 24px 22px;
+
+    .item-acesse {
+      width: 100%;
+      max-width: 244px;
+      text-decoration: none;
+      color: $color-neutral-black;
+      display: block;
+      p {
+        height: 65px;
+      }
+      &:hover {
+        span {
+          padding-right: 0;
+        }
+
+        .img-item-acesse {
+          img {
+            transform: scale(1.1);
+          }
+        }
+      }
+
+      span {
+        padding-right: 16px;
+        color: $color-primary-accent;
+        transition: all 300ms;
+      }
+
+      .img-item-acesse {
+        max-height: 90px;
+        overflow: hidden;
+
+        img {
+          max-width: 244px;
+          width: 100%;
+          height: 94px;
+          object-fit: cover;
+          transition: all 300ms;
+          object-fit: cover;
+        }
+      }
+    }
+  }
+}

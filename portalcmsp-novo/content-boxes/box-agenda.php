@@ -1,0 +1,94 @@
+<style>
+.slider-side .box-agenda .box-agenda-lista {
+    height: 236px;
+    border: none;
+    padding-left: 12px;
+}
+.box-agenda .box-agenda-lista, .slider-side .box-agenda .box-agenda-lista {
+    /*border: 1px solid #d6d6d6;*/
+    border-bottom: none;
+    overflow: hidden;
+}
+.box-agenda-footer {
+	padding-bottom: 12px;
+    text-align: center;
+    /*border: 1px solid #d6d6d6;*/
+	border-top:0;
+}
+</style>
+<section class="box-agenda content-box">
+	<header class="content-box-top">
+		<h3 class="content-box-title icon-calendar-red">Próximos eventos</h3>
+	</header>
+	<section class="box-agenda-lista" data-when="today" data-time="<?php echo date("H:i"); ?>">
+	<?php
+	date_default_timezone_set("America/Sao_Paulo");
+	$hoje_dia = date("Ymd");
+	$hoje_hor = date("H")-2;
+	$hoje_min = date("i");
+	$hoje_horario = sprintf('%02d', $hoje_hor).":".$hoje_min;
+	$args = array(
+		'no_found_rows' => true,
+		'update_post_term_cache' => false,
+		'posts_per_page'	=> 10,
+		'post_type'			=> 'agenda_cerimonial',
+		'meta_key'		=> 'data',
+		'meta_query'	=> array(
+			array(
+				'key' 		=> 'data',
+				'value' => $hoje_dia,
+				'compare' => '>=',
+				'type' => 'DATE'
+			),
+		)
+	);
+	function customorderby($orderby) {
+		return 'mt1.meta_value ASC';
+	}
+	add_filter('posts_orderby','customorderby');
+	$the_query = new WP_Query( $args );
+	remove_filter('posts_orderby','customorderby');
+    $tem = 0;
+	if ( $the_query->have_posts()  ):
+		while ( $the_query->have_posts() ) {
+			$the_query->the_post();
+			$datah = get_field('data');
+
+			//Listar eventos
+			while (have_rows("eventos-listagem")) : the_row();
+				$descricao = array_values(get_sub_field("local_campos"))[0];
+				$horario = array_values(get_sub_field("horario"))[0];
+
+					$hora = $horario['horario_inicio'];
+					$datac = $datah . $hora;
+
+					if ($datah > $hoje_dia || ($datah == $hoje_dia && $hora > $hoje_horario)){
+						$dia = substr($datah,6,2);
+						$mes = substr($datah,4,2);
+	?>
+						<article class="box-agenda-item">
+						<h1 class="time-title"><?php echo $dia; ?>/<?php echo $mes; ?> - <?php echo $hora ?><?php if($horario['horario_fim']){ ?> às <?php echo $horario['horario_fim']; } ?></h1>
+						<p class="event-description"><?php echo wp_trim_words( $descricao["titulo"], 10, '...' ); ?></p>
+						</article>
+		<?php
+					}
+
+			$tem=1;
+			endwhile;
+		} ?>
+	<?php
+		//}
+
+		if(!$tem){ ?>
+		<section class="box-agenda-lista box-height-adjust" data-when="today" data-time="<?php echo date("H:i"); ?>">
+			<h4 style="padding: 41px 0 82px;text-align:center;">Não há eventos programados</h4>
+		<?php
+		}
+	endif;
+	?>
+		</section>
+	</section>
+  <footer class="box-agenda-footer cf">
+    <a href="<?php echo get_home_url(); ?>/atividade-legislativa/agenda-da-camara/" class="btn btn-yellow-arrow">Agenda Completa</a>
+  </footer>
+<!-- end .box-agenda -->

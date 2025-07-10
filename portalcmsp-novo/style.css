@@ -106,3 +106,7 @@ Great work, Theme Check (eye roll)
 .sticky {}          /* DO NOT EDIT THIS */
 .gallery-caption {} /* THESE ARE USELESS */
 .bypostauthor {}    /* THEY ARE ONLY TO KEEP THEME CHECK HAPPY */
+
+a:focus{
+    outline: 2px solid #000 !important; /* Red outline for focus state */
+}

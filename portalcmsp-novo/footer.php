@@ -14,10 +14,6 @@
 ?>
 
 </div><!-- /id="irconteudo" -->
-<a class="acessibilidade" href="<?php echo get_site_url()?>/acessibilidade-no-portal" aria-label="Informações sobre acessibilidade do Portal" title="Informações sobre acessibilidade do Portal">
-    <img src="<?php echo get_template_directory_uri()?>/dist/images/acessibilidade.svg" alt="Ícone de acessibilidade">
-</a>
-<?php include get_template_directory().'/new-theme/acessibilidade/box.php'?>
 <footer class="footer" role="contentinfo" id="footer">
     <div class="container">
 
@@ -229,16 +225,222 @@ if ($pageScripts != '') {
         left: 0;
       }
 </style>
+<style>
+  a:focus{
+    outline: 2px solid #000 !important; /* Red outline for focus state */
+  }
+  .snackbar-close {
+  display: none !important;
+  }
+  body.theme-v2 .acessibilidade-box{
+    display:none;
+  }
+  body.theme-v2 .acessibilidade-box.act{
+    display:block;
+  }
+  </style>
 <script>
+
+
+
+//ANTIGO: ao focar o botão o modal deve abrir com a funcao click do mouse
+/*document.addEventListener("DOMContentLoaded", function () {
+  function ativarAoFocar(selector, selectorModal) {
+    const botao = document.querySelector(selector);
+    let jaAtivado = false;
+
+    //if (!botao) return;
+    if (!botao) return;
+
+
+    // Impede redirecionamento se o botão for um <a>
+    botao.addEventListener("click", function (e) {
+      console.log("Botão clicado:", selector);
+      e.preventDefault(); // impede navegação
+    });
+
+    // Ao focar, dispara o clique
+    botao.addEventListener("focus", () => {
+      if (!jaAtivado) {
+        //botao.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+        botao.click();
+        jaAtivado = true;
+        
+        setTimeout(() => {
+          const modal = document.querySelector(selectorModal);
+          console.log("Modal encontrado:", modal);
+          if (modal) {
+            modal.removeAttribute("hidden");
+            modal.setAttribute("aria-hidden", "false");
+            //modal.setAttribute("tabindex", "-1");
+            //modal.focus();
+            // Tenta focar no primeiro elemento interativo do modal
+        const focoInicial = modal.querySelector('button, a, input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        if (focoInicial) {
+          focoInicial.focus();
+        } else {
+          modal.setAttribute('tabindex', '-1');
+          modal.focus();
+        }
+          }
+        //}, 100);
+        },150);
+
+
+      }
+    });
+
+    // Ao sair do foco, libera para funcionar novamente depois
+    botao.addEventListener("blur", () => {
+      jaAtivado = false;
+    });
+  }
+
+  // Aplique aos botões desejados
+  // Aplique aos botões e respectivos modais
+  ativarAoFocar('#btn-acessibilidade', '.acessibilidade-box');
+  ativarAoFocar('#btn-indice', '#sidebar-toc');
+});*/
+//NOVO: ao focar o botão o modal deve abrir com a funcao click do mouse
+document.addEventListener("DOMContentLoaded", function () {
+  function ativarAoFocar(selectorBtn, selectorModal, selectorNextFocus) {
+    const btn   = document.querySelector(selectorBtn);
+    const modal = document.querySelector(selectorModal);
+    let   lock  = false;
+
+    if (!btn || !modal) {
+      console.warn("Trigger ou modal não encontrado:", selectorBtn, selectorModal);
+      return;
+    }
+
+    // 1) Impede que <a> navegue
+    btn.addEventListener("click", e => e.preventDefault());
+
+    // 2) Abre o modal ao focar
+    btn.addEventListener("focus", () => {
+      if (lock) return;
+      lock = true;
+
+      btn.click();
+      btn.style.display = 'none';
+
+      setTimeout(() => {
+        // mostra o modal
+        modal.style.display = '';
+        modal.removeAttribute("hidden");
+        modal.setAttribute("aria-hidden", "false");
+
+        // foca o primeiro item do modal
+        const primeiro = modal.querySelector(
+          'button, a[href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (primeiro) primeiro.focus();
+        else {
+          modal.setAttribute("tabindex","-1");
+          modal.focus();
+        }
+
+        // 3) Fecha ao sair do modal e move o foco
+        const onFocusOut = () => {
+          setTimeout(() => {
+            if (!modal.contains(document.activeElement)) {
+              // esconde modal
+              modal.style.display = 'none';
+              modal.setAttribute("hidden", "true");
+              modal.setAttribute("aria-hidden", "true");
+
+              // tenta achar o próximo elemento
+              console.log("Procurando próximo foco para selectorNextFocus=", selectorNextFocus);
+              const next = document.querySelector(selectorNextFocus);
+              console.log("Elemento next encontrado:", next);
+
+              if (next) {
+                // garante que seja focável
+                if (!next.hasAttribute("tabindex")) {
+                  next.setAttribute("tabindex", "-1");
+                }
+                next.focus();
+                next.click(); // opcional, se quiser simular um clique
+              } else {
+                console.warn("❌ Próximo foco NÃO encontrado:", selectorNextFocus);
+                // fallback para o próprio botão
+                btn.focus();
+              }
+
+              btn.style.display = '';
+              lock = false;
+              modal.removeEventListener("focusout", onFocusOut);
+            }
+          }, 0);
+        };
+        modal.addEventListener("focusout", onFocusOut);
+
+      }, 150);
+    });
+
+    // libera para reabrir
+    btn.addEventListener("blur", () => lock = false);
+
+    // ESC também fecha e avança foco
+    modal.addEventListener("keydown", e => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        // fecha
+        modal.style.display = 'none';
+        modal.setAttribute("hidden", "true");
+        modal.setAttribute("aria-hidden", "true");
+        btn.style.display = '';
+
+        // avança foco
+        console.log("ESC pressionado: avançando foco para", selectorNextFocus);
+        const next = document.querySelector(selectorNextFocus);
+        if (next) {
+          if (!next.hasAttribute("tabindex")) next.setAttribute("tabindex","-1");
+          next.focus();
+          next.click(); // opcional, se quiser simular um clique
+        } else {
+          btn.focus();
+        }
+        lock = false;
+      }
+    });
+  }
+
+  ativarAoFocar("#btn-acessibilidade", ".acessibilidade-box", "#toggle-toc-btn");
+  ativarAoFocar("#toggle-toc-btn",        "#sidebar-toc",          "#main-menu");
+  ativarAoFocar("#main-menu",            ".sandwich",             ".menu-lateral");
+  ativarAoFocar(".sandwich",             ".menu-lateral",         "#conteudo");
+});
+
+
+
+//focar no botão dos cookies se ele existir
+document.addEventListener("DOMContentLoaded", function () {
+  const lgpd = document.getElementById('lgpd-banner');
+  const cookieButton = lgpd ? lgpd.querySelector('button') : null;
+
+  if (cookieButton) {
+    cookieButton.focus();
+  }
+
+  const acessibilidade = document.querySelector('.acessibilidade button, .acessibilidade a');
+    if (acessibilidade) {
+      acessibilidade.focus();
+  }
+});
+
+  document.addEventListener('keydown', (e) => {
+  if (e.key === 'Tab') {
+    console.log('Foco atual:', document.activeElement);
+  }
+  });
+
   document.addEventListener("DOMContentLoaded", function () {
     const content = document.querySelector('.container') || document.body;
     // Localiza os links de acessibilidade no header
-    const skipLinks = document.querySelectorAll('header a.skip-links');
-    const lastSkipLink = skipLinks[skipLinks.length - 1];
+    const btnAcc = document.querySelectorAll('a.acessibilidade');
+    console.log("achou o botão de acessibilidade?", btnAcc.length > 0);
     
-    //const headings = content.querySelectorAll("h1, h2, h3, h4, h5, h6");
-
-    //if (headings.length === 0) return;
 
     const btn = document.createElement("button");
     btn.id = "toggle-toc-btn";
@@ -262,8 +464,8 @@ if ($pageScripts != '') {
       cursor: pointer;
     `;
      // Insere o botão logo após o último skip link
-    if (lastSkipLink && lastSkipLink.parentNode) {
-        lastSkipLink.parentNode.insertBefore(btn, lastSkipLink.nextSibling);
+    if (btnAcc) {
+        document.body.appendChild(btn);
     } else {
         document.body.appendChild(btn); // fallback
     }

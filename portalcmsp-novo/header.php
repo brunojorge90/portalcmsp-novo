@@ -277,6 +277,12 @@ header("Location: " .get_post_meta(get_the_ID(), '_cmsp_feature-page_link', true
 </style>
 
 <div id="container">
+    <a tabindex="0" id="btn-acessibilidade" class="acessibilidade" href="<?php echo get_site_url()?>/acessibilidade-no-portal" aria-label="Informações sobre acessibilidade do Portal" title="Informações sobre acessibilidade do Portal">
+        <img src="<?php echo get_template_directory_uri()?>/dist/images/acessibilidade.svg" alt="Ícone de acessibilidade">
+    </a>
+    <?php include get_template_directory().'/new-theme/acessibilidade/box.php'?>
+
+
     <header class="header" role="banner" id="topo">
         <!-- <a class="mensagem" href="/antigo">
             Gostaria de navegar na versão antiga do site? Clique Aqui

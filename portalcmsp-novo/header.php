@@ -135,6 +135,20 @@ header("Location: " .get_post_meta(get_the_ID(), '_cmsp_feature-page_link', true
 
     <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
 
+            <style>
+        .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        }
+        </style>
+
     <?php // wordpress head functions ?>
     <?php wp_head(); ?>
     <?php // end of wordpress head ?>
@@ -414,4 +428,38 @@ header("Location: " .get_post_meta(get_the_ID(), '_cmsp_feature-page_link', true
     <?php endif;
     ?>
     <!-- header:conteudo -->
-    <main id="site-main" role="main">
+        <?php
+        // Exibe <h1> apropriado para cada tipo de página, apenas para leitores de tela
+        if ( is_front_page() && !is_paged() ) : ?>
+            <h1 class="sr-only">Página Inicial - Câmara Municipal de São Paulo</h1>
+
+        <?php elseif ( is_home() ) : ?>
+            <h1 class="sr-only">Notícias</h1>
+
+        <?php elseif ( is_post_type_archive('vereador') ) : ?>
+            <h1 class="sr-only">Vereadores</h1>
+
+        <?php elseif ( is_post_type_archive('atividade_legislativa') ) : ?>
+            <h1 class="sr-only">Atividade Legislativa</h1>
+
+        <?php elseif ( is_singular('vereador') ) : ?>
+            <h1 class="sr-only"><?php the_title(); ?></h1>
+
+        <?php elseif ( is_page() ) : ?>
+            <h1 class="sr-only"><?php echo get_the_title(); ?></h1>
+
+        <?php elseif ( is_single() ) : ?>
+            <h1 class="sr-only"><?php the_title(); ?></h1>
+
+        <?php elseif ( is_archive() ) : ?>
+            <h1 class="sr-only"><?php the_archive_title(); ?></h1>
+
+        <?php elseif ( is_search() ) : ?>
+            <h1 class="sr-only">Resultados da busca por "<?php the_search_query(); ?>"</h1>
+
+        <?php elseif ( is_404() ) : ?>
+            <h1 class="sr-only">Página não encontrada</h1>
+
+        <?php endif; ?>
+        <main id="site-main" role="main">
+
